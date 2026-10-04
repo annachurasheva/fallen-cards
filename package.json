@@ -5,15 +5,17 @@
   "type": "module",
   "scripts": {
     "parse:obd": "node scripts/parse-obd.js",
+    "check:input": "node scripts/check-input.js",
+    "check:csv": "node scripts/check-csv.js",
     "normalize": "node scripts/normalize.js",
     "validate": "node scripts/validate.js",
     "generate": "node scripts/generate-cards.js"
   },
   "dependencies": {
     "csv-parse": "^5.5.0",
-    "puppeteer": "^21.0.0"
+    "puppeteer-core": "^24.0.0"
   },
   "devDependencies": {
-    "vitest": "^1.0.0"
+    "vitest": "^2.0.0"
   }
 }
