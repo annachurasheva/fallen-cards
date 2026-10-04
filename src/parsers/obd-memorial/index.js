@@ -12,20 +12,25 @@
  * - retry логика для нестабильных страниц
  */
 
+import puppeteer from 'puppeteer-core';
+
 export async function parseOBDMemorial(urls) {
-  // TODO: импортировать логику из obd-edge_v03.js
-  // TODO: добавить обработку ошибок
-  
-  console.log(`Парсинг ${urls.length} страниц OBD Memorial...`);
-  
+  // Подключаемся к уже запущенному Edge (порт 9226 из RunEdgeOBD.ps1)
+  const browser = await puppeteer.connect({
+    browserURL: 'http://127.0.0.1:9226'
+  });
+
   const results = [];
   for (const url of urls) {
-    // ЗАГЛУШКА: здесь будет реальный парсинг
-    results.push({
-      raw: {},
-      source_url: url
-    });
+    const page = await browser.newPage();
+    await page.goto(url, { waitUntil: 'networkidle2' });
+    
+    // TODO: извлечение данных
+    
+    await page.close();
+    results.push({ raw: {}, source_url: url });
   }
-  
+
+  // НЕ закрываем browser — он внешний
   return results;
 }
