@@ -1,0 +1,19 @@
+{
+  "name": "fallen-cards",
+  "version": "0.1.0",
+  "description": "Парсер и генератор карточек павших солдат для мемориального проекта",
+  "type": "module",
+  "scripts": {
+    "parse:obd": "node scripts/parse-obd.js",
+    "normalize": "node scripts/normalize.js",
+    "validate": "node scripts/validate.js",
+    "generate": "node scripts/generate-cards.js"
+  },
+  "dependencies": {
+    "csv-parse": "^5.5.0",
+    "puppeteer": "^21.0.0"
+  },
+  "devDependencies": {
+    "vitest": "^1.0.0"
+  }
+}
