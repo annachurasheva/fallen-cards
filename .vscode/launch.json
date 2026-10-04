@@ -1,0 +1,79 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Запуск: parse-obd.js",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/parse-obd.js",
+      "args": ["--input=data/raw/urls.txt"],
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_OPTIONS": "--no-warnings"
+      }
+    },
+    {
+      "name": "Запуск: check-input.js",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/check-input.js",
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_OPTIONS": "--no-warnings"
+      }
+    },
+    {
+      "name": "Запуск: normalize.js",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/normalize.js",
+      "args": ["--input=data/processed/raw.json", "--output=data/processed/normalized.json"],
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_OPTIONS": "--no-warnings"
+      }
+    },
+    {
+      "name": "Запуск: generate-cards.js",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/generate-cards.js",
+      "args": ["--input=data/processed/normalized.json", "--output=data/output/"],
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_OPTIONS": "--no-warnings"
+      }
+    },
+    {
+      "name": "Подключение к Edge (порт 9226)",
+      "type": "node",
+      "request": "attach",
+      "port": 9226,
+      "address": "localhost",
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "${workspaceFolder}",
+      "protocol": "inspector"
+    },
+    {
+      "name": "Тесты (vitest)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/vitest",
+      "args": ["run"],
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_OPTIONS": "--no-warnings"
+      }
+    },
+    {
+      "name": "Текущий файл",
+      "type": "node",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_OPTIONS": "--no-warnings"
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+    "formulahendry.code-runner",
+    "vitest.explorer"
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Проверка входных данных",
+      "type": "shell",
+      "command": "node",
+      "args": ["scripts/check-input.js"],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Парсинг OBD Memorial",
+      "type": "shell",
+      "command": "node",
+      "args": ["scripts/parse-obd.js", "--input=data/raw/urls.txt"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Нормализация данных",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "scripts/normalize.js",
+        "--input=data/processed/raw.json",
+        "--output=data/processed/normalized.json"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Валидация данных",
+      "type": "shell",
+      "command": "node",
+      "args": ["scripts/validate.js", "--input=data/processed/normalized.json"],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Генерация карточек",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "scripts/generate-cards.js",
+        "--input=data/processed/normalized.json",
+        "--output=data/output/"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Запуск тестов",
+      "type": "shell",
+      "command": "npx",
+      "args": ["vitest", "run"],
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Полный цикл (без парсинга)",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Проверка входных данных",
+        "Нормализация данных",
+        "Валидация данных",
+        "Генерация карточек"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
