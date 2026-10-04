@@ -144,6 +144,18 @@ sources:
 ---
 ```
 
+## Инструменты разработки
+
+### Запуск Edge для парсинга OBD Memorial
+
+Перед парсингом нужно запустить Edge с remote debugging:
+
+**Windows (PowerShell):**
+```powershell
+.\tools\run-edge-obd.ps1
+```
+
+
 ## Контрольные точки
 
 - **Коммиты старых скриптов:**
