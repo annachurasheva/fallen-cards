@@ -1,0 +1,390 @@
+ C:\astro-projects\fallen-cards> Select-String -Path data\dictionaries\burials_primary.json -Pattern 'Корпечь|Фронтовое|Дальн|66|Окопная|Чалуле|Владиславовка|Тулумчак' -Context 0,3
+
+> data\dictionaries\burials_primary.json:2:  "крымская асср, ленинский р-н, с. корпечь, крымский п-ов": {
+> data\dictionaries\burials_primary.json:3:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, Крымский п-ов",
+  data\dictionaries\burials_primary.json:4:    "count": 49,
+  data\dictionaries\burials_primary.json:5:    "source_urls": [
+  data\dictionaries\burials_primary.json:6:      "https://obd-memorial.ru/html/info.htm?id=551843105",
+> data\dictionaries\burials_primary.json:57:  "крымская асср, ленинский р-н, с. корпечь, южная окраина": {
+> data\dictionaries\burials_primary.json:58:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, южная окраина",
+  data\dictionaries\burials_primary.json:59:    "count": 4,
+  data\dictionaries\burials_primary.json:60:    "source_urls": [
+  data\dictionaries\burials_primary.json:61:      "https://obd-memorial.ru/html/info.htm?id=551843401",
+> data\dictionaries\burials_primary.json:67:  "крымская асср, ленинcкий р-н, д. корпечь, северо-восточная окраина": {
+> data\dictionaries\burials_primary.json:68:    "name": "Крымская АССР, Ленинcкий р-н, д. Корпечь, северо-восточная окраина",
+  data\dictionaries\burials_primary.json:69:    "count": 4,
+  data\dictionaries\burials_primary.json:70:    "source_urls": [
+  data\dictionaries\burials_primary.json:71:      "https://obd-memorial.ru/html/info.htm?id=552017345",
+> data\dictionaries\burials_primary.json:77:  "крымская асср, ленинский р-н, с. корпечь": {
+> data\dictionaries\burials_primary.json:78:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь",
+  data\dictionaries\burials_primary.json:79:    "count": 91,
+  data\dictionaries\burials_primary.json:80:    "source_urls": [
+  data\dictionaries\burials_primary.json:81:      "https://obd-memorial.ru/html/info.htm?id=552298189",
+> data\dictionaries\burials_primary.json:131:      "https://obd-memorial.ru/html/info.htm?id=551197566",
+  data\dictionaries\burials_primary.json:132:      "https://obd-memorial.ru/html/info.htm?id=551197567",
+  data\dictionaries\burials_primary.json:133:      "https://obd-memorial.ru/html/info.htm?id=551200138",
+  data\dictionaries\burials_primary.json:134:      "https://obd-memorial.ru/html/info.htm?id=551200139",
+> data\dictionaries\burials_primary.json:174:  "крымская асср, феодосийский р-н, с. корпечь": {
+> data\dictionaries\burials_primary.json:175:    "name": "Крымская АССР, Феодосийский р-н, с. Корпечь",
+  data\dictionaries\burials_primary.json:176:    "count": 2,
+  data\dictionaries\burials_primary.json:177:    "source_urls": [
+> data\dictionaries\burials_primary.json:178:      "https://obd-memorial.ru/html/info.htm?id=556699157",
+> data\dictionaries\burials_primary.json:179:      "https://obd-memorial.ru/html/info.htm?id=556699174"
+  data\dictionaries\burials_primary.json:180:    ]
+  data\dictionaries\burials_primary.json:181:  },
+> data\dictionaries\burials_primary.json:182:  "крымская асср, д. корпечь, южнее, 1 км": {
+> data\dictionaries\burials_primary.json:183:    "name": "Крымская АССР, д. Корпечь, южнее, 1 км",
+  data\dictionaries\burials_primary.json:184:    "count": 1,
+  data\dictionaries\burials_primary.json:185:    "source_urls": [
+  data\dictionaries\burials_primary.json:186:      "https://obd-memorial.ru/html/info.htm?id=1161954305"
+> data\dictionaries\burials_primary.json:189:  "крымская асср, с. корпечь, в районе": {
+> data\dictionaries\burials_primary.json:190:    "name": "Крымская АССР, с. Корпечь, в районе",
+  data\dictionaries\burials_primary.json:191:    "count": 1,
+  data\dictionaries\burials_primary.json:192:    "source_urls": [
+  data\dictionaries\burials_primary.json:193:      "https://obd-memorial.ru/html/info.htm?id=506151089"
+> data\dictionaries\burials_primary.json:196:  "крымская асср, ленинский р-н, с. корпечь, севернее, 2 км": {
+> data\dictionaries\burials_primary.json:197:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, севернее, 2 км",
+  data\dictionaries\burials_primary.json:198:    "count": 1,
+  data\dictionaries\burials_primary.json:199:    "source_urls": [
+> data\dictionaries\burials_primary.json:200:      "https://obd-memorial.ru/html/info.htm?id=506277669"
+  data\dictionaries\burials_primary.json:201:    ]
+  data\dictionaries\burials_primary.json:202:  },
+> data\dictionaries\burials_primary.json:203:  "крымская асср, ленинский р-н, с. корпечь, восточнее, 2 км": {
+> data\dictionaries\burials_primary.json:204:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, восточнее, 2 км",
+  data\dictionaries\burials_primary.json:205:    "count": 1,
+  data\dictionaries\burials_primary.json:206:    "source_urls": [
+  data\dictionaries\burials_primary.json:207:      "https://obd-memorial.ru/html/info.htm?id=506297689"
+> data\dictionaries\burials_primary.json:210:  "крымская асср, ленинский р-н, д. корпечь, южнее, 1 км, высота": {
+> data\dictionaries\burials_primary.json:211:    "name": "Крымская АССР, Ленинский р-н, д. Корпечь, южнее, 1 км, высота",
+  data\dictionaries\burials_primary.json:212:    "count": 3,
+  data\dictionaries\burials_primary.json:213:    "source_urls": [
+> data\dictionaries\burials_primary.json:214:      "https://obd-memorial.ru/html/info.htm?id=509971665",
+> data\dictionaries\burials_primary.json:215:      "https://obd-memorial.ru/html/info.htm?id=509971666",
+> data\dictionaries\burials_primary.json:216:      "https://obd-memorial.ru/html/info.htm?id=509971667"
+  data\dictionaries\burials_primary.json:217:    ]
+  data\dictionaries\burials_primary.json:218:  },
+> data\dictionaries\burials_primary.json:219:  "крымская асср, ленинский р-н, с. корпечь, юго-восточнее, 1500 м, высота с курганом": {
+> data\dictionaries\burials_primary.json:220:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, юго-восточнее, 1500 м, высота с курганом",
+  data\dictionaries\burials_primary.json:221:    "count": 4,
+  data\dictionaries\burials_primary.json:222:    "source_urls": [
+  data\dictionaries\burials_primary.json:223:      "https://obd-memorial.ru/html/info.htm?id=550818833",
+> data\dictionaries\burials_primary.json:229:  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 1500 м, выс. 28.2, в районе": {
+> data\dictionaries\burials_primary.json:230:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 1500 м, выс. 28.2, в районе",
+  data\dictionaries\burials_primary.json:231:    "count": 4,
+  data\dictionaries\burials_primary.json:232:    "source_urls": [
+  data\dictionaries\burials_primary.json:233:      "https://obd-memorial.ru/html/info.htm?id=550818837",
+> data\dictionaries\burials_primary.json:239:  "крымская асср, ленинский р-н, с. корпечь, северо-западнее, 1500 м": {
+> data\dictionaries\burials_primary.json:240:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее, 1500 м",
+  data\dictionaries\burials_primary.json:241:    "count": 3,
+  data\dictionaries\burials_primary.json:242:    "source_urls": [
+  data\dictionaries\burials_primary.json:243:      "https://obd-memorial.ru/html/info.htm?id=550818845",
+> data\dictionaries\burials_primary.json:248:  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 800 м, выс. 38.2, юго-восточнее, 2,5 км": {
+> data\dictionaries\burials_primary.json:249:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 800 м, выс. 38.2, юго-восточнее, 2,5 км",
+  data\dictionaries\burials_primary.json:250:    "count": 1,
+  data\dictionaries\burials_primary.json:251:    "source_urls": [
+  data\dictionaries\burials_primary.json:252:      "https://obd-memorial.ru/html/info.htm?id=550818853"
+> data\dictionaries\burials_primary.json:255:  "крымская асср, ленинский р-н, с. корпечь, п-ов керченский, братская могила": {
+> data\dictionaries\burials_primary.json:256:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, п-ов Керченский, братская могила",
+  data\dictionaries\burials_primary.json:257:    "count": 3,
+  data\dictionaries\burials_primary.json:258:    "source_urls": [
+  data\dictionaries\burials_primary.json:259:      "https://obd-memorial.ru/html/info.htm?id=551197569",
+> data\dictionaries\burials_primary.json:264:  "крымская асср, ленинский р-н, с. корпечь, выс. 28,02, п-ов керченский": {
+> data\dictionaries\burials_primary.json:265:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, выс. 28,02, п-ов Керченский",
+  data\dictionaries\burials_primary.json:266:    "count": 12,
+  data\dictionaries\burials_primary.json:267:    "source_urls": [
+  data\dictionaries\burials_primary.json:268:      "https://obd-memorial.ru/html/info.htm?id=551197833",
+> data\dictionaries\burials_primary.json:282:  "крымская асср, ленинский р-н, с. корпечь, п-ов керченский": {
+> data\dictionaries\burials_primary.json:283:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, п-ов Керченский",
+  data\dictionaries\burials_primary.json:284:    "count": 4,
+  data\dictionaries\burials_primary.json:285:    "source_urls": [
+  data\dictionaries\burials_primary.json:286:      "https://obd-memorial.ru/html/info.htm?id=551197949",
+> data\dictionaries\burials_primary.json:292:  "крымская асср, ленинский р-н, с. корпечь, северо-западнее, 5 км, п-ов керченский, лощина": {
+> data\dictionaries\burials_primary.json:293:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее, 5 км, п-ов Керченский, лощина",
+  data\dictionaries\burials_primary.json:294:    "count": 10,
+  data\dictionaries\burials_primary.json:295:    "source_urls": [
+  data\dictionaries\burials_primary.json:296:      "https://obd-memorial.ru/html/info.htm?id=551197977",
+> data\dictionaries\burials_primary.json:308:  "крымская асср, ленинский р-н, с. корпечь, северо-западнее, п-ов керченский": {
+> data\dictionaries\burials_primary.json:309:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее, п-ов Керченский",
+  data\dictionaries\burials_primary.json:310:    "count": 1,
+  data\dictionaries\burials_primary.json:311:    "source_urls": [
+  data\dictionaries\burials_primary.json:312:      "https://obd-memorial.ru/html/info.htm?id=551197993"
+> data\dictionaries\burials_primary.json:315:  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 800 м": {
+> data\dictionaries\burials_primary.json:316:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 800 м",
+  data\dictionaries\burials_primary.json:317:    "count": 3,
+  data\dictionaries\burials_primary.json:318:    "source_urls": [
+  data\dictionaries\burials_primary.json:319:      "https://obd-memorial.ru/html/info.htm?id=551198129",
+> data\dictionaries\burials_primary.json:324:  "крымская асср, ленинский р-н, с. корпечь, северо-западнее": {
+> data\dictionaries\burials_primary.json:325:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее",
+  data\dictionaries\burials_primary.json:326:    "count": 4,
+  data\dictionaries\burials_primary.json:327:    "source_urls": [
+  data\dictionaries\burials_primary.json:328:      "https://obd-memorial.ru/html/info.htm?id=551200177",
+> data\dictionaries\burials_primary.json:334:  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее": {
+> data\dictionaries\burials_primary.json:335:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее",
+  data\dictionaries\burials_primary.json:336:    "count": 1,
+  data\dictionaries\burials_primary.json:337:    "source_urls": [
+  data\dictionaries\burials_primary.json:338:      "https://obd-memorial.ru/html/info.htm?id=551200181"
+> data\dictionaries\burials_primary.json:341:  "крымская асср, ленинский р-н, с. корпечь, северо-западная окраина": {
+> data\dictionaries\burials_primary.json:342:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западная окраина",
+  data\dictionaries\burials_primary.json:343:    "count": 5,
+  data\dictionaries\burials_primary.json:344:    "source_urls": [
+  data\dictionaries\burials_primary.json:345:      "https://obd-memorial.ru/html/info.htm?id=551200185",
+> data\dictionaries\burials_primary.json:352:  "крымская асср, ленинский р-н, с. корпечь, крымский полуостров": {
+> data\dictionaries\burials_primary.json:353:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, Крымский полуостров",
+  data\dictionaries\burials_primary.json:354:    "count": 11,
+  data\dictionaries\burials_primary.json:355:    "source_urls": [
+  data\dictionaries\burials_primary.json:356:      "https://obd-memorial.ru/html/info.htm?id=551267197",
+> data\dictionaries\burials_primary.json:369:  "крымская асср, ленинский р-н, с. корпечь, южнее, крымский полуостров": {
+> data\dictionaries\burials_primary.json:370:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, южнее, Крымский полуостров",
+  data\dictionaries\burials_primary.json:371:    "count": 1,
+  data\dictionaries\burials_primary.json:372:    "source_urls": [
+  data\dictionaries\burials_primary.json:373:      "https://obd-memorial.ru/html/info.htm?id=551267217"
+> data\dictionaries\burials_primary.json:376:  "крымская асср, ленинский р-н, с. корпечь, юго-восточнее, 500 м": {
+> data\dictionaries\burials_primary.json:377:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, юго-восточнее, 500 м",
+  data\dictionaries\burials_primary.json:378:    "count": 23,
+  data\dictionaries\burials_primary.json:379:    "source_urls": [
+  data\dictionaries\burials_primary.json:380:      "https://obd-memorial.ru/html/info.htm?id=551267221",
+> data\dictionaries\burials_primary.json:405:  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 2 км, на кургане": {
+> data\dictionaries\burials_primary.json:406:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 2 км, на кургане",
+  data\dictionaries\burials_primary.json:407:    "count": 2,
+  data\dictionaries\burials_primary.json:408:    "source_urls": [
+  data\dictionaries\burials_primary.json:409:      "https://obd-memorial.ru/html/info.htm?id=551267241",
+> data\dictionaries\burials_primary.json:413:  "крымская асср, ленинский р-н, с. корпечь, южнее": {
+> data\dictionaries\burials_primary.json:414:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, южнее",
+  data\dictionaries\burials_primary.json:415:    "count": 1,
+  data\dictionaries\burials_primary.json:416:    "source_urls": [
+  data\dictionaries\burials_primary.json:417:      "https://obd-memorial.ru/html/info.htm?id=551843423"
+> data\dictionaries\burials_primary.json:420:  "крымская асср, ленинcкий р-н, д. корпечь": {
+> data\dictionaries\burials_primary.json:421:    "name": "Крымская АССР, Ленинcкий р-н, д. Корпечь",
+  data\dictionaries\burials_primary.json:422:    "count": 2,
+  data\dictionaries\burials_primary.json:423:    "source_urls": [
+  data\dictionaries\burials_primary.json:424:      "https://obd-memorial.ru/html/info.htm?id=552017350",
+> data\dictionaries\burials_primary.json:428:  "крымская асср, ак-манай-корпечь, южнее, 1 км, в районе, ж/д будка": {
+> data\dictionaries\burials_primary.json:429:    "name": "Крымская АССР, Ак-Манай-Корпечь, южнее, 1 км, в районе, ж/д будка",
+  data\dictionaries\burials_primary.json:430:    "count": 1,
+  data\dictionaries\burials_primary.json:431:    "source_urls": [
+  data\dictionaries\burials_primary.json:432:      "https://obd-memorial.ru/html/info.htm?id=1160234893"
+> data\dictionaries\burials_primary.json:435:  "крымская асср, ленинский р-н, корпечь": {
+> data\dictionaries\burials_primary.json:436:    "name": "Крымская АССР, Ленинский р-н, Корпечь",
+  data\dictionaries\burials_primary.json:437:    "count": 1,
+  data\dictionaries\burials_primary.json:438:    "source_urls": [
+  data\dictionaries\burials_primary.json:439:      "https://obd-memorial.ru/html/info.htm?id=1914825757"
+> data\dictionaries\burials_primary.json:442:  "крымская асср, д. корпечь, восточнее, 1 км": {
+> data\dictionaries\burials_primary.json:443:    "name": "Крымская АССР, д. Корпечь, восточнее, 1 км",
+  data\dictionaries\burials_primary.json:444:    "count": 1,
+  data\dictionaries\burials_primary.json:445:    "source_urls": [
+  data\dictionaries\burials_primary.json:446:      "https://obd-memorial.ru/html/info.htm?id=501675789"
+> data\dictionaries\burials_primary.json:449:  "крымская асср, д. корпечь, северо-восточнее, 1 км": {
+> data\dictionaries\burials_primary.json:450:    "name": "Крымская АССР, д. Корпечь, северо-восточнее, 1 км",
+  data\dictionaries\burials_primary.json:451:    "count": 2,
+  data\dictionaries\burials_primary.json:452:    "source_urls": [
+  data\dictionaries\burials_primary.json:453:      "https://obd-memorial.ru/html/info.htm?id=501675797",
+> data\dictionaries\burials_primary.json:457:  "крымская асср, д. корпечь, северо-восточнее, 800 м": {
+> data\dictionaries\burials_primary.json:458:    "name": "Крымская АССР, д. Корпечь, северо-восточнее, 800 м",
+  data\dictionaries\burials_primary.json:459:    "count": 4,
+  data\dictionaries\burials_primary.json:460:    "source_urls": [
+  data\dictionaries\burials_primary.json:461:      "https://obd-memorial.ru/html/info.htm?id=501675801",
+> data\dictionaries\burials_primary.json:467:  "крымская асср, д. корпечь, северо-восточнее, 1500 м": {
+> data\dictionaries\burials_primary.json:468:    "name": "Крымская АССР, д. Корпечь, северо-восточнее, 1500 м",
+  data\dictionaries\burials_primary.json:469:    "count": 4,
+  data\dictionaries\burials_primary.json:470:    "source_urls": [
+  data\dictionaries\burials_primary.json:471:      "https://obd-memorial.ru/html/info.htm?id=501675805",
+> data\dictionaries\burials_primary.json:477:  "крымская асср, д. корпечь, севернее, 1 км": {
+> data\dictionaries\burials_primary.json:478:    "name": "Крымская АССР, д. Корпечь, севернее, 1 км",
+  data\dictionaries\burials_primary.json:479:    "count": 1,
+  data\dictionaries\burials_primary.json:480:    "source_urls": [
+  data\dictionaries\burials_primary.json:481:      "https://obd-memorial.ru/html/info.htm?id=501675809"
+> data\dictionaries\burials_primary.json:484:  "крымская асср, д. корпечь, восточнее, 300 м": {
+> data\dictionaries\burials_primary.json:485:    "name": "Крымская АССР, д. Корпечь, восточнее, 300 м",
+  data\dictionaries\burials_primary.json:486:    "count": 1,
+  data\dictionaries\burials_primary.json:487:    "source_urls": [
+  data\dictionaries\burials_primary.json:488:      "https://obd-memorial.ru/html/info.htm?id=501757897"
+> data\dictionaries\burials_primary.json:491:  "крымская асср, ленинский р-н, д. корпечь, севернее, 2 км": {
+> data\dictionaries\burials_primary.json:492:    "name": "Крымская АССР, Ленинский р-н, д. Корпечь, севернее, 2 км",
+  data\dictionaries\burials_primary.json:493:    "count": 1,
+  data\dictionaries\burials_primary.json:494:    "source_urls": [
+  data\dictionaries\burials_primary.json:495:      "https://obd-memorial.ru/html/info.htm?id=505715565"
+> data\dictionaries\burials_primary.json:498:  "крымская асср, ленинский р-н, с. корпечь, около": {
+> data\dictionaries\burials_primary.json:499:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, около",
+  data\dictionaries\burials_primary.json:500:    "count": 3,
+  data\dictionaries\burials_primary.json:501:    "source_urls": [
+  data\dictionaries\burials_primary.json:502:      "https://obd-memorial.ru/html/info.htm?id=505727353",
+> data\dictionaries\burials_primary.json:507:  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, выс. 28,2": {
+> data\dictionaries\burials_primary.json:508:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, выс. 28,2",
+  data\dictionaries\burials_primary.json:509:    "count": 3,
+  data\dictionaries\burials_primary.json:510:    "source_urls": [
+  data\dictionaries\burials_primary.json:511:      "https://obd-memorial.ru/html/info.htm?id=551267150",
+> data\dictionaries\burials_primary.json:516:  "крымская асср, ленинский р-н, с. корпечь, северо-западнее, 1 км": {
+> data\dictionaries\burials_primary.json:517:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее, 1 км",
+  data\dictionaries\burials_primary.json:518:    "count": 2,
+  data\dictionaries\burials_primary.json:519:    "source_urls": [
+  data\dictionaries\burials_primary.json:520:      "https://obd-memorial.ru/html/info.htm?id=551267246",
+> data\dictionaries\burials_primary.json:524:  "крымская асср, ленинский р-н, с. корпечь, северо-западнее, 2 км": {
+> data\dictionaries\burials_primary.json:525:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее, 2 км",
+  data\dictionaries\burials_primary.json:526:    "count": 1,
+  data\dictionaries\burials_primary.json:527:    "source_urls": [
+  data\dictionaries\burials_primary.json:528:      "https://obd-memorial.ru/html/info.htm?id=551267258"
+> data\dictionaries\burials_primary.json:531:  "крымская асср, ленинский р-н, с. корпечь, северо-западнее, п-ов керченский, лощина": {
+> data\dictionaries\burials_primary.json:532:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее, п-ов Керченский, лощина",
+  data\dictionaries\burials_primary.json:533:    "count": 3,
+  data\dictionaries\burials_primary.json:534:    "source_urls": [
+  data\dictionaries\burials_primary.json:535:      "https://obd-memorial.ru/html/info.htm?id=551197994",
+> data\dictionaries\burials_primary.json:540:  "крымская асср, ленинский р-н, с. корпечь, юго-западнее, 200 м": {
+> data\dictionaries\burials_primary.json:541:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, юго-западнее, 200 м",
+  data\dictionaries\burials_primary.json:542:    "count": 1,
+  data\dictionaries\burials_primary.json:543:    "source_urls": [
+  data\dictionaries\burials_primary.json:544:      "https://obd-memorial.ru/html/info.htm?id=551198083"
+> data\dictionaries\burials_primary.json:547:  "крымская асср, ленинский р-н, с. корпечь, восточнее, 1 км": {
+> data\dictionaries\burials_primary.json:548:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, восточнее, 1 км",
+  data\dictionaries\burials_primary.json:549:    "count": 2,
+  data\dictionaries\burials_primary.json:550:    "source_urls": [
+  data\dictionaries\burials_primary.json:551:      "https://obd-memorial.ru/html/info.htm?id=551198118",
+> data\dictionaries\burials_primary.json:555:  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 1 км": {
+> data\dictionaries\burials_primary.json:556:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 1 км",
+  data\dictionaries\burials_primary.json:557:    "count": 2,
+  data\dictionaries\burials_primary.json:558:    "source_urls": [
+  data\dictionaries\burials_primary.json:559:      "https://obd-memorial.ru/html/info.htm?id=551198126",
+> data\dictionaries\burials_primary.json:563:  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 1500 м": {
+> data\dictionaries\burials_primary.json:564:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 1500 м",
+  data\dictionaries\burials_primary.json:565:    "count": 2,
+  data\dictionaries\burials_primary.json:566:    "source_urls": [
+  data\dictionaries\burials_primary.json:567:      "https://obd-memorial.ru/html/info.htm?id=551198134",
+> data\dictionaries\burials_primary.json:571:  "крымская асср, кировский р-н, с. корпечь": {
+> data\dictionaries\burials_primary.json:572:    "name": "Крымская АССР, Кировский р-н, с. Корпечь",
+  data\dictionaries\burials_primary.json:573:    "count": 1,
+  data\dictionaries\burials_primary.json:574:    "source_urls": [
+  data\dictionaries\burials_primary.json:575:      "https://obd-memorial.ru/html/info.htm?id=552298304"
+> data\dictionaries\burials_primary.json:578:  "крымская асср, ак-манай-корпечь, в районе": {
+> data\dictionaries\burials_primary.json:579:    "name": "Крымская АССР, Ак-манай-Корпечь, в районе",
+  data\dictionaries\burials_primary.json:580:    "count": 1,
+  data\dictionaries\burials_primary.json:581:    "source_urls": [
+  data\dictionaries\burials_primary.json:582:      "https://obd-memorial.ru/html/info.htm?id=1159722797"
+> data\dictionaries\burials_primary.json:585:  "крымская асср, д. корпечь, северо-восточнее, 2 км": {
+> data\dictionaries\burials_primary.json:586:    "name": "Крымская АССР, д. Корпечь, северо-восточнее, 2 км",
+  data\dictionaries\burials_primary.json:587:    "count": 1,
+  data\dictionaries\burials_primary.json:588:    "source_urls": [
+  data\dictionaries\burials_primary.json:589:      "https://obd-memorial.ru/html/info.htm?id=501675803"
+> data\dictionaries\burials_primary.json:592:  "крымская асср, д. корпечь, северо-западнее, 1500 м": {
+> data\dictionaries\burials_primary.json:593:    "name": "Крымская АССР, д. Корпечь, северо-западнее, 1500 м",
+  data\dictionaries\burials_primary.json:594:    "count": 1,
+  data\dictionaries\burials_primary.json:595:    "source_urls": [
+  data\dictionaries\burials_primary.json:596:      "https://obd-memorial.ru/html/info.htm?id=501675810"
+> data\dictionaries\burials_primary.json:599:  "крымская асср, ленинский р-н, с. корпечь, выс. 28,2, около": {
+> data\dictionaries\burials_primary.json:600:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, выс. 28,2, около",
+  data\dictionaries\burials_primary.json:601:    "count": 1,
+  data\dictionaries\burials_primary.json:602:    "source_urls": [
+  data\dictionaries\burials_primary.json:603:      "https://obd-memorial.ru/html/info.htm?id=501860562"
+> data\dictionaries\burials_primary.json:606:  "крымская асср, ленинский р-н, д. корпечь, около": {
+> data\dictionaries\burials_primary.json:607:    "name": "Крымская АССР, Ленинский р-н, д. Корпечь, около",
+  data\dictionaries\burials_primary.json:608:    "count": 1,
+  data\dictionaries\burials_primary.json:609:    "source_urls": [
+  data\dictionaries\burials_primary.json:610:      "https://obd-memorial.ru/html/info.htm?id=505944623"
+> data\dictionaries\burials_primary.json:613:  "крымская сср, ленинский р-н, д. корпечь, в районе, крымское направление": {
+> data\dictionaries\burials_primary.json:614:    "name": "Крымская ССР, Ленинский р-н, д. Корпечь, в районе, Крымское направление",
+  data\dictionaries\burials_primary.json:615:    "count": 1,
+  data\dictionaries\burials_primary.json:616:    "source_urls": [
+  data\dictionaries\burials_primary.json:617:      "https://obd-memorial.ru/html/info.htm?id=505974374"
+> data\dictionaries\burials_primary.json:620:  "крымская асср, ленинский р-н, с. корпечь, в районе": {
+> data\dictionaries\burials_primary.json:621:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, в районе",
+  data\dictionaries\burials_primary.json:622:    "count": 1,
+  data\dictionaries\burials_primary.json:623:    "source_urls": [
+  data\dictionaries\burials_primary.json:624:      "https://obd-memorial.ru/html/info.htm?id=506191263"
+> data\dictionaries\burials_primary.json:627:  "крымская асср, ленинский р-н, с. корпечь, юго-западная окраина, керченский п-ов": {
+> data\dictionaries\burials_primary.json:628:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, юго-западная окраина, Керченский п-ов",
+  data\dictionaries\burials_primary.json:629:    "count": 1,
+  data\dictionaries\burials_primary.json:630:    "source_urls": [
+  data\dictionaries\burials_primary.json:631:      "https://obd-memorial.ru/html/info.htm?id=506209674"
+> data\dictionaries\burials_primary.json:634:  "крымская асср, с. корпечь, около": {
+> data\dictionaries\burials_primary.json:635:    "name": "Крымская АССР, с. Корпечь, около",
+  data\dictionaries\burials_primary.json:636:    "count": 2,
+  data\dictionaries\burials_primary.json:637:    "source_urls": [
+  data\dictionaries\burials_primary.json:638:      "https://obd-memorial.ru/html/info.htm?id=506244775",
+> data\dictionaries\burials_primary.json:642:  "крымская асср, с. корпечь": {
+> data\dictionaries\burials_primary.json:643:    "name": "Крымская АССР, с. Корпечь",
+  data\dictionaries\burials_primary.json:644:    "count": 1,
+  data\dictionaries\burials_primary.json:645:    "source_urls": [
+  data\dictionaries\burials_primary.json:646:      "https://obd-memorial.ru/html/info.htm?id=506298007"
+> data\dictionaries\burials_primary.json:649:  "крымская асср, с. корпечь, восточнее, 3 км": {
+> data\dictionaries\burials_primary.json:650:    "name": "Крымская АССР, с. Корпечь, восточнее, 3 км",
+  data\dictionaries\burials_primary.json:651:    "count": 1,
+  data\dictionaries\burials_primary.json:652:    "source_urls": [
+  data\dictionaries\burials_primary.json:653:      "https://obd-memorial.ru/html/info.htm?id=550817167"
+> data\dictionaries\burials_primary.json:656:  "крымская асср, ленинский р-н, с. корпечь, севернее, 1500 м, выс. 28.2, в районе": {
+> data\dictionaries\burials_primary.json:657:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, севернее, 1500 м, выс. 28.2, в районе",
+  data\dictionaries\burials_primary.json:658:    "count": 2,
+  data\dictionaries\burials_primary.json:659:    "source_urls": [
+  data\dictionaries\burials_primary.json:660:      "https://obd-memorial.ru/html/info.htm?id=550818830",
+> data\dictionaries\burials_primary.json:664:  "крымская асср, д. корпечь, северо-восточнее": {
+> data\dictionaries\burials_primary.json:665:    "name": "Крымская АССР, д. Корпечь, северо-восточнее",
+  data\dictionaries\burials_primary.json:666:    "count": 1,
+  data\dictionaries\burials_primary.json:667:    "source_urls": [
+  data\dictionaries\burials_primary.json:668:      "https://obd-memorial.ru/html/info.htm?id=501675804"
+> data\dictionaries\burials_primary.json:671:  "крымская асср, д. корпечь, юго-западнее, 200 м": {
+> data\dictionaries\burials_primary.json:672:    "name": "Крымская АССР, д. Корпечь, юго-западнее, 200 м",
+  data\dictionaries\burials_primary.json:673:    "count": 1,
+  data\dictionaries\burials_primary.json:674:    "source_urls": [
+  data\dictionaries\burials_primary.json:675:      "https://obd-memorial.ru/html/info.htm?id=501757896"
+> data\dictionaries\burials_primary.json:678:  "крымская асср, р-н д. корпечь": {
+> data\dictionaries\burials_primary.json:679:    "name": "Крымская АССР, р-н д. Корпечь",
+  data\dictionaries\burials_primary.json:680:    "count": 1,
+  data\dictionaries\burials_primary.json:681:    "source_urls": [
+  data\dictionaries\burials_primary.json:682:      "https://obd-memorial.ru/html/info.htm?id=513167708"
+> data\dictionaries\burials_primary.json:685:  "крымская асср, с. корпечь, восточнее, 1 км": {
+> data\dictionaries\burials_primary.json:686:    "name": "Крымская АССР, с. Корпечь, восточнее, 1 км",
+  data\dictionaries\burials_primary.json:687:    "count": 1,
+  data\dictionaries\burials_primary.json:688:    "source_urls": [
+  data\dictionaries\burials_primary.json:689:      "https://obd-memorial.ru/html/info.htm?id=550817180"
+> data\dictionaries\burials_primary.json:692:  "крымская асср, ленинский р-н, с. корпечь, кладбище": {
+> data\dictionaries\burials_primary.json:693:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, кладбище",
+  data\dictionaries\burials_primary.json:694:    "count": 1,
+  data\dictionaries\burials_primary.json:695:    "source_urls": [
+  data\dictionaries\burials_primary.json:696:      "https://obd-memorial.ru/html/info.htm?id=550818880"
+> data\dictionaries\burials_primary.json:699:  "крымская асср, ленинский р-н, с. корпечь, восточнее, 300 м": {
+> data\dictionaries\burials_primary.json:700:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, восточнее, 300 м",
+  data\dictionaries\burials_primary.json:701:    "count": 1,
+  data\dictionaries\burials_primary.json:702:    "source_urls": [
+  data\dictionaries\burials_primary.json:703:      "https://obd-memorial.ru/html/info.htm?id=551198084"
+> data\dictionaries\burials_primary.json:706:  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 200 м": {
+> data\dictionaries\burials_primary.json:707:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 200 м",
+  data\dictionaries\burials_primary.json:708:    "count": 1,
+  data\dictionaries\burials_primary.json:709:    "source_urls": [
+  data\dictionaries\burials_primary.json:710:      "https://obd-memorial.ru/html/info.htm?id=551198128"
+> data\dictionaries\burials_primary.json:713:  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 2 км": {
+> data\dictionaries\burials_primary.json:714:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 2 км",
+  data\dictionaries\burials_primary.json:715:    "count": 1,
+  data\dictionaries\burials_primary.json:716:    "source_urls": [
+  data\dictionaries\burials_primary.json:717:      "https://obd-memorial.ru/html/info.htm?id=551198132"
+> data\dictionaries\burials_primary.json:720:  "крымская асср, ленинский р-н, с. корпечь северо-восточнее": {
+> data\dictionaries\burials_primary.json:721:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь северо-восточнее",
+  data\dictionaries\burials_primary.json:722:    "count": 1,
+  data\dictionaries\burials_primary.json:723:    "source_urls": [
+  data\dictionaries\burials_primary.json:724:      "https://obd-memorial.ru/html/info.htm?id=551200180"
+> data\dictionaries\burials_primary.json:727:  "крымская асср, ленинский р-н, с. корпечь, севернее, 1500 м": {
+> data\dictionaries\burials_primary.json:728:    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, севернее, 1500 м",
+  data\dictionaries\burials_primary.json:729:    "count": 1,
+  data\dictionaries\burials_primary.json:730:    "source_urls": [
+  data\dictionaries\burials_primary.json:731:      "https://obd-memorial.ru/html/info.htm?id=551198135"
+
+PS C:\astro-projects\fallen-cards> 
+PS C:\astro-projects\fallen-cards> node -e "const fs=require('fs');const f='data/processed/obd_primary_urls_2026-09-22-22-37-31/obd_primary_urls_2026-09-22-22-37-31__normalized.json';const d=JSON.parse(fs.readFileSync(f,'utf8'));const arr=Array.isArray(d)?d:Object.values(d).find(v=>Array.isArray(v));const hit=arr.find(x=>JSON.stringify(x).includes('551843137'));console.log(JSON.stringify(hit,null,2));console.log('всего записей:',arr.length);console.log('привязано к 33125225:',arr.filter(x=>JSON.stringify(x).includes('33125225')).length)"
+node:fs:435
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open 'C:\astro-projects\fallen-cards\data\processed\obd_primary_urls_2026-09-22-22-37-31\obd_primary_urls_2026-09-22-22-37-31__normalized.json'
+    at Object.readFileSync (node:fs:435:20)
+    at [eval]:1:162
+    at runScriptInThisContext (node:internal/vm:219:10)
+    at node:internal/process/execution:451:12
+    at [eval]-wrapper:6:24
+    at runScriptInContext (node:internal/process/execution:449:60)
+    at evalFunction (node:internal/process/execution:283:30)
+    at evalTypeScript (node:internal/process/execution:295:3)
+    at node:internal/main/eval_string:71:3 {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\astro-projects\\fallen-cards\\data\\processed\\obd_primary_urls_2026-09-22-22-37-31\\obd_primary_urls_2026-09-22-22-37-31__normalized.json'
+}
+
+Node.js v24.5.0
+PS C:\astro-projects\fallen-cards> 
