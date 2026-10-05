@@ -1,38 +1,56 @@
-# Отладка проекта fallen-cards
+## 1. Edge CDP (обязательный предварительный шаг)
 
-## Запуск скриптов с отладкой
+Терминал PowerShell:
 
-1. Откройте файл скрипта (например, `scripts/parse-obd.js`)
-2. Поставьте breakpoint на нужной строке
-3. Нажмите F5 или выберите конфигурацию в панели "Run and Debug" (Ctrl+Shift+D)
+    powershell -File tools/run-edge-obd.ps1
 
-## Доступные конфигурации
+Проверить: http://127.0.0.1:9226/json/version
 
-### Запуск скриптов
-- **Запуск: parse-obd.js** — парсинг OBD Memorial
-- **Запуск: check-input.js** — проверка входных данных
-- **Запуск: normalize.js** — нормализация данных
-- **Запуск: generate-cards.js** — генерация карточек
-- **Текущий файл** — запуск текущего открытого JS файла
+## 2. Dry-run (без браузера)
 
-### Отладка Puppeteer
-- **Подключение к Edge (порт 9226)** — подключение к запущенному Edge для отладки парсинга
+    node scripts/parse-obd.js --input=obd_primary_urls_2026-10-04-test.txt --dry-run
 
-Для использования:
-1. Запустите Edge с remote debugging: `.\\tools\\run-edge-obd.ps1`
-2. Выберите конфигурацию "Подключение к Edge (порт 9226)"
-3. Поставьте breakpoint в коде парсера
-4. F5 — отладчик подключится к браузеру
+## 3. Боевой прогон
 
-### Тесты
-- **Тесты (vitest)** — запуск всех тестов с отладкой
+    node scripts/parse-obd.js --input=obd_primary_urls_2026-10-04-test.txt
+    node scripts/parse-obd.js --input=obd_primary_urls_2026-10-04-test.txt --limit=10
 
-## Tasks (Ctrl+Shift+B)
+## 4. Объекты захоронений
 
-- **Проверка входных данных** — check-input.js
-- **Парсинг OBD Memorial** — parse-obd.js
-- **Нормализация данных** — normalize.js
-- **Валидация данных** — validate.js
-- **Генерация карточек** — generate-cards.js
-- **Запуск тестов** — vitest
-- **Полный цикл (без парсинга)** — последовательный запуск всех этапов кроме парсинга
+    node scripts/parse-obd-objects.js --input=objects.txt
+
+## 5. Нормализация словарей мест
+
+    node scripts/normalize.js --input=obd_primary_urls_2026-10-04-test.txt
+
+## launch.json (референс)
+
+{
+"version": "0.2.0",
+"configurations": [
+{
+"type": "node",
+"request": "launch",
+"name": "parse-obd (dry-run)",
+"program": "${workspaceFolder}/scripts/parse-obd.js",
+      "console": "integratedTerminal",
+      "args": ["--input=obd_primary_urls_2026-10-04-test.txt", "--dry-run"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "parse-obd (full)",
+      "program": "${workspaceFolder}/scripts/parse-obd.js",
+"console": "integratedTerminal",
+"args": ["--input=obd_primary_urls_2026-10-04-test.txt"]
+},
+{
+"type": "node",
+"request": "launch",
+"name": "normalize",
+"program": "${workspaceFolder}/scripts/normalize.js",
+"console": "integratedTerminal",
+"args": ["--input=obd_primary_urls_2026-10-04-test.txt"]
+}
+]
+}
