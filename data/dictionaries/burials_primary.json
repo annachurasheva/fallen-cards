@@ -1,7 +1,734 @@
 {
-  "г. симферополь, республика крым": {
-    "name": "г. Симферополь, Республика Крым",
+  "крымская асср, ленинский р-н, с. корпечь, крымский п-ов": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, Крымский п-ов",
+    "count": 49,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551843105",
+      "https://obd-memorial.ru/html/info.htm?id=551843121",
+      "https://obd-memorial.ru/html/info.htm?id=551843137",
+      "https://obd-memorial.ru/html/info.htm?id=551843141",
+      "https://obd-memorial.ru/html/info.htm?id=551843145",
+      "https://obd-memorial.ru/html/info.htm?id=551843149",
+      "https://obd-memorial.ru/html/info.htm?id=551843181",
+      "https://obd-memorial.ru/html/info.htm?id=551843185",
+      "https://obd-memorial.ru/html/info.htm?id=551843189",
+      "https://obd-memorial.ru/html/info.htm?id=551843221",
+      "https://obd-memorial.ru/html/info.htm?id=551843225",
+      "https://obd-memorial.ru/html/info.htm?id=551843103",
+      "https://obd-memorial.ru/html/info.htm?id=551843106",
+      "https://obd-memorial.ru/html/info.htm?id=551843115",
+      "https://obd-memorial.ru/html/info.htm?id=551843119",
+      "https://obd-memorial.ru/html/info.htm?id=551843131",
+      "https://obd-memorial.ru/html/info.htm?id=551843134",
+      "https://obd-memorial.ru/html/info.htm?id=551843135",
+      "https://obd-memorial.ru/html/info.htm?id=551843138",
+      "https://obd-memorial.ru/html/info.htm?id=551843142",
+      "https://obd-memorial.ru/html/info.htm?id=551843143",
+      "https://obd-memorial.ru/html/info.htm?id=551843146",
+      "https://obd-memorial.ru/html/info.htm?id=551843147",
+      "https://obd-memorial.ru/html/info.htm?id=551843150",
+      "https://obd-memorial.ru/html/info.htm?id=551843151",
+      "https://obd-memorial.ru/html/info.htm?id=551843155",
+      "https://obd-memorial.ru/html/info.htm?id=551843182",
+      "https://obd-memorial.ru/html/info.htm?id=551843183",
+      "https://obd-memorial.ru/html/info.htm?id=551843186",
+      "https://obd-memorial.ru/html/info.htm?id=551843187",
+      "https://obd-memorial.ru/html/info.htm?id=551843190",
+      "https://obd-memorial.ru/html/info.htm?id=551843218",
+      "https://obd-memorial.ru/html/info.htm?id=551843219",
+      "https://obd-memorial.ru/html/info.htm?id=551843222",
+      "https://obd-memorial.ru/html/info.htm?id=551843223",
+      "https://obd-memorial.ru/html/info.htm?id=551843226",
+      "https://obd-memorial.ru/html/info.htm?id=551843227",
+      "https://obd-memorial.ru/html/info.htm?id=551843104",
+      "https://obd-memorial.ru/html/info.htm?id=551843120",
+      "https://obd-memorial.ru/html/info.htm?id=551843132",
+      "https://obd-memorial.ru/html/info.htm?id=551843136",
+      "https://obd-memorial.ru/html/info.htm?id=551843144",
+      "https://obd-memorial.ru/html/info.htm?id=551843148",
+      "https://obd-memorial.ru/html/info.htm?id=551843156",
+      "https://obd-memorial.ru/html/info.htm?id=551843184",
+      "https://obd-memorial.ru/html/info.htm?id=551843188",
+      "https://obd-memorial.ru/html/info.htm?id=551843220",
+      "https://obd-memorial.ru/html/info.htm?id=551843224",
+      "https://obd-memorial.ru/html/info.htm?id=551843228"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, южная окраина": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, южная окраина",
+    "count": 4,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551843401",
+      "https://obd-memorial.ru/html/info.htm?id=551843402",
+      "https://obd-memorial.ru/html/info.htm?id=551843406",
+      "https://obd-memorial.ru/html/info.htm?id=551843408"
+    ]
+  },
+  "крымская асср, ленинcкий р-н, д. корпечь, северо-восточная окраина": {
+    "name": "Крымская АССР, Ленинcкий р-н, д. Корпечь, северо-восточная окраина",
+    "count": 4,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=552017345",
+      "https://obd-memorial.ru/html/info.htm?id=552017346",
+      "https://obd-memorial.ru/html/info.htm?id=552017347",
+      "https://obd-memorial.ru/html/info.htm?id=552017348"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь",
+    "count": 91,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=552298189",
+      "https://obd-memorial.ru/html/info.htm?id=506133137",
+      "https://obd-memorial.ru/html/info.htm?id=510396261",
+      "https://obd-memorial.ru/html/info.htm?id=551196337",
+      "https://obd-memorial.ru/html/info.htm?id=551197513",
+      "https://obd-memorial.ru/html/info.htm?id=551267125",
+      "https://obd-memorial.ru/html/info.htm?id=551267129",
+      "https://obd-memorial.ru/html/info.htm?id=551267133",
+      "https://obd-memorial.ru/html/info.htm?id=551267137",
+      "https://obd-memorial.ru/html/info.htm?id=551267141",
+      "https://obd-memorial.ru/html/info.htm?id=551267145",
+      "https://obd-memorial.ru/html/info.htm?id=551267149",
+      "https://obd-memorial.ru/html/info.htm?id=551267185",
+      "https://obd-memorial.ru/html/info.htm?id=551267189",
+      "https://obd-memorial.ru/html/info.htm?id=551267193",
+      "https://obd-memorial.ru/html/info.htm?id=551267209",
+      "https://obd-memorial.ru/html/info.htm?id=551267249",
+      "https://obd-memorial.ru/html/info.htm?id=551270514",
+      "https://obd-memorial.ru/html/info.htm?id=551270527",
+      "https://obd-memorial.ru/html/info.htm?id=551270546",
+      "https://obd-memorial.ru/html/info.htm?id=551270550",
+      "https://obd-memorial.ru/html/info.htm?id=552298946",
+      "https://obd-memorial.ru/html/info.htm?id=551267143",
+      "https://obd-memorial.ru/html/info.htm?id=551267146",
+      "https://obd-memorial.ru/html/info.htm?id=551267147",
+      "https://obd-memorial.ru/html/info.htm?id=551267186",
+      "https://obd-memorial.ru/html/info.htm?id=551267187",
+      "https://obd-memorial.ru/html/info.htm?id=551267190",
+      "https://obd-memorial.ru/html/info.htm?id=551267191",
+      "https://obd-memorial.ru/html/info.htm?id=551267194",
+      "https://obd-memorial.ru/html/info.htm?id=551267243",
+      "https://obd-memorial.ru/html/info.htm?id=551267250",
+      "https://obd-memorial.ru/html/info.htm?id=551267251",
+      "https://obd-memorial.ru/html/info.htm?id=551268243",
+      "https://obd-memorial.ru/html/info.htm?id=551268251",
+      "https://obd-memorial.ru/html/info.htm?id=551268254",
+      "https://obd-memorial.ru/html/info.htm?id=551268255",
+      "https://obd-memorial.ru/html/info.htm?id=551268259",
+      "https://obd-memorial.ru/html/info.htm?id=551268410",
+      "https://obd-memorial.ru/html/info.htm?id=551268411",
+      "https://obd-memorial.ru/html/info.htm?id=551268414",
+      "https://obd-memorial.ru/html/info.htm?id=551268483",
+      "https://obd-memorial.ru/html/info.htm?id=551268490",
+      "https://obd-memorial.ru/html/info.htm?id=551270503",
+      "https://obd-memorial.ru/html/info.htm?id=551270506",
+      "https://obd-memorial.ru/html/info.htm?id=551270507",
+      "https://obd-memorial.ru/html/info.htm?id=551270510",
+      "https://obd-memorial.ru/html/info.htm?id=551270511",
+      "https://obd-memorial.ru/html/info.htm?id=551196334",
+      "https://obd-memorial.ru/html/info.htm?id=551196335",
+      "https://obd-memorial.ru/html/info.htm?id=551197566",
+      "https://obd-memorial.ru/html/info.htm?id=551197567",
+      "https://obd-memorial.ru/html/info.htm?id=551200138",
+      "https://obd-memorial.ru/html/info.htm?id=551200139",
+      "https://obd-memorial.ru/html/info.htm?id=551200142",
+      "https://obd-memorial.ru/html/info.htm?id=551200155",
+      "https://obd-memorial.ru/html/info.htm?id=551267126",
+      "https://obd-memorial.ru/html/info.htm?id=551267127",
+      "https://obd-memorial.ru/html/info.htm?id=551267130",
+      "https://obd-memorial.ru/html/info.htm?id=551267131",
+      "https://obd-memorial.ru/html/info.htm?id=551267134",
+      "https://obd-memorial.ru/html/info.htm?id=551267135",
+      "https://obd-memorial.ru/html/info.htm?id=551267138",
+      "https://obd-memorial.ru/html/info.htm?id=551267139",
+      "https://obd-memorial.ru/html/info.htm?id=551267142",
+      "https://obd-memorial.ru/html/info.htm?id=551268252",
+      "https://obd-memorial.ru/html/info.htm?id=551268408",
+      "https://obd-memorial.ru/html/info.htm?id=551268412",
+      "https://obd-memorial.ru/html/info.htm?id=551268484",
+      "https://obd-memorial.ru/html/info.htm?id=551270508",
+      "https://obd-memorial.ru/html/info.htm?id=551270512",
+      "https://obd-memorial.ru/html/info.htm?id=551843424",
+      "https://obd-memorial.ru/html/info.htm?id=552297680",
+      "https://obd-memorial.ru/html/info.htm?id=552297716",
+      "https://obd-memorial.ru/html/info.htm?id=552298844",
+      "https://obd-memorial.ru/html/info.htm?id=501860655",
+      "https://obd-memorial.ru/html/info.htm?id=551196336",
+      "https://obd-memorial.ru/html/info.htm?id=551200140",
+      "https://obd-memorial.ru/html/info.htm?id=551200152",
+      "https://obd-memorial.ru/html/info.htm?id=551200156",
+      "https://obd-memorial.ru/html/info.htm?id=551267128",
+      "https://obd-memorial.ru/html/info.htm?id=551267132",
+      "https://obd-memorial.ru/html/info.htm?id=551267136",
+      "https://obd-memorial.ru/html/info.htm?id=551267140",
+      "https://obd-memorial.ru/html/info.htm?id=551267144",
+      "https://obd-memorial.ru/html/info.htm?id=551267148",
+      "https://obd-memorial.ru/html/info.htm?id=551267184",
+      "https://obd-memorial.ru/html/info.htm?id=551267188",
+      "https://obd-memorial.ru/html/info.htm?id=551267192",
+      "https://obd-memorial.ru/html/info.htm?id=551267248",
+      "https://obd-memorial.ru/html/info.htm?id=551267252"
+    ]
+  },
+  "крымская асср, феодосийский р-н, с. корпечь": {
+    "name": "Крымская АССР, Феодосийский р-н, с. Корпечь",
+    "count": 2,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=556699157",
+      "https://obd-memorial.ru/html/info.htm?id=556699174"
+    ]
+  },
+  "крымская асср, д. корпечь, южнее, 1 км": {
+    "name": "Крымская АССР, д. Корпечь, южнее, 1 км",
     "count": 1,
-    "source_urls": ["https://www.obd-memorial.ru/html/info.htm?id=551267253"]
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=1161954305"
+    ]
+  },
+  "крымская асср, с. корпечь, в районе": {
+    "name": "Крымская АССР, с. Корпечь, в районе",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=506151089"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, севернее, 2 км": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, севернее, 2 км",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=506277669"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, восточнее, 2 км": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, восточнее, 2 км",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=506297689"
+    ]
+  },
+  "крымская асср, ленинский р-н, д. корпечь, южнее, 1 км, высота": {
+    "name": "Крымская АССР, Ленинский р-н, д. Корпечь, южнее, 1 км, высота",
+    "count": 3,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=509971665",
+      "https://obd-memorial.ru/html/info.htm?id=509971666",
+      "https://obd-memorial.ru/html/info.htm?id=509971667"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, юго-восточнее, 1500 м, высота с курганом": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, юго-восточнее, 1500 м, высота с курганом",
+    "count": 4,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=550818833",
+      "https://obd-memorial.ru/html/info.htm?id=550818838",
+      "https://obd-memorial.ru/html/info.htm?id=550818831",
+      "https://obd-memorial.ru/html/info.htm?id=550818832"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 1500 м, выс. 28.2, в районе": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 1500 м, выс. 28.2, в районе",
+    "count": 4,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=550818837",
+      "https://obd-memorial.ru/html/info.htm?id=550818834",
+      "https://obd-memorial.ru/html/info.htm?id=550818835",
+      "https://obd-memorial.ru/html/info.htm?id=550818836"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-западнее, 1500 м": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее, 1500 м",
+    "count": 3,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=550818845",
+      "https://obd-memorial.ru/html/info.htm?id=550818839",
+      "https://obd-memorial.ru/html/info.htm?id=550818844"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 800 м, выс. 38.2, юго-восточнее, 2,5 км": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 800 м, выс. 38.2, юго-восточнее, 2,5 км",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=550818853"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, п-ов керченский, братская могила": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, п-ов Керченский, братская могила",
+    "count": 3,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551197569",
+      "https://obd-memorial.ru/html/info.htm?id=551197570",
+      "https://obd-memorial.ru/html/info.htm?id=551197571"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, выс. 28,02, п-ов керченский": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, выс. 28,02, п-ов Керченский",
+    "count": 12,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551197833",
+      "https://obd-memorial.ru/html/info.htm?id=551197837",
+      "https://obd-memorial.ru/html/info.htm?id=551197841",
+      "https://obd-memorial.ru/html/info.htm?id=551197831",
+      "https://obd-memorial.ru/html/info.htm?id=551197834",
+      "https://obd-memorial.ru/html/info.htm?id=551197835",
+      "https://obd-memorial.ru/html/info.htm?id=551197838",
+      "https://obd-memorial.ru/html/info.htm?id=551197839",
+      "https://obd-memorial.ru/html/info.htm?id=551197842",
+      "https://obd-memorial.ru/html/info.htm?id=551197832",
+      "https://obd-memorial.ru/html/info.htm?id=551197836",
+      "https://obd-memorial.ru/html/info.htm?id=551197840"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, п-ов керченский": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, п-ов Керченский",
+    "count": 4,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551197949",
+      "https://obd-memorial.ru/html/info.htm?id=551197878",
+      "https://obd-memorial.ru/html/info.htm?id=551197950",
+      "https://obd-memorial.ru/html/info.htm?id=551197948"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-западнее, 5 км, п-ов керченский, лощина": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее, 5 км, п-ов Керченский, лощина",
+    "count": 10,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551197977",
+      "https://obd-memorial.ru/html/info.htm?id=551197981",
+      "https://obd-memorial.ru/html/info.htm?id=551197974",
+      "https://obd-memorial.ru/html/info.htm?id=551197975",
+      "https://obd-memorial.ru/html/info.htm?id=551197978",
+      "https://obd-memorial.ru/html/info.htm?id=551197979",
+      "https://obd-memorial.ru/html/info.htm?id=551197982",
+      "https://obd-memorial.ru/html/info.htm?id=551197983",
+      "https://obd-memorial.ru/html/info.htm?id=551197976",
+      "https://obd-memorial.ru/html/info.htm?id=551197980"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-западнее, п-ов керченский": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее, п-ов Керченский",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551197993"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 800 м": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 800 м",
+    "count": 3,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551198129",
+      "https://obd-memorial.ru/html/info.htm?id=551198130",
+      "https://obd-memorial.ru/html/info.htm?id=551198131"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-западнее": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее",
+    "count": 4,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551200177",
+      "https://obd-memorial.ru/html/info.htm?id=551200178",
+      "https://obd-memorial.ru/html/info.htm?id=551200179",
+      "https://obd-memorial.ru/html/info.htm?id=551200182"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551200181"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-западная окраина": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западная окраина",
+    "count": 5,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551200185",
+      "https://obd-memorial.ru/html/info.htm?id=551200183",
+      "https://obd-memorial.ru/html/info.htm?id=551200186",
+      "https://obd-memorial.ru/html/info.htm?id=551200184",
+      "https://obd-memorial.ru/html/info.htm?id=551200188"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, крымский полуостров": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, Крымский полуостров",
+    "count": 11,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551267197",
+      "https://obd-memorial.ru/html/info.htm?id=551267201",
+      "https://obd-memorial.ru/html/info.htm?id=551267205",
+      "https://obd-memorial.ru/html/info.htm?id=551267195",
+      "https://obd-memorial.ru/html/info.htm?id=551267198",
+      "https://obd-memorial.ru/html/info.htm?id=551267199",
+      "https://obd-memorial.ru/html/info.htm?id=551267202",
+      "https://obd-memorial.ru/html/info.htm?id=551267206",
+      "https://obd-memorial.ru/html/info.htm?id=551267207",
+      "https://obd-memorial.ru/html/info.htm?id=551267200",
+      "https://obd-memorial.ru/html/info.htm?id=551267204"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, южнее, крымский полуостров": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, южнее, Крымский полуостров",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551267217"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, юго-восточнее, 500 м": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, юго-восточнее, 500 м",
+    "count": 23,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551267221",
+      "https://obd-memorial.ru/html/info.htm?id=551267225",
+      "https://obd-memorial.ru/html/info.htm?id=551267229",
+      "https://obd-memorial.ru/html/info.htm?id=551267233",
+      "https://obd-memorial.ru/html/info.htm?id=551267237",
+      "https://obd-memorial.ru/html/info.htm?id=551267218",
+      "https://obd-memorial.ru/html/info.htm?id=551267219",
+      "https://obd-memorial.ru/html/info.htm?id=551267222",
+      "https://obd-memorial.ru/html/info.htm?id=551267223",
+      "https://obd-memorial.ru/html/info.htm?id=551267226",
+      "https://obd-memorial.ru/html/info.htm?id=551267227",
+      "https://obd-memorial.ru/html/info.htm?id=551267230",
+      "https://obd-memorial.ru/html/info.htm?id=551267231",
+      "https://obd-memorial.ru/html/info.htm?id=551267234",
+      "https://obd-memorial.ru/html/info.htm?id=551267235",
+      "https://obd-memorial.ru/html/info.htm?id=551267238",
+      "https://obd-memorial.ru/html/info.htm?id=551267239",
+      "https://obd-memorial.ru/html/info.htm?id=551267220",
+      "https://obd-memorial.ru/html/info.htm?id=551267224",
+      "https://obd-memorial.ru/html/info.htm?id=551267228",
+      "https://obd-memorial.ru/html/info.htm?id=551267232",
+      "https://obd-memorial.ru/html/info.htm?id=551267236",
+      "https://obd-memorial.ru/html/info.htm?id=551267240"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 2 км, на кургане": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 2 км, на кургане",
+    "count": 2,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551267241",
+      "https://obd-memorial.ru/html/info.htm?id=551267242"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, южнее": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, южнее",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551843423"
+    ]
+  },
+  "крымская асср, ленинcкий р-н, д. корпечь": {
+    "name": "Крымская АССР, Ленинcкий р-н, д. Корпечь",
+    "count": 2,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=552017350",
+      "https://obd-memorial.ru/html/info.htm?id=552017351"
+    ]
+  },
+  "крымская асср, ак-манай-корпечь, южнее, 1 км, в районе, ж/д будка": {
+    "name": "Крымская АССР, Ак-Манай-Корпечь, южнее, 1 км, в районе, ж/д будка",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=1160234893"
+    ]
+  },
+  "крымская асср, ленинский р-н, корпечь": {
+    "name": "Крымская АССР, Ленинский р-н, Корпечь",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=1914825757"
+    ]
+  },
+  "крымская асср, д. корпечь, восточнее, 1 км": {
+    "name": "Крымская АССР, д. Корпечь, восточнее, 1 км",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=501675789"
+    ]
+  },
+  "крымская асср, д. корпечь, северо-восточнее, 1 км": {
+    "name": "Крымская АССР, д. Корпечь, северо-восточнее, 1 км",
+    "count": 2,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=501675797",
+      "https://obd-memorial.ru/html/info.htm?id=501675798"
+    ]
+  },
+  "крымская асср, д. корпечь, северо-восточнее, 800 м": {
+    "name": "Крымская АССР, д. Корпечь, северо-восточнее, 800 м",
+    "count": 4,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=501675801",
+      "https://obd-memorial.ru/html/info.htm?id=501675799",
+      "https://obd-memorial.ru/html/info.htm?id=501675802",
+      "https://obd-memorial.ru/html/info.htm?id=501675800"
+    ]
+  },
+  "крымская асср, д. корпечь, северо-восточнее, 1500 м": {
+    "name": "Крымская АССР, д. Корпечь, северо-восточнее, 1500 м",
+    "count": 4,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=501675805",
+      "https://obd-memorial.ru/html/info.htm?id=501675807",
+      "https://obd-memorial.ru/html/info.htm?id=501675808",
+      "https://obd-memorial.ru/html/info.htm?id=501675806"
+    ]
+  },
+  "крымская асср, д. корпечь, севернее, 1 км": {
+    "name": "Крымская АССР, д. Корпечь, севернее, 1 км",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=501675809"
+    ]
+  },
+  "крымская асср, д. корпечь, восточнее, 300 м": {
+    "name": "Крымская АССР, д. Корпечь, восточнее, 300 м",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=501757897"
+    ]
+  },
+  "крымская асср, ленинский р-н, д. корпечь, севернее, 2 км": {
+    "name": "Крымская АССР, Ленинский р-н, д. Корпечь, севернее, 2 км",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=505715565"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, около": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, около",
+    "count": 3,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=505727353",
+      "https://obd-memorial.ru/html/info.htm?id=505988073",
+      "https://obd-memorial.ru/html/info.htm?id=510396299"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, выс. 28,2": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, выс. 28,2",
+    "count": 3,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551267150",
+      "https://obd-memorial.ru/html/info.htm?id=551267151",
+      "https://obd-memorial.ru/html/info.htm?id=551267152"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-западнее, 1 км": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее, 1 км",
+    "count": 2,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551267246",
+      "https://obd-memorial.ru/html/info.htm?id=551267247"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-западнее, 2 км": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее, 2 км",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551267258"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-западнее, п-ов керченский, лощина": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-западнее, п-ов Керченский, лощина",
+    "count": 3,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551197994",
+      "https://obd-memorial.ru/html/info.htm?id=551197995",
+      "https://obd-memorial.ru/html/info.htm?id=551197996"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, юго-западнее, 200 м": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, юго-западнее, 200 м",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551198083"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, восточнее, 1 км": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, восточнее, 1 км",
+    "count": 2,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551198118",
+      "https://obd-memorial.ru/html/info.htm?id=550818876"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 1 км": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 1 км",
+    "count": 2,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551198126",
+      "https://obd-memorial.ru/html/info.htm?id=551198127"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 1500 м": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 1500 м",
+    "count": 2,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551198134",
+      "https://obd-memorial.ru/html/info.htm?id=551198136"
+    ]
+  },
+  "крымская асср, кировский р-н, с. корпечь": {
+    "name": "Крымская АССР, Кировский р-н, с. Корпечь",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=552298304"
+    ]
+  },
+  "крымская асср, ак-манай-корпечь, в районе": {
+    "name": "Крымская АССР, Ак-манай-Корпечь, в районе",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=1159722797"
+    ]
+  },
+  "крымская асср, д. корпечь, северо-восточнее, 2 км": {
+    "name": "Крымская АССР, д. Корпечь, северо-восточнее, 2 км",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=501675803"
+    ]
+  },
+  "крымская асср, д. корпечь, северо-западнее, 1500 м": {
+    "name": "Крымская АССР, д. Корпечь, северо-западнее, 1500 м",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=501675810"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, выс. 28,2, около": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, выс. 28,2, около",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=501860562"
+    ]
+  },
+  "крымская асср, ленинский р-н, д. корпечь, около": {
+    "name": "Крымская АССР, Ленинский р-н, д. Корпечь, около",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=505944623"
+    ]
+  },
+  "крымская сср, ленинский р-н, д. корпечь, в районе, крымское направление": {
+    "name": "Крымская ССР, Ленинский р-н, д. Корпечь, в районе, Крымское направление",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=505974374"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, в районе": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, в районе",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=506191263"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, юго-западная окраина, керченский п-ов": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, юго-западная окраина, Керченский п-ов",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=506209674"
+    ]
+  },
+  "крымская асср, с. корпечь, около": {
+    "name": "Крымская АССР, с. Корпечь, около",
+    "count": 2,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=506244775",
+      "https://obd-memorial.ru/html/info.htm?id=506263670"
+    ]
+  },
+  "крымская асср, с. корпечь": {
+    "name": "Крымская АССР, с. Корпечь",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=506298007"
+    ]
+  },
+  "крымская асср, с. корпечь, восточнее, 3 км": {
+    "name": "Крымская АССР, с. Корпечь, восточнее, 3 км",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=550817167"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, севернее, 1500 м, выс. 28.2, в районе": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, севернее, 1500 м, выс. 28.2, в районе",
+    "count": 2,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=550818830",
+      "https://obd-memorial.ru/html/info.htm?id=550818828"
+    ]
+  },
+  "крымская асср, д. корпечь, северо-восточнее": {
+    "name": "Крымская АССР, д. Корпечь, северо-восточнее",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=501675804"
+    ]
+  },
+  "крымская асср, д. корпечь, юго-западнее, 200 м": {
+    "name": "Крымская АССР, д. Корпечь, юго-западнее, 200 м",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=501757896"
+    ]
+  },
+  "крымская асср, р-н д. корпечь": {
+    "name": "Крымская АССР, р-н д. Корпечь",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=513167708"
+    ]
+  },
+  "крымская асср, с. корпечь, восточнее, 1 км": {
+    "name": "Крымская АССР, с. Корпечь, восточнее, 1 км",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=550817180"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, кладбище": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, кладбище",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=550818880"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, восточнее, 300 м": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, восточнее, 300 м",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551198084"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 200 м": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 200 м",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551198128"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, северо-восточнее, 2 км": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, северо-восточнее, 2 км",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551198132"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь северо-восточнее": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь северо-восточнее",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551200180"
+    ]
+  },
+  "крымская асср, ленинский р-н, с. корпечь, севернее, 1500 м": {
+    "name": "Крымская АССР, Ленинский р-н, с. Корпечь, севернее, 1500 м",
+    "count": 1,
+    "source_urls": [
+      "https://obd-memorial.ru/html/info.htm?id=551198135"
+    ]
   }
 }
