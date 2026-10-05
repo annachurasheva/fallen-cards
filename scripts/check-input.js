@@ -10,6 +10,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { analyzeInputFile } from '../src/validators/input-control.js';
+import {
+  listCsvFiles,
+  loadRegistry,
+  analyzeCsvAgainstRegistry,
+} from '../src/validators/registry.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(here, '..');
@@ -18,6 +23,7 @@ const DIRS = {
   processed: path.join(ROOT, 'data', 'processed'),
   summary: path.join(ROOT, 'data', 'summary', 'processed_ids.txt'),
 };
+const EXPERTS_DIR = path.join(ROOT, 'data', 'processed', 'experts');
 
 const fileArg = process.argv.find(a => a.startsWith('--file='));
 const FILE = fileArg ? fileArg.slice('--file='.length) : null;
@@ -63,6 +69,34 @@ for (const filepath of files) {
   console.log(`   Уже в глобальном журнале: ${r.inSummary}`);
   console.log(`   🆕 Новых к обработке: ${r.newUrls.length}`);
   for (const url of r.newUrls.slice(0, 5)) console.log(`      ${url}`);
+}
+
+// ---------- Экспертные файлы (data/processed/experts) ----------
+console.log('\n===== Экспертные файлы: data/processed/experts =====');
+const expertFiles = listCsvFiles(EXPERTS_DIR);
+if (expertFiles.length === 0) {
+  console.log('   (нет .csv файлов)');
+} else {
+  const globalRegistry = loadRegistry(DIRS.summary);
+  console.log(`📊 Глобальный журнал: ${DIRS.summary} (${globalRegistry.size} id)`);
+  for (const filepath of expertFiles) {
+    const base = path.basename(filepath, '.csv');
+    const localJournal = path.join(
+      path.dirname(filepath),
+      `${base}__processed.txt`,
+    );
+    const r = analyzeCsvAgainstRegistry(filepath, localJournal, globalRegistry);
+    console.log(`\n===== ${path.basename(filepath)} =====`);
+    if (!r.total) { console.log('   (пусто)'); continue; }
+    console.log(`   Всего уникальных document_id: ${r.total}`);
+    console.log(`   Уже в журнале файла: ${r.inLocal}`);
+    console.log(`   Уже в глобальном журнале: ${r.inGlobal}`);
+    console.log(`   🆕 Новых к обработке: ${r.newIds.length}`);
+    for (const id of r.newIds.slice(0, 5)) console.log(`      ${id}`);
+  }
+  console.log(
+    '\n   Учёт экспертных файлов: node scripts/register-experts.js',
+  );
 }
 
 console.log('\n✅ Проверка завершена. Запускайте парсер: node scripts/parse-obd.js');

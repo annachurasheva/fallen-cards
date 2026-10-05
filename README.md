@@ -1,200 +1,155 @@
-# Fallen Cards — Парсер карточек павших солдат
+# Fallen Cards — карточки павших солдат
 
 ## Что это за проект
 
-Инструмент для автоматической генерации карточек павших солдат из источников:
-- OBD Memorial (obd-memorial.ru) — основной источник
-- CSV файлы с ручным вводом
-- Другие архивы (pamyat-naroda.ru, podvignaroda.ru) — в будущем
+Инструмент для бережного учёта и подготовки карточек павших солдат из архивных источников:
 
-**Связь с другими проектами:**
-- Карточки публикуются в мемориальный блог: [mem-2026-soursecraft-site](https://github.com/annachurasheva/mem-2026-soursecraft-site)
-- RSS-лента блога настроена для Дзен (требования см. в `docs/DZEN_RSS.md` блога)
+- OBD Memorial (obd-memorial.ru) — основной источник
+- Экспертные CSV-файлы (ручной ввод, сверка)
+
+Данные хранятся дословно, как в источниках. Инструменты только учитывают и проверяют карточки, не переписывая факты.
+
+**Связанные проекты:**
+- Мемориальный блог: [mem-2026-soursecraft-site](https://github.com/annachurasheva/mem-2026-soursecraft-site)
+- RSS-лента блога для Дзен (требования: `docs/DZEN_RSS.md` блога)
 - Комбайн для ручного ввода постов: [mdx-combine](https://github.com/annachurasheva/mdx-combine)
 
-## Архитектура
+## Терминология
 
-Проект разделён на независимые модули:
+- **fallen** («павшие») — карточки с подтверждённой гибелью (причина «убит»/«погиб» либо запись из списка захоронения с датой и местом).
+- **unclassified** («ждут уточнения») — карточки, по которым причина/обстоятельства требуют дополнительной проверки.
+- Классификация используется только внутри файлов и логов; содержимое архивных документов не изменяется.
+
+## Структура репозитория
 
 ```
+scripts/
+├─ parse-obd.js            # парсинг карточек OBD Memorial (Edge + Puppeteer)
+├─ check-input.js          # контроль URL-листов перед парсингом
+├─ check-csv.js            # контроль CSV перед генерацией карточек
+├─ register-experts.js     # учёт экспертных CSV в глобальном журнале
+├─ normalize.js            # нормализация (сейчас — без изменений данных)
+├─ validate.js             # валидация
+└─ generate-cards.js       # генерация карточек
+
 src/
-├─ parsers/              # Извлечение данных из источников
-│  ├─ csv-reader.js      # Парсер CSV файлов
-│  └─ obd-memorial/      # Парсер OBD Memorial (Puppeteer)
-│
-├─ normalizers/          # Нормализация сырых данных
-│  ├─ person.js          # ФИО, даты, места
-│  ├─ military-unit.js   # Воинские части (шифрограмма → полное название)
-│  ├─ rank.js            # Звания
-│  └─ location.js        # География (места рождения, захоронения)
-│
-├─ validators/           # Проверка качества данных
-│  ├─ completeness.js    # Все ли поля заполнены
-│  ├─ military-unit.js   # Валидность unit_id
-│  └─ dates.js           # Корректность дат
-│
-├─ generators/           # Генерация выходных форматов
-│  ├─ markdown-card.js   # Markdown для Astro блога
-│  └─ json-card.js       # JSON для API
-│
-└─ pipelines/            # Оркестрация процессов
-   ├─ csv-to-markdown.js # Полный цикл: CSV → нормализация → валидация → markdown
-   └─ obd-to-markdown.js # Полный цикл: OBD → парсинг → нормализация → валидация → markdown
+├─ parsers/
+│  ├─ csv-reader.js        # чтение CSV
+│  └─ obd-memorial/        # парсер OBD Memorial
+│     ├─ extractors.js     # извлечение полей из DOM (HEADERS, pageExtractor)
+│     ├─ classifier.js     # классификация fallen / unclassified
+│     └─ index.js          # подключение к Edge, постраничный сбор, CSV
+├─ normalizers/
+│  ├─ person.js            # ФИО, даты, места
+│  ├─ military-unit.js     # воинские части
+│  ├─ rank.js              # звания
+│  └─ location.js          # география (collectBurials)
+├─ validators/
+│  ├─ input-control.js     # контроль URL-листов (журнал файла + глобальный)
+│  ├─ csv-control.js       # контроль CSV (document_id, персоны)
+│  ├─ registry.js          # работа с журналами и экспертными CSV
+│  ├─ completeness.js      # полнота полей
+│  ├─ dates.js             # корректность дат
+│  ├─ military-unit.js     # валидность unit_id
+│  └─ report.js            # отчёты
+├─ generators/
+│  ├─ markdown-card.js     # Markdown для Astro
+│  └─ json-card.js         # JSON
+└─ pipelines/
+   ├─ batch-processor.js   # пакетная обработка
+   ├─ csv-to-markdown.js   # CSV → markdown
+   └─ obd-to-markdown.js   # OBD → markdown
 ```
 
-**Принцип разделения задач:**
-- Каждый модуль делает **одну** задачу
-- Модули не зависят друг от друга (можно тестировать отдельно)
-- Пайплайны собирают модули в полные процессы
+## Данные
 
-## Текущий статус (октябрь 2026)
+```
+data/
+├─ raw/                    # входные списки URL (.txt)
+├─ csv/                    # CSV с ручным вводом
+├─ processed/              # результаты парсинга
+│  ├─ experts/             # экспертные CSV (fallen.csv, other.csv, …)
+│  └─ <имя_файла>/         # результаты по каждому входному файлу
+│     ├─ <имя>__parser_mem2026.csv   # fallen (UTF-8 с BOM)
+│     ├─ <имя>__other_mem2026_.csv   # unclassified (UTF-8 с BOM)
+│     ├─ <имя>__session.log          # лог сессии
+│     ├─ <имя>__errors.log           # ошибки страниц
+│     └─ <имя>__processed.txt        # локальный журнал (id + url)
+├─ summary/
+│  └─ processed_ids.txt    # ГЛОБАЛЬНЫЙ журнал обработанных id
+├─ dictionaries/           # словари (например, burials_*.json)
+├─ logs/                   # логи
+├─ scans/                  # сканы
+└─ output/                 # сгенерированные карточки
+```
 
-**Сделано:**
-- ✅ Структура репозитория
-- ✅ Заглушки всех модулей
-- ✅ Логика парсера OBD Memorial в `obd-edge_v03.js` (перенести в `src/parsers/obd-memorial/`)
-- ✅ Логика генерации из CSV в `csv-to-fallen.mjs` (перенести в `src/pipelines/csv-to-markdown.js`)
+Журнал обработанных хранит `id` (и, где есть, `url`) каждой принятой в работу персональной карточки. Локальные журналы лежат рядом с результатами парсинга, глобальный — в `data/summary/processed_ids.txt`.
 
-**Не сделано:**
-- ❌ Перенос кода из старых скриптов в модули
-- ❌ Словари нормализации (units_dict.json, ranks_dict.json)
-- ❌ Тесты для модулей
-- ❌ CLI команды (scripts/*.js)
+## Рабочий процесс
 
-## Точки входа для нового ИИ
+### 1. Контроль входа (два гейта)
 
-### Если нужно продолжить разработку:
+| Гейт | Команда | Что проверяет |
+|---|---|---|
+| 1. URL-листы | `node scripts/check-input.js` | дубли URL внутри файла; сколько уже в журнале файла и в глобальном журнале; сколько новых |
+| 2. CSV карточек | `node scripts/check-csv.js` | дубли document_id; дубли персон (ФИО+дата); уже сгенерированные карточки |
 
-1. **Прочитать старые скрипты:**
-   - `obd-edge_v03.js` — логика парсера OBD Memorial
-   - `csv-to-fallen.mjs` — логика генерации из CSV (в репозитории `memorial-korpech-crimea`, ветка `qwen3-memorial`)
+Оба гейта также показывают блок по экспертным файлам (`data/processed/experts/`): сколько уникальных `document_id` в каждом CSV, сколько из них уже учтено в журнале файла и в глобальном журнале, какие id новые. Гейты только печатают отчёт и ничего не пишут.
 
-2. **Перенести код в модули:**
-   - Парсинг → `src/parsers/`
-   - Нормализация → `src/normalizers/`
-   - Валидация → `src/validators/`
-   - Генерация → `src/generators/`
-
-3. **Создать словари:**
-   - `data/dictionaries/units_dict.json` — словарь воинских частей
-   - `data/dictionaries/ranks_dict.json` — словарь званий
-
-4. **Написать тесты:**
-   - Использовать vitest
-   - Тестировать каждый модуль отдельно
-
-### Если нужно запустить генерацию:
+### 2. Учёт экспертных карточек
 
 ```bash
-# 1. Установить зависимости
-npm install
+# Показать, что будет добавлено в глобальный журнал (без записи)
+node scripts/register-experts.js --dry-run
 
-# 2. Парсинг OBD (пока заглушка)
-node scripts/parse-obd.js
-
-# 3. Нормализация
-node scripts/normalize.js --input=data/input/raw.csv --output=data/processed/normalized.json
-
-# 4. Валидация
-node scripts/validate.js --input=data/processed/normalized.json
-
-# 5. Генерация карточек
-node scripts/generate-cards.js --input=data/processed/normalized.json --output=data/output/
+# Внести недостающие document_id из data/processed/experts/*.csv в глобальный журнал
+node scripts/register-experts.js
 ```
 
-## Структура данных карточки
+После этого `check-input.js` и `check-csv.js` считают эти карточки уже принятыми в работу.
 
-Целевой формат YAML frontmatter:
+### 3. Парсинг OBD Memorial
 
-```yaml
----
-id: "123456"
-slug: "ivanov-ivan-ivanovich-1920"
-status: "draft"
+Сначала запустите Edge с remote debugging (Windows/PowerShell):
 
-person:
-  last_name: "Иванов"
-  first_name: "Иван"
-  middle_name: "Иванович"
-  birth:
-    date: "1920-05-15"
-    location: "д. Петрово, Московская обл."
-  death:
-    date: "1942-03-12"
-    cause: "убит в бою"
-
-service:
-  rank: "красноармеец"
-  unit:
-    raw: "398 сд 821 сп"
-    normalized: "398-я стрелковая дивизия, 821-й стрелковый полк"
-    id: "unit-398-sd-821-sp"
-  conscription:
-    location: "Московский РВК"
-
-burial:
-  primary:
-    location: "с. Корпечь, Крым"
-  current:
-    location: "Братская могила, с. Фронтовое"
-
-sources:
-  - type: "ОБД Мемориал"
-    url: "https://obd-memorial.ru/..."
----
-```
-
-## Инструменты разработки
-
-### Запуск Edge для парсинга OBD Memorial
-
-Перед парсингом нужно запустить Edge с remote debugging:
-
-**Windows (PowerShell):**
 ```powershell
-.\tools\run-edge-obd.ps1
+.	ools\run-edge-obd.ps1
 ```
-## Контроль входа (два гейта)
 
-| Гейт | Команда | Что проверяет | Когда запускать |
-|---|---|---|---|
-| 1. URL-листы | `node scripts/check-input.js` | дубли URL внутри файла, уже обработанные (журнал файла + глобальный), сколько новых | перед `parse-obd` |
-| 2. CSV карточек | `node scripts/check-csv.js` | дубли document_id, дубли персон (ФИО+дата), уже сгенерированные карточки | перед `generate-cards` |
+Затем:
 
-Оба гейта только печатают отчёт и ничего не пишут. Дубли персон ловим здесь, а не в Astro: дубль → одинаковый slug → падение сборки блога («Duplicate post slugs»).
+```bash
+node scripts/parse-obd.js --input=имя_файла.txt
+node scripts/parse-obd.js --input=имя_файла.txt --dry-run   # план без записи
+node scripts/parse-obd.js --input=имя_файла.txt --limit=50
+node scripts/parse-obd.js --input=имя_файла.txt --output=data/processed/
+```
 
-## Контрольные точки
+Результаты и журналы создаются в `data/processed/<имя_файла>/`, глобальный журнал дополняется автоматически.
 
-- **Коммиты старых скриптов:**
-  - `obd-edge_v03.js`: https://github.com/annachurasheva/puppeteer-project/blob/main/obd-edge_v03.js
-  - `csv-to-fallen.mjs`: https://github.com/annachurasheva/memorial-korpech-crimea/blob/qwen3-memorial/scripts/csv-to-fallen.mjs
+### 4. Дальнейшие шаги
 
-- **Документация требований Дзен:**
-  - https://github.com/annachurasheva/mem-2026-soursecraft-site/blob/main-qwen3/docs/DZEN_RSS.md
-  
-## Контрольные точки
+```bash
+node scripts/normalize.js --input=<файл|папка>
+node scripts/validate.js --input=<...>
+node scripts/generate-cards.js --input=<...> --output=data/output/
+```
 
-### v0.1.0 — Начальная структура (commit 6f66d32)
-- Создана архитектура с заглушками
-- Все модули пустые, логика не реализована
+## Запуск из package.json
 
-### v0.2.0 — Парсер OBD (dd7bea0)
-- Перенесена логика из obd-edge_v03.js
-- Подключение к Edge на порту 9226
-- Базовое извлечение полей работает
+```bash
+npm run check:input
+npm run check:csv
+npm run parse:obd
+npm run normalize
+npm run validate
+npm run generate
+```
 
-### v0.3.0 — Нормализация (commit ???)
-- Словари units_dict.json, ranks_dict.json
-- Нормализация воинских частей
-- Валидация данных  
+## Заметки
 
-## Приоритеты разработки
+- CSV пишутся в UTF-8 с BOM (для Excel).
+- Постраничный лог парсера выводит только имя/номер карточки — без штампов категорий.
+- Дубли персон (одинаковые ФИО + дата) ловятся на гейте 2, чтобы не порождать одинаковые slug в блоге.
 
-1. **Перенос парсера OBD** из `obd-edge_v03.js` в `src/parsers/obd-memorial/`
-2. **Создание словарей** для нормализации воинских частей
-3. **Написание тестов** для нормализаторов
-4. **Интеграция с блогом** (копирование .md в `src/content/posts/` блога)
-
-## Контакты
-
-Проект ведёт Anna Churasheva. По вопросам архитектуры — обращаться через GitHub Issues.
+Проект ведёт Anna Churasheva.
