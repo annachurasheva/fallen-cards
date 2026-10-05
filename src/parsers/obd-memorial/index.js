@@ -1,53 +1,98 @@
 /**
- * index.js — точка входа парсера OBD Memorial (ESM-порт донора obd-edge_v03.js).
+ * index.js — точка входа парсера карточек персон OBD Memorial.
+ * Подключение к внешнему Edge через CDP (puppeteer-core), постраничный сбор,
+ * классификация killed/other, сериализация в CSV.
  *
- * Подключение к уже запущенному внешнему Edge по CDP (browser НЕ закрывать!).
- *   pwsh tools/run-edge-obd.ps1  (порт 9226)
- *
- * Экспорты:
- *   parseUrls(urls, { port, onLog, onError }) -> { killed, other, errors }
- *   toCsv(rows) -> строка CSV по HEADERS (UTF-8 с BOM)
+ * ВАЖНО: browser НЕ закрывать (внешний Edge) — только disconnect().
  */
 
-import puppeteer from 'puppeteer-core';
-import { HEADERS, KNOWN_TITLES, pageExtractor } from './extractors.js';
-import { classify } from './classifier.js';
+import puppeteer from "puppeteer-core";
+import { HEADERS, pageExtractor } from "./extractors.js";
+import { classify } from "./classifier.js";
 
 const DEFAULT_PORT = 9226;
 
-// ---------- Задержки (рандомизация, чтобы не походить на бота) ----------
-const MIN_AFTER_LOAD = 3000;
-const MAX_AFTER_LOAD = 6000;
-const MIN_BETWEEN = 3000;
-const MAX_BETWEEN = 15000;
-
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function randomDelay(min, max) {
-  const value = Math.floor(min + Math.random() * (max - min + 1));
-  return delay(value);
-}
-
-// Извлечение id из URL (хвост адреса): https://obd-memorial.ru/html/info.htm?id=551267195 -> 551267195
-export function extractIdFromUrl(url) {
-  const match = url.match(/id=(\d+)/);
-  return match ? match[1] : '';
+// Экранирование значения для CSV (кавычки и запятые)
+function escapeCsv(value) {
+  if (value === null || value === undefined) return "";
+  const s = String(value);
+  if (s.includes(",") || s.includes('"') || s.includes("\n")) {
+    return '"' + s.replace(/"/g, '""') + '"';
+  }
+  return s;
 }
 
 /**
- * Парсинг списка URL карточек OBD Memorial через внешний Edge (CDP).
- * @param {string[]} urls
- * @param {{ port?: number, onLog?: Function, onError?: Function }} [options]
- * @returns {Promise<{ killed: object[], other: object[], errors: Array<{url: string, message: string}> }>}
+ * toCsv — сериализация строк по HEADERS с экранированием кавычек и запятых.
+ * UTF-8 с BOM (для Excel).
  */
-export async function parseUrls(urls, { port = DEFAULT_PORT, onLog = () => {}, onError = () => {} } = {}) {
-  // Подключаемся к уже запущенному внешнему Edge; browser НЕ закрываем (не наш)
+export function toCsv(rows) {
+  const headerLine = HEADERS.join(",");
+  const lines = (rows || []).map((row) =>
+    HEADERS.map((h) => escapeCsv(row[h])).join(","),
+  );
+  return "\uFEFF" + [headerLine, ...lines].join("\n");
+}
+
+// Сбор notes по правилам донора:
+//  - не-killed с причиной → причина в notes;
+//  - архивные реквизиты пусты → нестандартные параметры из _allParams в notes;
+//  - country/region/rebural в notes НЕ дублировать.
+function buildNotes(row, cls) {
+  const notesParts = [];
+
+  if (cls !== "killed" && row.cause) {
+    notesParts.push(`Причина: ${row.cause}`);
+  }
+
+  const archiveEmpty = !row.archive_refs || !row.archive_refs.trim();
+  if (archiveEmpty && Array.isArray(row._allParams)) {
+    const knownRe = new RegExp("^(" + KNOWN_TITLES_ESC + ")$", "i");
+    for (const p of row._allParams) {
+      if (!p.title || !p.value) continue;
+      if (knownRe.test(p.title)) continue;
+      // не дублируем country/region/rebural
+      if (
+        /страна захоронения|регион захоронения|перезахоронение/i.test(p.title)
+      )
+        continue;
+      notesParts.push(`${p.title}: ${p.value}`);
+    }
+  }
+
+  return notesParts.join("; ");
+}
+
+// Экранирование регулярных выражений для KNOWN_TITLES
+import { KNOWN_TITLES } from "./extractors.js";
+const KNOWN_TITLES_ESC = KNOWN_TITLES.map((t) =>
+  t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+).join("|");
+
+/**
+ * parseUrls — последовательный обход URL карточек персон.
+ * @param {string[]} urls
+ * @param {{port?: number, onLog?: Function, onError?: Function}} opts
+ * @returns {Promise<{killed: object[], other: object[], errors: {url: string, message: string}[]}>}
+ */
+export async function parseUrls(
+  urls,
+  { port = DEFAULT_PORT, onLog = () => {}, onError = () => {} } = {},
+) {
+  const MIN_AFTER_LOAD = 3000;
+  const MAX_AFTER_LOAD = 6000;
+  const MIN_BETWEEN = 3000;
+  const MAX_BETWEEN = 15000;
+
+  const delay = (ms) => new Promise((r) => setTimeout(r, ms));
+  const randomDelay = (min, max) =>
+    delay(Math.floor(min + Math.random() * (max - min + 1)));
+
   const browser = await puppeteer.connect({
-    browserURL: 'http://127.0.0.1:' + port,
+    browserURL: "http://127.0.0.1:" + port,
     defaultViewport: null,
   });
+  onLog(`🔗 Подключено к Edge CDP localhost:${port}`);
 
   const killed = [];
   const other = [];
@@ -56,95 +101,37 @@ export async function parseUrls(urls, { port = DEFAULT_PORT, onLog = () => {}, o
   try {
     for (let i = 0; i < urls.length; i++) {
       const url = urls[i];
-      const globalIndex = i + 1;
-      onLog(`\n[${globalIndex}/${urls.length}] ${url}`);
+      onLog(`\n[${i + 1}/${urls.length}] ${url}`);
 
       const page = await browser.newPage();
       try {
-        await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
-        await randomDelay(MIN_AFTER_LOAD, MAX_AFTER_LOAD); // пауза для полной отрисовки DOM
+        await page.goto(url, { waitUntil: "networkidle2", timeout: 60000 });
+        await randomDelay(MIN_AFTER_LOAD, MAX_AFTER_LOAD);
 
-        // Сбор данных со страницы (pageExtractor выполняется внутри DOM страницы)
         const data = await page.evaluate(pageExtractor);
+        const cls = classify(data);
+        data.notes = buildNotes(data, cls);
 
-        // Определяем категорию
-        const category = classify(data);
-        const isKilled = category === 'killed';
-
-        // Формируем notes — ТОРМОЗ: если с карточкой что-то не так,
-        // без проверки она не появляется. Сюда попадают только проблемные/нестандартные данные.
-        const notesParts = [];
-
-        // Если не «убит/погиб» и причина есть — добавляем причину в notes
-        if (!isKilled && data.cause_of_death) {
-          notesParts.push(data.cause_of_death);
-        }
-
-        // Если архивные поля пусты — ищем альтернативные/нестандартные параметры
-        const archiveFieldsEmpty = !data.nomer_fonda && !data.nomer_opisi && !data.nomer_dela && !data.document_type;
-        if (archiveFieldsEmpty) {
-          const extraParams = Object.entries(data._allParams)
-            .filter(([title]) => !KNOWN_TITLES.includes(title))
-            .map(([title, value]) => `${title}: ${value}`)
-            .join('; ');
-          if (extraParams) {
-            notesParts.push(extraParams);
-          }
-        }
-
-        // country_burial / region_burial / rebural_from в notes НЕ дублируем —
-        // это отдельные колонки CSV (v03)
-
-        // Убираем служебное поле _allParams из выгрузки
-        delete data._allParams;
-        data.notes = notesParts.join(' | ');
-
-        if (isKilled) {
-          killed.push(data);
-          onLog(`   ✅ убит/погиб — добавлен в killed`);
-        } else {
-          other.push(data);
-          onLog(`   ⚠️  другое ("${data.cause_of_death || 'не указано'}") — добавлен в other`);
-        }
-
-        await randomDelay(MIN_BETWEEN, MAX_BETWEEN);
-      } catch (err) {
-        // Ошибка страницы → в errors, цикл продолжается
-        errors.push({ url, message: err.message });
-        onError(`   ❌ Ошибка: ${err.message}`);
-        await randomDelay(MIN_BETWEEN, MAX_BETWEEN);
+        if (cls === "killed") killed.push(data);
+        else other.push(data);
+        onLog(`   ✅ ${cls}: ${data["Заголовок"] || data.document_id || "?"}`);
+      } catch (e) {
+        const err = { url, message: e.message };
+        errors.push(err);
+        onError(`   ❌ ${url} — ${e.message}`);
       } finally {
         await page.close().catch(() => {});
       }
+
+      if (i < urls.length - 1) {
+        await randomDelay(MIN_BETWEEN, MAX_BETWEEN);
+      }
     }
   } finally {
-    // Отключаемся от внешнего браузера; browser.close() НЕ вызываем
+    // browser НЕ закрываем (внешний Edge) — только отключаемся
     browser.disconnect();
+    onLog("🔌 Отключено от Edge (браузер оставлен открытым)");
   }
 
   return { killed, other, errors };
-}
-
-// Экранирование значения для CSV
-function escapeCsv(value) {
-  if (typeof value !== 'string') return '';
-  if (value.includes(',') || value.includes('"') || value.includes('\n')) {
-    return '"' + value.replace(/"/g, '""') + '"';
-  }
-  return value;
-}
-
-/**
- * Сериализация строк в CSV по HEADERS (UTF-8 с BOM), как в доноре saveCsv.
- * @param {object[]} rows
- * @returns {string}
- */
-export function toCsv(rows) {
-  const csvRows = rows.map(row => {
-    return HEADERS.map(header => {
-      const key = header.toLowerCase();
-      return escapeCsv(row[key] || row[header] || '');
-    }).join(',');
-  });
-  return '\uFEFF' + [HEADERS.join(','), ...csvRows].join('\n');
 }
