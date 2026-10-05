@@ -1,81 +1,122 @@
 /**
- * location.js — нормализатор локаций/захоронений (fallen-cards, ESM).
- *
- * Функция attachObject(burial, objectsDict) реализует требования ревизии
- * (REVIEW.md, раздел «Объекты захоронений»):
- *   - совпало «Место захоронения» персоны (burial.current_burial) с name
- *     объекта захоронения из словаря → подставить object_id в burial.object_id;
- *   - поле rebural_from сохраняется дословно (не нормализуется);
- *   - при привязке значение rebural_from дописывается в массив
- *     rebural_from_locations соответствующего объекта в словаре
- *     (дедупликация: не добавлять уже имеющееся значение).
- *
- * Словарь объектов: data/dictionaries/burial-objects.json (каркас;
- * наполнение — после первого прогона scripts/parse-obd-objects.js).
+ * location.js — нормализация мест захоронения и привязка объектов.
+ * ESM. Без внешних зависимостей.
  */
 
-// Нормализация строки для сравнения «Место захоронения» ↔ name объекта:
-// нижний регистр, ё→е, отбрасываем пунктуацию, схлопываем пробелы.
-function normalizeName(s) {
-  return String(s || '')
-    .toLowerCase()
-    .replace(/ё/g, 'е')
-    .replace(/[.,;:()\[\]"']/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-// slug для ключа obj-<slug> (используется при наполнении словаря)
+/**
+ * objectSlug — слаг названия объекта для ключа словаря obj-<slug>.
+ * Транслитерация кириллицы, нижний регистр, дефисы вместо пробелов.
+ */
 export function objectSlug(name) {
-  return normalizeName(name)
-    .replace(/\s+/g, '-')
+  const map = {
+    а: "a",
+    б: "b",
+    в: "v",
+    г: "g",
+    д: "d",
+    е: "e",
+    ё: "e",
+    ж: "zh",
+    з: "z",
+    и: "i",
+    й: "y",
+    к: "k",
+    л: "l",
+    м: "m",
+    н: "n",
+    о: "o",
+    п: "p",
+    р: "r",
+    с: "s",
+    т: "t",
+    у: "u",
+    ф: "f",
+    х: "kh",
+    ц: "ts",
+    ч: "ch",
+    ш: "sh",
+    щ: "shch",
+    ъ: "",
+    ы: "y",
+    ь: "",
+    э: "e",
+    ю: "yu",
+    я: "ya",
+  };
+  const translit = String(name || "")
+    .toLowerCase()
+    .split("")
+    .map((ch) => (ch in map ? map[ch] : ch))
+    .join("");
+  return translit
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
     .slice(0, 60);
 }
 
 /**
- * attachObject — привязка записи персоны к объекту захоронения.
- * @param {object} burial        запись персоны (поля current_burial, rebural_from)
- * @param {object} objectsDict   словарь burial-objects.json { "obj-<slug>": {...} }
- * @returns {object} burial с проставленным object_id (если найдено совпадение);
- *                   mutations: объект словаря получает rebural_from в
- *                   rebural_from_locations. Возвращает тот же burial.
+ * attachObject — привязка строки выбытия к объекту захоронения.
+ * Совпало «Место захоронения» (current_burial) с name объекта → подставить object_id.
+ * Поле rebural_from сохранять дословно и при привязке дописывать его значение
+ * в rebural_from_locations объекта (без дублей).
+ *
+ * @param {object} burial       — строка парсера (current_burial, rebural_from, ...)
+ * @param {object} objectsDict  — словарь burial-objects.json { "obj-<slug>": {...} }
+ * @returns {object} burial с полями object_id (при совпадении) и обновлённым словарём
  */
 export function attachObject(burial, objectsDict) {
-  if (!burial || !objectsDict) return burial;
+  const result = { ...burial };
+  const place = String(result.current_burial || "")
+    .trim()
+    .toLowerCase();
+  if (!place || !objectsDict) return result;
 
-  const target = normalizeName(burial.current_burial);
-  if (!target) return burial; // нет «Место захоронения» — не к чему привязывать
-
-  let matched = null;
   for (const key of Object.keys(objectsDict)) {
-    if (key.startsWith('_')) continue; // служебные _comment/_schema
     const obj = objectsDict[key];
-    if (!obj || typeof obj !== 'object') continue;
-    if (normalizeName(obj.name) === target) {
-      matched = obj;
+    const objName = String(obj.name || "")
+      .trim()
+      .toLowerCase();
+    if (objName && objName === place) {
+      result.object_id = obj.object_id;
+      // rebural_from сохраняем дословно; дописываем в locations объекта при привязке
+      const reb = String(result.rebural_from || "").trim();
+      if (reb) {
+        if (!Array.isArray(obj.rebural_from_locations))
+          obj.rebural_from_locations = [];
+        if (!obj.rebural_from_locations.includes(reb)) {
+          obj.rebural_from_locations.push(reb);
+        }
+      }
       break;
     }
   }
+  return result;
+}
 
-  if (!matched) return burial; // совпадений нет — оставляем без object_id
+/**
+ * collectBurials — сбор уникальных мест захоронения из строк парсера.
+ * Возвращает два словаря:
+ *   primary — первичные места (primary_burial), current — текущие (current_burial).
+ * Ключ — нормализованное название, значение — {name, count, source_urls[]}.
+ */
+export function collectBurials(rows) {
+  const primary = {};
+  const current = {};
 
-  // 1) Подставляем object_id объекта захоронения
-  burial.object_id = matched.object_id || '';
-
-  // 2) rebural_from сохраняем дословно (ничего не переписываем) и
-  //    дописываем его значение в реестр мест-источников объекта
-  const from = String(burial.rebural_from || '').trim();
-  if (from) {
-    if (!Array.isArray(matched.rebural_from_locations)) {
-      matched.rebural_from_locations = [];
-    }
-    const exists = matched.rebural_from_locations.some(
-      v => normalizeName(v) === normalizeName(from)
-    );
-    if (!exists) {
-      matched.rebural_from_locations.push(from); // дословно, как в источнике
-    }
+  function add(dict, rawName, url) {
+    const name = String(rawName || "").trim();
+    if (!name) return;
+    const key = name.toLowerCase();
+    if (!dict[key]) dict[key] = { name, count: 0, source_urls: [] };
+    dict[key].count += 1;
+    if (url && !dict[key].source_urls.includes(url))
+      dict[key].source_urls.push(url);
   }
 
-  return burial;
+  for (const row of rows || []) {
+    add(primary, row.primary_burial, row.primary_url);
+    add(current, row.current_burial, row.primary_url);
+  }
+
+  return { primary, current };
 }
