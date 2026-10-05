@@ -22,6 +22,9 @@ Write-Host "🚀 Запуск Edge: port=$Port profile=$ProfileDir"
 Start-Process -FilePath $edge -ArgumentList @(
     "--remote-debugging-port=$Port",
     "--user-data-dir=`"$ProfileDir`"",
+    "--headless=new",
+    "--disable-gpu",
+    "--window-size=1920,1080",
     "--no-first-run",
     "--no-default-browser-check",
     "--disable-background-networking",
