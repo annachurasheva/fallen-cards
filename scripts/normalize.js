@@ -4,7 +4,7 @@
  * ИСПОЛЬЗОВАНИЕ:
  *   node scripts/normalize.js --input=obd_primary_urls_2026-09-22-22-37-31
  *   node scripts/normalize.js --input=experts
- *   node scripts/normalize.js --input=data/processed/experts/killed.csv   (путь как есть)
+ *   node scripts/normalize.js --input=data/processed/experts/fallen.csv   (путь как есть)
  *
  * ВЫХОД:
  *   рядом с каждым csv: <basename>__normalized.json и <basename>__skipped.txt

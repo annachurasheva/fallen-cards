@@ -9,8 +9,8 @@
  *
  * ВЫХОД (для входного файла <имя>):
  *   <output>/<имя>/
- *     <имя>__parser_mem2026.csv        — killed (UTF-8 с BOM)
- *     <имя>__other_mem2026_.csv        — other (UTF-8 с BOM)
+ *     <имя>__parser_mem2026.csv        — fallen (UTF-8 с BOM)
+ *     <имя>__other_mem2026_.csv        — unclassified (UTF-8 с BOM)
  *     <имя>__session.log               — лог сессии
  *     <имя>__errors.log                — ошибки страниц
  *     <имя>__processed.txt             — id+url обработанных (локальный журнал)
@@ -71,7 +71,7 @@ function loadProcessedIds(globalFile, localFile) {
         .forEach((line) => {
           const t = line.trim();
           if (t && !t.startsWith("#")) {
-            // формат записи: "<id>\t<url>" или просто "<id>"
+            // формат записи: "<id>	<url>" или просто "<id>"
             const id = t.split(/\s+/)[0];
             if (/^\d+$/.test(id)) set.add(id);
           }
@@ -167,7 +167,9 @@ function loadProcessedIds(globalFile, localFile) {
     log(
       `🔍 DRY-RUN: новых ${limited.length}, пропуск ${skipped.length}. Файлы НЕ записаны, журналы/сумма НЕ изменены.`,
     );
-    log(`✅ Итог: killed=0, other=0, errors=0, пропущено=${skipped.length}`);
+    log(
+      `✅ Итог: fallen=0, unclassified=0, errors=0, пропущено=${skipped.length}`,
+    );
     return;
   }
 
@@ -195,20 +197,23 @@ function loadProcessedIds(globalFile, localFile) {
     process.exit(1);
   }
 
-  const { killed, other, errors } = parsed;
+  const { fallen, unclassified, errors } = parsed;
 
   // ---------- Запись результатов ----------
   fs.mkdirSync(outDir, { recursive: true });
 
-  const killedCsvPath = path.join(outDir, `${baseName}__parser_mem2026.csv`);
-  const otherCsvPath = path.join(outDir, `${baseName}__other_mem2026_.csv`);
-  fs.writeFileSync(killedCsvPath, toCsv(killed), "utf-8");
-  fs.writeFileSync(otherCsvPath, toCsv(other), "utf-8");
+  const fallenCsvPath = path.join(outDir, `${baseName}__parser_mem2026.csv`);
+  const unclassifiedCsvPath = path.join(
+    outDir,
+    `${baseName}__other_mem2026_.csv`,
+  );
+  fs.writeFileSync(fallenCsvPath, toCsv(fallen), "utf-8");
+  fs.writeFileSync(unclassifiedCsvPath, toCsv(unclassified), "utf-8");
 
-  // Локальный журнал обработанных (id\turl) — все дошедшие страницы
-  const doneRows = [...killed, ...other].map(
+  // Локальный журнал обработанных (id	url) — все дошедшие страницы
+  const doneRows = [...fallen, ...unclassified].map(
     (r) =>
-      `${r.document_id || extractIdFromUrl(r.primary_url)}\t${r.primary_url}`,
+      `${r.document_id || extractIdFromUrl(r.primary_url)}	${r.primary_url}`,
   );
   fs.appendFileSync(
     localProcessedFile,
@@ -225,11 +230,11 @@ function loadProcessedIds(globalFile, localFile) {
   );
 
   log(
-    `\n💾 CSV: ${killedCsvPath} (${killed.length}), ${otherCsvPath} (${other.length})`,
+    `\n💾 CSV: ${fallenCsvPath} (${fallen.length}), ${unclassifiedCsvPath} (${unclassified.length})`,
   );
   log("\n=== Отчёт ===");
   log(
-    `killed=${killed.length}, other=${other.length}, errors=${errors.length}, пропущено=${skipped.length}`,
+    `fallen=${fallen.length}, unclassified=${unclassified.length}, errors=${errors.length}, пропущено=${skipped.length}`,
   );
   log("✅ Готово!");
 })().catch((err) => {

@@ -1,7 +1,7 @@
 /**
  * index.js — точка входа парсера карточек персон OBD Memorial.
  * Подключение к внешнему Edge через CDP (puppeteer-core), постраничный сбор,
- * классификация killed/other, сериализация в CSV.
+ * классификация fallen/unclassified, сериализация в CSV.
  *
  * ВАЖНО: browser НЕ закрывать (внешний Edge) — только disconnect().
  */
@@ -35,13 +35,13 @@ export function toCsv(rows) {
 }
 
 // Сбор notes по правилам донора:
-//  - не-killed с причиной → причина в notes;
+//  - не-fallen с причиной → причина в notes;
 //  - архивные реквизиты пусты → нестандартные параметры из _allParams в notes;
 //  - country/region/rebural в notes НЕ дублировать.
 function buildNotes(row, cls) {
   const notesParts = [];
 
-  if (cls !== "killed" && row.cause) {
+  if (cls !== "fallen" && row.cause) {
     notesParts.push(`Причина: ${row.cause}`);
   }
 
@@ -73,7 +73,7 @@ const KNOWN_TITLES_ESC = KNOWN_TITLES.map((t) =>
  * parseUrls — последовательный обход URL карточек персон.
  * @param {string[]} urls
  * @param {{port?: number, onLog?: Function, onError?: Function}} opts
- * @returns {Promise<{killed: object[], other: object[], errors: {url: string, message: string}[]}>}
+ * @returns {Promise<{fallen: object[], unclassified: object[], errors: {url: string, message: string}[]}>}
  */
 export async function parseUrls(
   urls,
@@ -94,8 +94,8 @@ export async function parseUrls(
   });
   onLog(`🔗 Подключено к Edge CDP localhost:${port}`);
 
-  const killed = [];
-  const other = [];
+  const fallen = [];
+  const unclassified = [];
   const errors = [];
 
   try {
@@ -112,9 +112,9 @@ export async function parseUrls(
         const cls = classify(data);
         data.notes = buildNotes(data, cls);
 
-        if (cls === "killed") killed.push(data);
-        else other.push(data);
-        onLog(`   ✅ ${cls}: ${data["Заголовок"] || data.document_id || "?"}`);
+        if (cls === "fallen") fallen.push(data);
+        else unclassified.push(data);
+        onLog(`   ${data["Заголовок"] || data.document_id || "?"}`);
       } catch (e) {
         const err = { url, message: e.message };
         errors.push(err);
@@ -133,5 +133,5 @@ export async function parseUrls(
     onLog("🔌 Отключено от Edge (браузер оставлен открытым)");
   }
 
-  return { killed, other, errors };
+  return { fallen, unclassified, errors };
 }
