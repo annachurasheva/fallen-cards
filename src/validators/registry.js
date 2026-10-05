@@ -80,3 +80,65 @@ export function analyzeCsvAgainstRegistry(filepath, localJournal, globalRegistry
     .map((r) => r.id);
   return { total: records.length, inLocal, inGlobal, newIds };
 }
+
+/** Нормализованный ключ ФИО для поиска дублей (регистр и пробелы не важны). */
+export function personKey(row) {
+  return [row.last_name, row.first_name, row.middle_name]
+    .map((s) => (s || '').trim().toLowerCase())
+    .join('|');
+}
+
+/**
+ * Поиск групп одинаковых ФИО с РАЗНЫМИ document_id по нескольким CSV.
+ * Возвращает массив групп:
+ *   { key, ids, entries }
+ * где entries — все записи группы (файл, id, url, ФИО, дата гибели).
+ * Группы с одним уникальным id (повторы строк/файлов) не считаются дублями.
+ */
+export function findNameDuplicates(csvFilePaths) {
+  const groups = new Map();
+  for (const filepath of csvFilePaths) {
+    const base = path.basename(filepath);
+    for (const row of readCsvRows(filepath)) {
+      const key = personKey(row);
+      if (!key || !key.replace(/\|/g, '').trim()) continue;
+      const id = (row.document_id || '').trim();
+      if (!/^\d+$/.test(id)) continue;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push({
+        file: base,
+        id,
+        url: (row.primary_url || '').trim(),
+        last_name: row.last_name || '',
+        first_name: row.first_name || '',
+        middle_name: row.middle_name || '',
+        date_death: row.date_death || '',
+      });
+    }
+  }
+  const result = [];
+  for (const [key, entries] of groups) {
+    const ids = [...new Set(entries.map((e) => e.id))];
+    if (ids.length > 1) result.push({ key, ids, entries });
+  }
+  result.sort((a, b) => a.key.localeCompare(b.key));
+  return result;
+}
+
+/** Форматирование групп дублей для печати в отчёте. */
+export function formatNameDuplicates(dups) {
+  if (dups.length === 0) {
+    return ['   ✅ Одинаковых ФИО с разными document_id не найдено'];
+  }
+  const lines = [
+    `   ⚠️ ТРЕБУЕТ ВМЕШАТЕЛЬСТВА ОПЕРАТОРА: одинаковых ФИО с разными document_id — ${dups.length} групп`,
+  ];
+  for (const g of dups) {
+    lines.push(`   🔸 ${g.key} — id: ${g.ids.join(', ')}`);
+    for (const e of g.entries) {
+      const datePart = e.date_death ? `  дата: ${e.date_death}` : '';
+      lines.push(`      ${e.id}  ${e.url || '-'}  (${e.file})${datePart}`);
+    }
+  }
+  return lines;
+}

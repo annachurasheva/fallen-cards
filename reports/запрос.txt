@@ -1,0 +1,73 @@
+PS C:\astro-projects\fallen-cards> node scripts/check-input.js
+📂 Файлов для проверки: 2
+📊 Глобальный журнал: C:\astro-projects\fallen-cards\data\summary\processed_ids.txt
+
+===== obd_primary_urls_2026-09-22-22-37-31 =====
+   Всего строк (URL): 327
+   Уникальных адресов: 327
+   ✅ Внутри файла дублей нет
+   Уже в журнале файла: 0
+   Уже в глобальном журнале: 10
+   🆕 Новых к обработке: 317
+      primary_url
+      https://obd-memorial.ru/html/info.htm?id=551843105
+      https://obd-memorial.ru/html/info.htm?id=551843121
+      https://obd-memorial.ru/html/info.htm?id=551843137
+      https://obd-memorial.ru/html/info.htm?id=551843141
+
+===== obd_primary_urls_2026-10-04-test =====
+   Всего строк (URL): 27
+   Уникальных адресов: 27
+   ✅ Внутри файла дублей нет
+   Уже в журнале файла: 0
+   Уже в глобальном журнале: 10
+   🆕 Новых к обработке: 17
+      primary_url
+      https://obd-memorial.ru/html/info.htm?id=551843105
+      https://obd-memorial.ru/html/info.htm?id=551843121
+      https://obd-memorial.ru/html/info.htm?id=551843137
+      https://obd-memorial.ru/html/info.htm?id=551843141
+
+===== Экспертные файлы: data/processed/experts =====
+📊 Глобальный журнал: C:\astro-projects\fallen-cards\data\summary\processed_ids.txt (1769 id)
+
+===== 2026-06-01__other_mem2026_.csv =====
+   Всего уникальных document_id: 37
+   Уже в журнале файла: 0
+   Уже в глобальном журнале: 37
+   🆕 Новых к обработке: 0
+
+===== 2026-06-01__parser_mem2026.csv =====
+   Всего уникальных document_id: 123
+   Уже в журнале файла: 0
+   Уже в глобальном журнале: 123
+   🆕 Новых к обработке: 0
+
+===== 2026-06-02__other_mem2026_.csv =====
+   Всего уникальных document_id: 44
+   Уже в журнале файла: 0
+   Уже в глобальном журнале: 44
+   🆕 Новых к обработке: 0
+
+===== 2026-06-02__parser_mem2026.csv =====
+   Всего уникальных document_id: 182
+   Уже в журнале файла: 0
+   Уже в глобальном журнале: 182
+   🆕 Новых к обработке: 0
+
+===== fallen.csv =====
+   Всего уникальных document_id: 1121
+   Уже в журнале файла: 0
+   Уже в глобальном журнале: 1121
+   🆕 Новых к обработке: 0
+
+===== other.csv =====
+   Всего уникальных document_id: 14
+   Уже в журнале файла: 0
+   Уже в глобальном журнале: 14
+   🆕 Новых к обработке: 0
+
+   Учёт экспертных файлов: node scripts/register-experts.js
+
+✅ Проверка завершена. Запускайте парсер: node scripts/parse-obd.js
+PS C:\astro-projects\fallen-cards> 

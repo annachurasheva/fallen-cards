@@ -12,6 +12,8 @@ import {
   listCsvFiles,
   loadRegistry,
   analyzeCsvAgainstRegistry,
+  findNameDuplicates,
+  formatNameDuplicates,
 } from '../src/validators/registry.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -82,6 +84,11 @@ if (expertFiles.length === 0) {
   console.log(
     '\n   Учёт экспертных файлов: node scripts/register-experts.js',
   );
+
+  // ---------- Дубли ФИО с разными document_id (требуют оператора) ----------
+  console.log('\n===== Дубли ФИО с разными document_id =====');
+  const dups = findNameDuplicates(expertFiles);
+  for (const line of formatNameDuplicates(dups)) console.log(line);
 }
 
 console.log('\n✅ Проверка завершена. Генерация: node scripts/generate-cards.js');
