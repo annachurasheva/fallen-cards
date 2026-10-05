@@ -24,14 +24,6 @@ const PROC = path.join(ROOT, "data", "processed");
 const args = process.argv.slice(2);
 const inputArg = args.find((a) => a.startsWith("--input="));
 
-function loadJson(p, fallback) {
-  try {
-    return JSON.parse(fs.readFileSync(p, "utf-8"));
-  } catch {
-    return fallback;
-  }
-}
-
 // ---------- Приём входа: файл как есть / папка как есть / имя под data/processed ----------
 function resolveInputs(raw) {
   const stripped = raw.replace(/^data[\/\\]processed[\/\\]/, "");
@@ -90,76 +82,8 @@ function readCsvRows(csvPath) {
   });
 }
 
-// ---------- Орфографическая нормализация мест (НЕ трогает румбы/дистанции) ----------
-const LAT2CYR = {
-  a: "а",
-  c: "с",
-  e: "е",
-  o: "о",
-  p: "р",
-  x: "х",
-  y: "у",
-  k: "к",
-  m: "м",
-  t: "т",
-  b: "в",
-};
-function spellNorm(s) {
-  return (s || "")
-    .toLowerCase()
-    .replace(/ё/g, "е")
-    .split("")
-    .map((ch) => LAT2CYR[ch] || ch)
-    .join("")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-const SETTLEMENTS = loadJson(
-  path.join(ROOT, "data", "dictionaries", "settlements.json"),
-  null,
-) || {
-  korpech: ["корпечь"],
-  frontovoe: ["фронтовое", "кой-асан"],
-  ak_monay: ["ак-манай"],
-  dalnie_kamyshi: ["дальние камыши"],
-  vladislavovka: ["владиславовка"],
-  tulunchak: ["тулумчак", "стульмчак"],
-  dzhanatora: ["джантора", "львово"],
-  feodosia: ["феодосия"],
-};
-function settlementOf(norm) {
-  for (const [key, markers] of Object.entries(SETTLEMENTS)) {
-    if (markers.some((m) => norm.includes(m))) return key;
-  }
-  return null;
-}
-
-// ---------- Привязка к объектам: твёрдо по current/rebural, гипотеза по primary ----------
-const objectsDict = loadJson(
-  path.join(ROOT, "data", "dictionaries", "burial-objects.json"),
-  {},
-);
-const objBySettlement = {};
-for (const [key, obj] of Object.entries(objectsDict)) {
-  if (key.startsWith("_") || !obj || typeof obj !== "object") continue;
-  const s = settlementOf(spellNorm(`${obj.name || ""} ${obj.location || ""}`));
-  if (s && !objBySettlement[s]) objBySettlement[s] = obj.object_id;
-}
-
 function normalizeRow(row) {
-  const primary = (row.primary_burial || "").trim();
-  const current = (row.current_burial || "").trim();
-  const rebural = (row.rebural_from || "").trim();
-  const sPrim = settlementOf(spellNorm(primary));
-  const sCur = settlementOf(spellNorm(`${current} ${rebural}`));
-  const card = { ...row };
-  card.field_site = primary || null;
-  card.settlement_norm = sPrim || sCur || null;
-  if (sCur && objBySettlement[sCur]) card.object_id = objBySettlement[sCur];
-  else if (sPrim && objBySettlement[sPrim])
-    card.object_id_hint = objBySettlement[sPrim];
-  return card;
+  return { ...row };
 }
 
 // ---------- Обход всех normalized на диске ----------
