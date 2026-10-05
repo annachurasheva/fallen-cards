@@ -1,0 +1,40 @@
+
+===== Файл: obd_primary_urls_2026-09-22-22-37-31 =====
+✂️  --limit=10: берём первые 10 из 326
+📄 Всего URL: 326, осталось обработать: 10
+📁 Результаты: C:\astro-projects\fallen-cards\data\processed\obd_primary_urls_2026-09-22-22-37-31\obd_primary_urls_2026-09-22-22-37-31__parser_mem2026.csv
+📁 Результаты: C:\astro-projects\fallen-cards\data\processed\obd_primary_urls_2026-09-22-22-37-31\obd_primary_urls_2026-09-22-22-37-31__other_mem2026_.csv
+
+[1/10] https://obd-memorial.ru/html/info.htm?id=551267253
+   ✅ убит/погиб — добавлен в killed
+
+[2/10] https://obd-memorial.ru/html/info.htm?id=551267257
+   ✅ убит/погиб — добавлен в killed
+
+[3/10] https://obd-memorial.ru/html/info.htm?id=551268253
+   ✅ убит/погиб — добавлен в killed
+
+[4/10] https://obd-memorial.ru/html/info.htm?id=551268409
+   ✅ убит/погиб — добавлен в killed
+
+[5/10] https://obd-memorial.ru/html/info.htm?id=551268413
+   ✅ убит/погиб — добавлен в killed
+
+[6/10] https://obd-memorial.ru/html/info.htm?id=551268485
+   ✅ убит/погиб — добавлен в killed
+
+[7/10] https://obd-memorial.ru/html/info.htm?id=551268489
+   ✅ убит/погиб — добавлен в killed
+
+[8/10] https://obd-memorial.ru/html/info.htm?id=551270505
+   ✅ убит/погиб — добавлен в killed
+
+[9/10] https://obd-memorial.ru/html/info.htm?id=551270509
+   ✅ убит/погиб — добавлен в killed
+
+[10/10] https://obd-memorial.ru/html/info.htm?id=551270513
+   ✅ убит/погиб — добавлен в killed
+
+📊 Финальное сохранение результатов...
+   💾 obd_primary_urls_2026-09-22-22-37-31__parser_mem2026.csv — 10 записей
+   💾 obd_primary_urls_2026-09-22-22-37-31__other_mem2026_.csv — 0 записей
