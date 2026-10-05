@@ -38,3 +38,962 @@
 📊 Финальное сохранение результатов...
    💾 obd_primary_urls_2026-09-22-22-37-31__parser_mem2026.csv — 10 записей
    💾 obd_primary_urls_2026-09-22-22-37-31__other_mem2026_.csv — 0 записей
+=== Парсер карточек персон OBD Memorial (ESM) ===
+📂 Входной файл: C:\astro-projects\fallen-cards\data\raw\obd_primary_urls_2026-09-22-22-37-31.txt
+📄 Всего URL: 326, осталось обработать: 316, пропуск: 10
+🔗 Подключено к Edge CDP localhost:9226
+
+[1/316] https://obd-memorial.ru/html/info.htm?id=551843105
+   ✅ killed: Коваленко Василий Кузьмич
+
+[2/316] https://obd-memorial.ru/html/info.htm?id=551843121
+   ✅ killed: Чумаков Григорий Иванович
+
+[3/316] https://obd-memorial.ru/html/info.htm?id=551843137
+   ✅ killed: Чудаков Федор Федорович
+
+[4/316] https://obd-memorial.ru/html/info.htm?id=551843141
+   ✅ killed: Выскребцов Михаил Михайлович
+
+[5/316] https://obd-memorial.ru/html/info.htm?id=551843145
+   ✅ killed: Сагальщиян Рубен Агримат.
+
+[6/316] https://obd-memorial.ru/html/info.htm?id=551843149
+   ✅ killed: Арзумян Вагап Ак.
+
+[7/316] https://obd-memorial.ru/html/info.htm?id=551843181
+   ✅ killed: Михеев Василий Иванович
+
+[8/316] https://obd-memorial.ru/html/info.htm?id=551843185
+   ✅ killed: Чуадзе Пирус Иванович
+
+[9/316] https://obd-memorial.ru/html/info.htm?id=551843189
+   ✅ killed: Амидов Самсон Уморос.
+
+[10/316] https://obd-memorial.ru/html/info.htm?id=551843221
+   ✅ killed: Аванесов Маркар Зилфисир.
+
+[11/316] https://obd-memorial.ru/html/info.htm?id=551843225
+   ✅ killed: Цареташвили Шам. Н.
+
+[12/316] https://obd-memorial.ru/html/info.htm?id=551843401
+   ✅ killed: Лащилин Иван Георгиевич
+
+[13/316] https://obd-memorial.ru/html/info.htm?id=552017345
+   ✅ killed: Мальцев Иван Иванович
+
+[14/316] https://obd-memorial.ru/html/info.htm?id=552298189
+   ✅ killed: Терещенко Николай Дм.
+
+[15/316] https://obd-memorial.ru/html/info.htm?id=556699157
+   ✅ killed: Бадалов Григорий Иванович
+
+[16/316] https://obd-memorial.ru/html/info.htm?id=1161954305
+   ✅ killed: Мащенко Владимир Данилович
+
+[17/316] https://obd-memorial.ru/html/info.htm?id=506133137
+   ✅ killed: Королев Василий Осипович
+
+[18/316] https://obd-memorial.ru/html/info.htm?id=506151089
+   ✅ killed: Чечеткин Никита Акимович
+
+[19/316] https://obd-memorial.ru/html/info.htm?id=506277669
+   ✅ killed: Маминаев Бази Ибрагимович
+
+[20/316] https://obd-memorial.ru/html/info.htm?id=506297689
+   ✅ killed: Аксенов Иван Афанасьевич
+
+[21/316] https://obd-memorial.ru/html/info.htm?id=509971665
+   ✅ killed: Колосов Василий Романович
+
+[22/316] https://obd-memorial.ru/html/info.htm?id=510396261
+   ✅ killed: Чекалов Константин Васильевич
+
+[23/316] https://obd-memorial.ru/html/info.htm?id=550818833
+   ✅ killed: Барский Лейб Менделеевич
+
+[24/316] https://obd-memorial.ru/html/info.htm?id=550818837
+   ✅ killed: Колодка Мих. Кириллович
+
+[25/316] https://obd-memorial.ru/html/info.htm?id=550818845
+   ✅ killed: Вайзер Ефим Рафинович
+
+[26/316] https://obd-memorial.ru/html/info.htm?id=550818853
+   ✅ killed: Прохоров Константин Венимаминович
+
+[27/316] https://obd-memorial.ru/html/info.htm?id=551196337
+   ✅ killed: Шайда Федор Андреевич
+
+[28/316] https://obd-memorial.ru/html/info.htm?id=551197513
+   ✅ killed: Соловатов Асельзер Хан
+
+[29/316] https://obd-memorial.ru/html/info.htm?id=551197569
+   ✅ killed: Жуков Иосиф Ал-ч
+
+[30/316] https://obd-memorial.ru/html/info.htm?id=551197833
+   ✅ killed: Бойко Иван Михайлович
+
+[31/316] https://obd-memorial.ru/html/info.htm?id=551197837
+   ✅ killed: Собченко Влад. Ефимович
+
+[32/316] https://obd-memorial.ru/html/info.htm?id=551197841
+   ✅ killed: Белодедов Дмитрий Ив.
+
+[33/316] https://obd-memorial.ru/html/info.htm?id=551197949
+   ✅ killed: Белый Николай Павлович
+
+[34/316] https://obd-memorial.ru/html/info.htm?id=551197977
+   ✅ killed: Шолохов Леонид Сергеевич
+
+[35/316] https://obd-memorial.ru/html/info.htm?id=551197981
+   ✅ killed: Квач Андрей Иванович
+
+[36/316] https://obd-memorial.ru/html/info.htm?id=551197993
+   ✅ killed: Митин Константин Иванович
+
+[37/316] https://obd-memorial.ru/html/info.htm?id=551198129
+   ✅ killed: Отрубенко Михаил Степанович
+
+[38/316] https://obd-memorial.ru/html/info.htm?id=551198133
+[ERROR]    ❌ https://obd-memorial.ru/html/info.htm?id=551198133 — net::ERR_CONNECTION_TIMED_OUT at https://obd-memorial.ru/html/info.htm?id=551198133
+
+[39/316] https://obd-memorial.ru/html/info.htm?id=551198137
+[ERROR]    ❌ https://obd-memorial.ru/html/info.htm?id=551198137 — net::ERR_CONNECTION_TIMED_OUT at https://obd-memorial.ru/html/info.htm?id=551198137
+
+[40/316] https://obd-memorial.ru/html/info.htm?id=551200137
+[ERROR]    ❌ https://obd-memorial.ru/html/info.htm?id=551200137 — net::ERR_CONNECTION_TIMED_OUT at https://obd-memorial.ru/html/info.htm?id=551200137
+
+[41/316] https://obd-memorial.ru/html/info.htm?id=551200141
+[ERROR]    ❌ https://obd-memorial.ru/html/info.htm?id=551200141 — Navigation timeout of 60000 ms exceeded
+
+[42/316] https://obd-memorial.ru/html/info.htm?id=551200177
+   ✅ killed: Полеников П. И.
+
+[43/316] https://obd-memorial.ru/html/info.htm?id=551200181
+   ✅ killed: Стогний Иван Линич
+
+[44/316] https://obd-memorial.ru/html/info.htm?id=551200185
+   ✅ killed: Григоренко И. Г.
+
+[45/316] https://obd-memorial.ru/html/info.htm?id=551267125
+   ✅ killed: Мовчан Иван Иванович
+
+[46/316] https://obd-memorial.ru/html/info.htm?id=551267129
+   ✅ killed: Кобахидзе Авсентий Карамонович
+
+[47/316] https://obd-memorial.ru/html/info.htm?id=551267133
+   ✅ killed: Васильев Александр Андреевич
+
+[48/316] https://obd-memorial.ru/html/info.htm?id=551267137
+   ✅ killed: Вишников Семен Иванович
+
+[49/316] https://obd-memorial.ru/html/info.htm?id=551267141
+   ✅ killed: Чекалов Константин Васильевич
+
+[50/316] https://obd-memorial.ru/html/info.htm?id=551267145
+   ✅ killed: Небеснюк Павел Васильевич
+
+[51/316] https://obd-memorial.ru/html/info.htm?id=551267149
+   ✅ killed: Чурашев Ахмед Абдурагимович
+
+[52/316] https://obd-memorial.ru/html/info.htm?id=551267185
+   ✅ killed: Ефремов Исидор Иванович
+
+[53/316] https://obd-memorial.ru/html/info.htm?id=551267189
+   ✅ killed: Балабеков Тактибай Масонович
+
+[54/316] https://obd-memorial.ru/html/info.htm?id=551267193
+   ✅ killed: Курбанов Курбан Али
+
+[55/316] https://obd-memorial.ru/html/info.htm?id=551267197
+   ✅ killed: Забываев Иван Абрамович
+
+[56/316] https://obd-memorial.ru/html/info.htm?id=551267201
+   ✅ killed: Клименко Алексей Гаврилович
+
+[57/316] https://obd-memorial.ru/html/info.htm?id=551267205
+   ✅ killed: Кбиладзе Георгий Михайлович
+
+[58/316] https://obd-memorial.ru/html/info.htm?id=551267209
+   ✅ killed: Федоров Павел Васильевич
+
+[59/316] https://obd-memorial.ru/html/info.htm?id=551267217
+   ✅ killed: Ралдугин Виталий Иванович
+
+[60/316] https://obd-memorial.ru/html/info.htm?id=551267221
+   ✅ killed: Ложкин Иван Димитриевич
+
+[61/316] https://obd-memorial.ru/html/info.htm?id=551267225
+   ✅ killed: Арнаутов Василий Захарович
+
+[62/316] https://obd-memorial.ru/html/info.htm?id=551267229
+   ✅ killed: Бакрадзе Бенедикт Антимосович
+
+[63/316] https://obd-memorial.ru/html/info.htm?id=551267233
+   ✅ killed: Суров Петр Васильевич
+
+[64/316] https://obd-memorial.ru/html/info.htm?id=551267237
+   ✅ killed: Кудаманов Василий Гали оглы
+
+[65/316] https://obd-memorial.ru/html/info.htm?id=551267241
+   ✅ killed: Бахуташвили Шалва Георгиевич
+
+[66/316] https://obd-memorial.ru/html/info.htm?id=551267249
+   ✅ killed: Буханец Иван Семенович
+
+[67/316] https://obd-memorial.ru/html/info.htm?id=551270514
+   ✅ killed: Пащенко Петр Алексеевич
+
+[68/316] https://obd-memorial.ru/html/info.htm?id=551270527
+   ✅ killed: Прохоров Константин В.
+
+[69/316] https://obd-memorial.ru/html/info.htm?id=551270546
+   ✅ killed: Бакуменко Николай Макарович
+
+[70/316] https://obd-memorial.ru/html/info.htm?id=551270550
+   ✅ killed: Шевченко Виктор Аксенович
+
+[71/316] https://obd-memorial.ru/html/info.htm?id=551843103
+   ✅ killed: Джалилов Кабит Касанов.
+
+[72/316] https://obd-memorial.ru/html/info.htm?id=551843106
+   ✅ killed: Гаргидзе Лаврентий Леванович
+
+[73/316] https://obd-memorial.ru/html/info.htm?id=551843115
+   ✅ killed: Самальский Иван Иванович
+
+[74/316] https://obd-memorial.ru/html/info.htm?id=551843119
+   ✅ killed: Рубан Михаил Ефимович
+
+[75/316] https://obd-memorial.ru/html/info.htm?id=551843131
+   ✅ killed: Бекоев Константин Иванович
+
+[76/316] https://obd-memorial.ru/html/info.htm?id=551843134
+   ✅ killed: Кондалаки Георгий А.
+
+[77/316] https://obd-memorial.ru/html/info.htm?id=551843135
+   ✅ killed: Агаев Я. Агаджанов
+
+[78/316] https://obd-memorial.ru/html/info.htm?id=551843138
+   ✅ killed: Карнилов Шота Михайлович
+
+[79/316] https://obd-memorial.ru/html/info.htm?id=551843142
+   ✅ killed: Арутюнов Егиш Амбарцумович
+
+[80/316] https://obd-memorial.ru/html/info.htm?id=551843143
+   ✅ killed: Стрекалов Василий Димитр.
+
+[81/316] https://obd-memorial.ru/html/info.htm?id=551843146
+   ✅ killed: Григорян Аслат Сыркис.
+
+[82/316] https://obd-memorial.ru/html/info.htm?id=551843147
+   ✅ killed: Гоняп Оганес Осипович
+
+[83/316] https://obd-memorial.ru/html/info.htm?id=551843150
+   ✅ killed: Туманов Иосиф Васил.
+
+[84/316] https://obd-memorial.ru/html/info.htm?id=551843151
+   ✅ killed: Назарян Иван Мур.
+
+[85/316] https://obd-memorial.ru/html/info.htm?id=551843155
+   ✅ killed: Ваганян Занавер Сор...
+
+[86/316] https://obd-memorial.ru/html/info.htm?id=551843182
+   ✅ killed: Стрелков Степан Михайл.
+
+[87/316] https://obd-memorial.ru/html/info.htm?id=551843183
+   ✅ killed: Козгорин Сергей Иванович
+
+[88/316] https://obd-memorial.ru/html/info.htm?id=551843186
+   ✅ killed: Воронцов Алекс. Мих.
+
+[89/316] https://obd-memorial.ru/html/info.htm?id=551843187
+   ✅ killed: Плачендовский Харлам Андр.
+
+[90/316] https://obd-memorial.ru/html/info.htm?id=551843190
+   ✅ killed: Мукмонят Филип Багрот.
+
+[91/316] https://obd-memorial.ru/html/info.htm?id=551843218
+   ✅ killed: Джафаров Али Акбер Теймур оглы
+
+[92/316] https://obd-memorial.ru/html/info.htm?id=551843219
+   ✅ killed: Кича Алексей Васильевич
+
+[93/316] https://obd-memorial.ru/html/info.htm?id=551843222
+   ✅ killed: Шликопян Хачик Барабек.
+
+[94/316] https://obd-memorial.ru/html/info.htm?id=551843223
+   ✅ killed: Валасюк Макар Денисович
+
+[95/316] https://obd-memorial.ru/html/info.htm?id=551843226
+   ✅ killed: Махорчан Дубай К.
+
+[96/316] https://obd-memorial.ru/html/info.htm?id=551843227
+   ✅ killed: Голобародько Мих. А.
+
+[97/316] https://obd-memorial.ru/html/info.htm?id=551843402
+   ✅ killed: Светозаров Михаил Петрович
+
+[98/316] https://obd-memorial.ru/html/info.htm?id=551843406
+   ✅ killed: Фирсов Виктор Николаевич
+
+[99/316] https://obd-memorial.ru/html/info.htm?id=551843423
+   ✅ killed: Горшков Иван Семенович
+
+[100/316] https://obd-memorial.ru/html/info.htm?id=552017346
+   ✅ killed: Гапон Илья Михайлович
+
+[101/316] https://obd-memorial.ru/html/info.htm?id=552017347
+   ✅ killed: Романов Алексей Евсеевич
+
+[102/316] https://obd-memorial.ru/html/info.htm?id=552017350
+   ✅ killed: Глухов Григорий Васильевич
+
+[103/316] https://obd-memorial.ru/html/info.htm?id=552017351
+   ✅ killed: Церковнюк Степан Петрович
+
+[104/316] https://obd-memorial.ru/html/info.htm?id=552298946
+   ✅ killed: Комахидзе
+
+[105/316] https://obd-memorial.ru/html/info.htm?id=556699174
+   ✅ killed: Курбанов Курбан Али-оглы
+
+[106/316] https://obd-memorial.ru/html/info.htm?id=1160234893
+   ✅ killed: Сухоплюев Иван Игнатьевич
+
+[107/316] https://obd-memorial.ru/html/info.htm?id=1914825757
+   ✅ killed: Клименко Алексей Гаврилович
+
+[108/316] https://obd-memorial.ru/html/info.htm?id=501675789
+   ✅ killed: Белошенко Гавриил Гаврилович
+
+[109/316] https://obd-memorial.ru/html/info.htm?id=501675797
+   ✅ killed: Коньков Гавриил Степанович
+
+[110/316] https://obd-memorial.ru/html/info.htm?id=501675801
+   ✅ killed: Семенов Аркадий Иванович
+
+[111/316] https://obd-memorial.ru/html/info.htm?id=501675805
+   ✅ killed: Щербинин Григорий Яковлевич
+
+[112/316] https://obd-memorial.ru/html/info.htm?id=501675809
+   ✅ killed: Скорняков Григорий Михайлович
+
+[113/316] https://obd-memorial.ru/html/info.htm?id=501757897
+   ✅ killed: Дятлов Иван Семенович
+
+[114/316] https://obd-memorial.ru/html/info.htm?id=505715565
+   ✅ killed: Заика Иван Семенович
+
+[115/316] https://obd-memorial.ru/html/info.htm?id=505727353
+   ✅ killed: Лабыш Алекс. Иванович
+
+[116/316] https://obd-memorial.ru/html/info.htm?id=505988073
+   ✅ killed: Жикол Петр Иванович
+
+[117/316] https://obd-memorial.ru/html/info.htm?id=551267143
+   ✅ killed: Ясинский Исаак Данилович
+
+[118/316] https://obd-memorial.ru/html/info.htm?id=551267146
+   ✅ killed: Шурупов Константин Сергеевич
+
+[119/316] https://obd-memorial.ru/html/info.htm?id=551267147
+   ✅ killed: Середа Дмитрий Васильевич
+
+[120/316] https://obd-memorial.ru/html/info.htm?id=551267150
+   ✅ killed: Ибрагимов Магмед Ракушильясович
+
+[121/316] https://obd-memorial.ru/html/info.htm?id=551267151
+   ✅ killed: Самбиличенко Михаил Константинович
+
+[122/316] https://obd-memorial.ru/html/info.htm?id=551267186
+   ✅ killed: Иванов Федор Васильевич
+
+[123/316] https://obd-memorial.ru/html/info.htm?id=551267187
+   ✅ killed: Чорогьян Огван Гарежиев.
+
+[124/316] https://obd-memorial.ru/html/info.htm?id=551267190
+   ✅ killed: Миладзе Ной Спиридонович
+
+[125/316] https://obd-memorial.ru/html/info.htm?id=551267191
+   ✅ killed: Гусейнов Гусейн Бала
+
+[126/316] https://obd-memorial.ru/html/info.htm?id=551267194
+   ✅ killed: Побережный Никита Ильич
+
+[127/316] https://obd-memorial.ru/html/info.htm?id=551267195
+   ✅ killed: Бадалов Григорий Иванович
+
+[128/316] https://obd-memorial.ru/html/info.htm?id=551267198
+   ✅ killed: Семидидько Сава Варфал.
+
+[129/316] https://obd-memorial.ru/html/info.htm?id=551267199
+   ✅ killed: Мухин Александр Алексеевич
+
+[130/316] https://obd-memorial.ru/html/info.htm?id=551267202
+   ✅ killed: Луговых Леонид Дмитриевич
+
+[131/316] https://obd-memorial.ru/html/info.htm?id=551267206
+   ✅ killed: Человьян Павел Алексеевич
+
+[132/316] https://obd-memorial.ru/html/info.htm?id=551267207
+   ✅ killed: Бурда Георгий Артамонович
+
+[133/316] https://obd-memorial.ru/html/info.htm?id=551267218
+   ✅ killed: Даниэлян Николай Петрович
+
+[134/316] https://obd-memorial.ru/html/info.htm?id=551267219
+   ✅ killed: Свистунов Александр Иванович
+
+[135/316] https://obd-memorial.ru/html/info.htm?id=551267222
+   ✅ killed: Прудиус Константин Андреевич
+
+[136/316] https://obd-memorial.ru/html/info.htm?id=551267223
+   ✅ killed: Битиев Иосиф Иванович
+
+[137/316] https://obd-memorial.ru/html/info.htm?id=551267226
+   ✅ killed: Мучник Михаил Абович
+
+[138/316] https://obd-memorial.ru/html/info.htm?id=551267227
+   ✅ killed: Клюшниченко Михаил Семенович
+
+[139/316] https://obd-memorial.ru/html/info.htm?id=551267230
+   ✅ killed: Богданов Георгий Алексеевич
+
+[140/316] https://obd-memorial.ru/html/info.htm?id=551267231
+   ✅ killed: Иваница Иван Иванович
+
+[141/316] https://obd-memorial.ru/html/info.htm?id=551267234
+   ✅ killed: Чечин Димитрий Афанасьевич
+
+[142/316] https://obd-memorial.ru/html/info.htm?id=551267235
+   ✅ killed: Чахоян Вагашиш Саропович
+
+[143/316] https://obd-memorial.ru/html/info.htm?id=551267238
+   ✅ killed: Шенгелия Дементий Павлович
+
+[144/316] https://obd-memorial.ru/html/info.htm?id=551267239
+   ✅ killed: Цайлагов Александр Николаевич
+
+[145/316] https://obd-memorial.ru/html/info.htm?id=551267242
+   ✅ killed: Кереселидзе Шалва Владимирович
+
+[146/316] https://obd-memorial.ru/html/info.htm?id=551267243
+   ✅ killed: Елисеев Кузьма Семенович
+
+[147/316] https://obd-memorial.ru/html/info.htm?id=551267246
+   ✅ killed: Югасов Николай Андреевич
+
+[148/316] https://obd-memorial.ru/html/info.htm?id=551267247
+   ✅ killed: Пешков Иван Леонтьевич
+
+[149/316] https://obd-memorial.ru/html/info.htm?id=551267250
+   ✅ killed: Бондаренко Николай Данилович
+
+[150/316] https://obd-memorial.ru/html/info.htm?id=551267251
+   ✅ killed: Кекелия Шалва Лукич
+
+[151/316] https://obd-memorial.ru/html/info.htm?id=551267258
+   ✅ killed: Цховребов Сергей Ильич
+
+[152/316] https://obd-memorial.ru/html/info.htm?id=551268243
+   ✅ killed: Калмыков Александр Иванович
+
+[153/316] https://obd-memorial.ru/html/info.htm?id=551268251
+   ✅ killed: Руденко Иван Андреевич
+
+[154/316] https://obd-memorial.ru/html/info.htm?id=551268254
+   ✅ killed: Рудобашта Василий Иванович
+
+[155/316] https://obd-memorial.ru/html/info.htm?id=551268255
+   ✅ killed: Ваусов Алексей Петрович
+
+[156/316] https://obd-memorial.ru/html/info.htm?id=551268259
+   ✅ killed: Шахнович Николай Федорович
+
+[157/316] https://obd-memorial.ru/html/info.htm?id=551268410
+   ✅ killed: Хачатурян Семен Семенович
+
+[158/316] https://obd-memorial.ru/html/info.htm?id=551268411
+   ✅ killed: Ниматов Ибрагим А.
+
+[159/316] https://obd-memorial.ru/html/info.htm?id=551268414
+   ✅ killed: Айрапетян Сергей Макарович
+
+[160/316] https://obd-memorial.ru/html/info.htm?id=551268483
+   ✅ killed: Гробивец Павел Дмитриевич
+
+[161/316] https://obd-memorial.ru/html/info.htm?id=551268490
+   ✅ killed: Аванесян Арто Александрович
+
+[162/316] https://obd-memorial.ru/html/info.htm?id=551270503
+   ✅ killed: Максимов Максим Максимович
+
+[163/316] https://obd-memorial.ru/html/info.htm?id=551270506
+   ✅ killed: Бычков Анатолий Петрович
+
+[164/316] https://obd-memorial.ru/html/info.htm?id=551270507
+   ✅ killed: Ясинский Исаак Данилович
+
+[165/316] https://obd-memorial.ru/html/info.htm?id=551270510
+   ✅ killed: Мохнач Данил Григор.
+
+[166/316] https://obd-memorial.ru/html/info.htm?id=551270511
+   ✅ killed: Добровольский Михаил Васильевич
+
+[167/316] https://obd-memorial.ru/html/info.htm?id=550818838
+   ✅ killed: Бакуменко Николай Макарович
+
+[168/316] https://obd-memorial.ru/html/info.htm?id=550818839
+   ✅ killed: Пащенко Петр Алексеевич
+
+[169/316] https://obd-memorial.ru/html/info.htm?id=551196334
+   ✅ killed: Петров Михаил Севастьянович
+
+[170/316] https://obd-memorial.ru/html/info.htm?id=551196335
+   ✅ killed: Ополяра Сергей Терентьевич
+
+[171/316] https://obd-memorial.ru/html/info.htm?id=551197566
+   ✅ killed: Костарнов Вас. Лавр.
+
+[172/316] https://obd-memorial.ru/html/info.htm?id=551197567
+   ✅ killed: Бапик Павел Федорович
+
+[173/316] https://obd-memorial.ru/html/info.htm?id=551197570
+   ✅ killed: Пересуцкий Никол. Павлович
+
+[174/316] https://obd-memorial.ru/html/info.htm?id=551197571
+   ✅ killed: Фендриков Никол. Никол.
+
+[175/316] https://obd-memorial.ru/html/info.htm?id=551197831
+   ✅ killed: Баровиков Иван Иванович
+
+[176/316] https://obd-memorial.ru/html/info.htm?id=551197834
+   ✅ killed: Бабин Георгий Иванович
+
+[177/316] https://obd-memorial.ru/html/info.htm?id=551197835
+   ✅ killed: Семенихин Филипп Васильевич
+
+[178/316] https://obd-memorial.ru/html/info.htm?id=551197838
+   ✅ killed: Сотников Егор Терентьевич
+
+[179/316] https://obd-memorial.ru/html/info.htm?id=551197839
+   ✅ killed: Пипич Максим Максимович
+
+[180/316] https://obd-memorial.ru/html/info.htm?id=551197842
+   ✅ killed: Сальников Григорий Львович
+
+[181/316] https://obd-memorial.ru/html/info.htm?id=551197878
+   ✅ killed: Ветров Алексей Арх.
+
+[182/316] https://obd-memorial.ru/html/info.htm?id=551197950
+   ✅ killed: Третьяков Сергей Ст.
+
+[183/316] https://obd-memorial.ru/html/info.htm?id=551197974
+   ✅ killed: Филиппов Николай Алексеевич
+
+[184/316] https://obd-memorial.ru/html/info.htm?id=551197975
+   ✅ killed: Титаренко Иван Савельевич
+
+[185/316] https://obd-memorial.ru/html/info.htm?id=551197978
+   ✅ killed: Перов Иван Афонасьевич
+
+[186/316] https://obd-memorial.ru/html/info.htm?id=551197979
+   ✅ killed: Каширский Григорий Васильевич
+
+[187/316] https://obd-memorial.ru/html/info.htm?id=551197982
+   ✅ killed: Шестаков Анатолий Ив.
+
+[188/316] https://obd-memorial.ru/html/info.htm?id=551197983
+   ✅ killed: Антонюк Петр Иванович
+
+[189/316] https://obd-memorial.ru/html/info.htm?id=551197994
+   ✅ killed: Карабулин Василий Иванович
+
+[190/316] https://obd-memorial.ru/html/info.htm?id=551197995
+   ✅ killed: Виляев Павел Иванович
+
+[191/316] https://obd-memorial.ru/html/info.htm?id=551198083
+   ✅ killed: Поповский Иван Степанович
+
+[192/316] https://obd-memorial.ru/html/info.htm?id=551198118
+   ✅ killed: Белошенко Гаврил Гаврилович
+
+[193/316] https://obd-memorial.ru/html/info.htm?id=551198126
+   ✅ killed: Коньков Гаврил Степанович
+
+[194/316] https://obd-memorial.ru/html/info.htm?id=551198127
+   ✅ killed: Барышников Степан Иванович
+
+[195/316] https://obd-memorial.ru/html/info.htm?id=551198130
+   ✅ killed: Семаков Аркадий Иванович
+
+[196/316] https://obd-memorial.ru/html/info.htm?id=551198131
+   ✅ killed: Шишуков Григорий Яковлевич
+
+[197/316] https://obd-memorial.ru/html/info.htm?id=551198134
+   ✅ killed: Щербинин Григорий Яковлевич
+
+[198/316] https://obd-memorial.ru/html/info.htm?id=551198135
+   ✅ other: Олюнин Степан Афанасьевич
+
+[199/316] https://obd-memorial.ru/html/info.htm?id=551200138
+   ✅ killed: Кабалашвили Шалиф
+
+[200/316] https://obd-memorial.ru/html/info.htm?id=551200139
+   ✅ killed: Кожевников В. Т.
+
+[201/316] https://obd-memorial.ru/html/info.htm?id=551200142
+   ✅ killed: Бабков Василий Федорович
+
+[202/316] https://obd-memorial.ru/html/info.htm?id=551200155
+   ✅ killed: Багиров
+
+[203/316] https://obd-memorial.ru/html/info.htm?id=551200178
+   ✅ killed: Цвигун И. М.
+
+[204/316] https://obd-memorial.ru/html/info.htm?id=551200179
+   ✅ killed: Симоненко П. И.
+
+[205/316] https://obd-memorial.ru/html/info.htm?id=551200182
+   ✅ killed: Коробинков Алексей М.
+
+[206/316] https://obd-memorial.ru/html/info.htm?id=551200183
+   ✅ killed: Гашаев Г. А.
+
+[207/316] https://obd-memorial.ru/html/info.htm?id=551200186
+   ✅ killed: Головнев В. Я.
+
+[208/316] https://obd-memorial.ru/html/info.htm?id=551267126
+   ✅ killed: Гашарник Михаил Исаакович
+
+[209/316] https://obd-memorial.ru/html/info.htm?id=551267127
+   ✅ killed: Огородников Иван Сергеевич
+
+[210/316] https://obd-memorial.ru/html/info.htm?id=551267130
+   ✅ killed: Богорашвили Карп Паршович
+
+[211/316] https://obd-memorial.ru/html/info.htm?id=551267131
+   ✅ killed: Керимов Афиар Салб оглы
+
+[212/316] https://obd-memorial.ru/html/info.htm?id=551267134
+   ✅ killed: Разин Степан Прохорович
+
+[213/316] https://obd-memorial.ru/html/info.htm?id=551267135
+   ✅ killed: Суховерков Николай Федорович
+
+[214/316] https://obd-memorial.ru/html/info.htm?id=551267138
+   ✅ killed: Мекелошвили Николай Иванович
+
+[215/316] https://obd-memorial.ru/html/info.htm?id=551267139
+   ✅ killed: Самохвалов Владимир Андреевич
+
+[216/316] https://obd-memorial.ru/html/info.htm?id=551267142
+   ✅ killed: Лашнов Евгений Константинович
+
+[217/316] https://obd-memorial.ru/html/info.htm?id=551268252
+   ✅ killed: Вайзер Ефим Рафилович
+
+[218/316] https://obd-memorial.ru/html/info.htm?id=551268408
+   ✅ killed: Гущян Георгий Моисеевич
+
+[219/316] https://obd-memorial.ru/html/info.htm?id=551268412
+   ✅ killed: Алимухамедов Махмед
+
+[220/316] https://obd-memorial.ru/html/info.htm?id=551268484
+   ✅ killed: Спарнелов Петр Николаевич
+
+[221/316] https://obd-memorial.ru/html/info.htm?id=551270508
+   ✅ killed: Барский Лейб Макбелеевич
+
+[222/316] https://obd-memorial.ru/html/info.htm?id=551270512
+   ✅ killed: Колодка Михаил Кирилович
+
+[223/316] https://obd-memorial.ru/html/info.htm?id=551843104
+   ✅ killed: Кальченко Степан Сергеевич
+
+[224/316] https://obd-memorial.ru/html/info.htm?id=551843120
+   ✅ killed: Кирилов Тимофей Никол.
+
+[225/316] https://obd-memorial.ru/html/info.htm?id=551843132
+   ✅ killed: Бекоев Граер Семенович
+
+[226/316] https://obd-memorial.ru/html/info.htm?id=551843136
+   ✅ killed: Агоджонов Мамир
+
+[227/316] https://obd-memorial.ru/html/info.htm?id=551843144
+   ✅ killed: Асатурян Гаврил Мкртачевич
+
+[228/316] https://obd-memorial.ru/html/info.htm?id=551843148
+   ✅ killed: Татевосян Ак. Кар.
+
+[229/316] https://obd-memorial.ru/html/info.htm?id=551843156
+   ✅ killed: Агоджинян Шамир Амберц.
+
+[230/316] https://obd-memorial.ru/html/info.htm?id=551843184
+   ✅ killed: Василенко Никол. Афан.
+
+[231/316] https://obd-memorial.ru/html/info.htm?id=551843188
+   ✅ killed: Балаконян Тагран Хач.
+
+[232/316] https://obd-memorial.ru/html/info.htm?id=551843220
+   ✅ killed: Мантошвили Ясмоне Григорьевич
+
+[233/316] https://obd-memorial.ru/html/info.htm?id=551843224
+   ✅ killed: Погосов Сарабат Сари.
+
+[234/316] https://obd-memorial.ru/html/info.htm?id=551843228
+   ✅ killed: Погасов Абк... М.
+
+[235/316] https://obd-memorial.ru/html/info.htm?id=551843408
+   ✅ killed: Михайлов Петр Илларионович
+
+[236/316] https://obd-memorial.ru/html/info.htm?id=551843424
+   ✅ killed: Решетников Илья Егорович
+
+[237/316] https://obd-memorial.ru/html/info.htm?id=552017348
+   ✅ killed: Памашкин Андрей Дмитриевич
+
+[238/316] https://obd-memorial.ru/html/info.htm?id=552297680
+   ✅ killed: Бубнов Михаил Иванович
+
+[239/316] https://obd-memorial.ru/html/info.htm?id=552297716
+   ✅ killed: Мамедов Мирза
+
+[240/316] https://obd-memorial.ru/html/info.htm?id=552298304
+   ✅ killed: Титков
+
+[241/316] https://obd-memorial.ru/html/info.htm?id=552298844
+   ✅ killed: Любчик
+
+[242/316] https://obd-memorial.ru/html/info.htm?id=1159722797
+   ✅ killed: Сухоплюев Иван Игнатьевич
+
+[243/316] https://obd-memorial.ru/html/info.htm?id=501675798
+   ✅ killed: Барышников Степан Иванович
+
+[244/316] https://obd-memorial.ru/html/info.htm?id=501675799
+   ✅ killed: Песцов Иван Архипович
+
+[245/316] https://obd-memorial.ru/html/info.htm?id=501675802
+   ✅ killed: Шишуков Григорий Яковлевич
+
+[246/316] https://obd-memorial.ru/html/info.htm?id=501675803
+   ✅ killed: Рябошлык Федор Семенович
+
+[247/316] https://obd-memorial.ru/html/info.htm?id=501675806
+   ✅ other: Олюнин Степан Афанасьевич
+
+[248/316] https://obd-memorial.ru/html/info.htm?id=501675807
+   ✅ killed: Колесников Михаил Васильевич
+
+[249/316] https://obd-memorial.ru/html/info.htm?id=501675810
+   ✅ killed: Клепин Сергей Федотович
+
+[250/316] https://obd-memorial.ru/html/info.htm?id=501860562
+   ✅ killed: Федотов
+
+[251/316] https://obd-memorial.ru/html/info.htm?id=501860655
+   ✅ killed: Бурин Федор Никитич
+
+[252/316] https://obd-memorial.ru/html/info.htm?id=505944623
+   ✅ killed: Решетников Захар Иванович
+
+[253/316] https://obd-memorial.ru/html/info.htm?id=505974374
+   ✅ killed: Зюзин А. Т.
+
+[254/316] https://obd-memorial.ru/html/info.htm?id=506191263
+   ✅ killed: Гуляев Михаил Иванович
+
+[255/316] https://obd-memorial.ru/html/info.htm?id=506209674
+   ✅ killed: Кирьянов Николай Владимирович
+
+[256/316] https://obd-memorial.ru/html/info.htm?id=506244775
+   ✅ killed: Котков Иван Фелинович
+
+[257/316] https://obd-memorial.ru/html/info.htm?id=506263670
+   ✅ killed: Верховский Абрам Исакович
+
+[258/316] https://obd-memorial.ru/html/info.htm?id=506298007
+   ✅ killed: Чекалов Константин Васильевич
+
+[259/316] https://obd-memorial.ru/html/info.htm?id=509971666
+   ✅ killed: Мащенко Владимир Данилович
+
+[260/316] https://obd-memorial.ru/html/info.htm?id=509971667
+   ✅ killed: Кожура Федор Павлович
+
+[261/316] https://obd-memorial.ru/html/info.htm?id=510396299
+   ✅ killed: Федоров Павел Васильевич
+
+[262/316] https://obd-memorial.ru/html/info.htm?id=550817167
+   ✅ killed: Калмыков Александр Иванович
+
+[263/316] https://obd-memorial.ru/html/info.htm?id=550818830
+   ✅ killed: Ермолаев Николай Сергеевич
+
+[264/316] https://obd-memorial.ru/html/info.htm?id=550818831
+   ✅ killed: Бычков Анатолий Петрович
+
+[265/316] https://obd-memorial.ru/html/info.htm?id=550818834
+   ✅ killed: Мухин Александр Алексеевич
+
+[266/316] https://obd-memorial.ru/html/info.htm?id=550818835
+   ✅ killed: Добровольский Мих. Васильевич
+
+[267/316] https://obd-memorial.ru/html/info.htm?id=501675800
+   ✅ killed: Отрубенко Михаил Степанович
+
+[268/316] https://obd-memorial.ru/html/info.htm?id=501675804
+   ✅ killed: Зыбин Константин Алексеевич
+
+[269/316] https://obd-memorial.ru/html/info.htm?id=501675808
+   ✅ killed: Игнатенко Семен Ефимович
+
+[270/316] https://obd-memorial.ru/html/info.htm?id=501757896
+   ✅ killed: Поповский Иван Степанович
+
+[271/316] https://obd-memorial.ru/html/info.htm?id=513167708
+   ✅ killed: Ведякин Кузьма Федорович
+
+[272/316] https://obd-memorial.ru/html/info.htm?id=550817180
+   ✅ killed: Белошенко Гавриил Гавриилович
+
+[273/316] https://obd-memorial.ru/html/info.htm?id=550818828
+   ✅ killed: Максимов Максим Максимович
+
+[274/316] https://obd-memorial.ru/html/info.htm?id=550818832
+   ✅ killed: Ясинский Исаак Данилович
+
+[275/316] https://obd-memorial.ru/html/info.htm?id=550818836
+   ✅ killed: Мохнач Данил Григорьевич
+
+[276/316] https://obd-memorial.ru/html/info.htm?id=550818844
+   ✅ killed: Руденко Иван Андреевич
+
+[277/316] https://obd-memorial.ru/html/info.htm?id=550818876
+   ✅ killed: Бакуменко Николай Макарович
+
+[278/316] https://obd-memorial.ru/html/info.htm?id=550818880
+   ✅ killed: Шевченко Виталий Аксентьевич
+
+[279/316] https://obd-memorial.ru/html/info.htm?id=551196336
+   ✅ killed: Лукашенко Григорий Давидович
+
+[280/316] https://obd-memorial.ru/html/info.htm?id=551197832
+   ✅ killed: Куюмчан Николай Арт.
+
+[281/316] https://obd-memorial.ru/html/info.htm?id=551197836
+   ✅ killed: Диянов Иван Петрович
+
+[282/316] https://obd-memorial.ru/html/info.htm?id=551197840
+   ✅ killed: Верба Григорий Никифорович
+
+[283/316] https://obd-memorial.ru/html/info.htm?id=551197948
+   ✅ killed: Тикарадзе Белия Бапкул.
+
+[284/316] https://obd-memorial.ru/html/info.htm?id=551197976
+   ✅ killed: Самохин Петр Иванович
+
+[285/316] https://obd-memorial.ru/html/info.htm?id=551197980
+   ✅ killed: Мирошниченко Василий Тер.
+
+[286/316] https://obd-memorial.ru/html/info.htm?id=551197996
+   ✅ killed: Летнов Эргерт Васильевич
+
+[287/316] https://obd-memorial.ru/html/info.htm?id=551198084
+   ✅ killed: Дятлов Иван Семенович
+
+[288/316] https://obd-memorial.ru/html/info.htm?id=551198128
+   ✅ killed: Песцов Иван Архипович
+
+[289/316] https://obd-memorial.ru/html/info.htm?id=551198132
+   ✅ killed: Рябошлык Федор Семенович
+
+[290/316] https://obd-memorial.ru/html/info.htm?id=551198136
+   ✅ killed: Колесников Михаил Васильевич
+
+[291/316] https://obd-memorial.ru/html/info.htm?id=551200140
+   ✅ killed: Гейдеров Эмисот
+
+[292/316] https://obd-memorial.ru/html/info.htm?id=551200152
+   ✅ killed: Прис Иван Ермолаевич
+
+[293/316] https://obd-memorial.ru/html/info.htm?id=551200156
+   ✅ killed: Якубов Али Кейдор.
+
+[294/316] https://obd-memorial.ru/html/info.htm?id=551200180
+   ✅ killed: Сова Леонид Петрович
+
+[295/316] https://obd-memorial.ru/html/info.htm?id=551200184
+   ✅ killed: Логунов В. Н.
+
+[296/316] https://obd-memorial.ru/html/info.htm?id=551200188
+   ✅ killed: Гоглашвили Т. А.
+
+[297/316] https://obd-memorial.ru/html/info.htm?id=551267128
+   ✅ killed: Перевозчиков Иван Иванович
+
+[298/316] https://obd-memorial.ru/html/info.htm?id=551267132
+   ✅ killed: Айвазян Ваграм Авакович
+
+[299/316] https://obd-memorial.ru/html/info.htm?id=551267136
+   ✅ killed: Попошвили Николай Захарович
+
+[300/316] https://obd-memorial.ru/html/info.htm?id=551267140
+   ✅ killed: Лебедев Иван Алексеевич
+
+[301/316] https://obd-memorial.ru/html/info.htm?id=551267144
+   ✅ killed: Барский Лейбмеер Менделивич
+
+[302/316] https://obd-memorial.ru/html/info.htm?id=551267148
+   ✅ killed: Подтелков Авксентий Николаевич
+
+[303/316] https://obd-memorial.ru/html/info.htm?id=551267152
+   ✅ killed: Муников Хазип Мунинович
+
+[304/316] https://obd-memorial.ru/html/info.htm?id=551267184
+   ✅ killed: Мегралидзе Николай Лукич
+
+[305/316] https://obd-memorial.ru/html/info.htm?id=551267188
+   ✅ killed: Каныгин Иван Васильевич
+
+[306/316] https://obd-memorial.ru/html/info.htm?id=551267192
+   ✅ killed: Китаев Николай Иванович
+
+[307/316] https://obd-memorial.ru/html/info.htm?id=551267200
+   ✅ killed: Беленький Степан Поликарпович
+
+[308/316] https://obd-memorial.ru/html/info.htm?id=551267204
+   ✅ killed: Ситников Александр Павлович
+
+[309/316] https://obd-memorial.ru/html/info.htm?id=551267220
+   ✅ killed: Попов Владимир Александрович
+
+[310/316] https://obd-memorial.ru/html/info.htm?id=551267224
+   ✅ killed: Ступаренко Николай Петрович
+
+[311/316] https://obd-memorial.ru/html/info.htm?id=551267228
+   ✅ killed: Усычев Гурьян Варфоломеевич
+
+[312/316] https://obd-memorial.ru/html/info.htm?id=551267232
+   ✅ killed: Головастиков Петр Тимофеевич
+
+[313/316] https://obd-memorial.ru/html/info.htm?id=551267236
+   ✅ killed: Иванов Николай Васильевич
+
+[314/316] https://obd-memorial.ru/html/info.htm?id=551267240
+   ✅ killed: Носков Андрей Николаевич
+
+[315/316] https://obd-memorial.ru/html/info.htm?id=551267248
+   ✅ killed: Арсагов Андрей Бабуевич
+
+[316/316] https://obd-memorial.ru/html/info.htm?id=551267252
+   ✅ killed: Татаришвили Алексей Леванович
+🔌 Отключено от Edge (браузер оставлен открытым)
+
+💾 CSV: C:\astro-projects\fallen-cards\data\processed\obd_primary_urls_2026-09-22-22-37-31\obd_primary_urls_2026-09-22-22-37-31__parser_mem2026.csv (310), C:\astro-projects\fallen-cards\data\processed\obd_primary_urls_2026-09-22-22-37-31\obd_primary_urls_2026-09-22-22-37-31__other_mem2026_.csv (2)
+
+=== Отчёт ===
+killed=310, other=2, errors=4, пропущено=10
+✅ Готово!
