@@ -1,131 +1,335 @@
 /**
- * extractors.js — извлечение полей из DOM карточки OBD Memorial.
+ * extractors.js — извлечение данных со страницы card.html через page.evaluate.
+ * Функция сериализуется и выполняется в контексте страницы OBD Memorial.
  *
- * Перенесено дословно из донора: puppeteer-project/obd-edge_v03.js
- * (CommonJS -> ESM). Функция pageExtractor передаётся в page.evaluate.
+ * Структура карточки персоны: таблица «Информация о выбытии» и блоки параметров.
+ * Реальные имена полей уточняются при первом прогоне (см. docs/TASK-0005.md).
+ *
+ * ВАРИАНТ Б (TASK-0005): парсер пишет ВСЁ, что пришло из ЦАМО, — полнота данных
+ * НЕ влияет на сохранение записи. Классификация — строго по статусу выбытия.
+ *
+ * TASK-0006, п.2: блок «Доп. информация» принимается как документальные данные:
+ *  - notes ← сырой текст параметра дословно (без преобразований);
+ *  - если прямой параметр пуст и в тексте есть метка «Место рождения:» /
+ *    «Место призыва:» — значение берётся по метке (до ; или до конца строки, trim);
+ *  - нет метки — поле остаётся пустым. Никаких домыслов, только текст документа.
  */
 
-// Итоговые заголовки CSV — v03: добавлены country_burial, region_burial, rebural_from
 export const HEADERS = [
-  'Заголовок',
-  'nomer_fonda',
-  'nomer_opisi',
-  'nomer_dela',
-  'document_type',
-  'document_id',
-  'last_name',
-  'first_name',
-  'middle_name',
-  'date_birth',
-  'place_birth',
-  'date_death',
-  'rank',
-  'warunit',
-  'cause_of_death',
-  'primary_burial',
-  'current_burial',
-  'country_burial',
-  'region_burial',
-  'rebural_from',
-  'conscription_location',
-  'primary_url',
-  'notes',
-  'Дата'
+  "document_id",
+  "primary_url",
+  "last_name",
+  "first_name",
+  "patronymic",
+  "birth_year",
+  "death_year",
+  "rank",
+  "position",
+  "birth_place",
+  "place_birth",
+  "conscription_location",
+  "place_of_captivity",
+  "capture_date",
+  "cause_of_death",
+  "death_date",
+  "death_place",
+  "burial_info",
+  "rebural_from",
+  "sources",
+  "notes",
+  "_verified",
+  "_source_type",
+  "_allParams",
 ];
 
-// Известные заголовки параметров (стандартные) — не попадают в extra-поиск notes
-export const KNOWN_TITLES = [
-  'Фамилия',
-  'Имя',
-  'Отчество',
-  'Дата рождения',
-  'Место рождения',
-  'Дата выбытия',
-  'Дата смерти',
-  'Воинское звание',
-  'Последнее место службы',
-  'Причина выбытия',
-  'Первичное место захоронения',
-  'Номер фонда источника информации',
-  'Номер описи источника информации',
-  'Номер дела источника информации',
-  'Название источника донесения',
-  'Место захоронения',
-  'Место призыва',
-  'Страна захоронения',
-  'Регион захоронения',
-  'Откуда перезахоронен'
-];
+// ---------- Внутренние хелперы (выполняются в контексте страницы) ----------
 
-/**
- * Сбор данных со страницы (аналог F12-скрипта, но универсальный под оба типа карточек).
- * Вызывается внутри page.evaluate(pageExtractor).
- * @returns объект с полями v03 + _allParams (сырой список всех параметров)
- */
-export function pageExtractor() {
-  function getParamValue(title) {
-    const elements = document.querySelectorAll('.card_parameter');
-    for (let el of elements) {
-      const titleSpan = el.querySelector('.card_param-title');
-      if (titleSpan && titleSpan.innerText.trim() === title) {
-        const valueSpan = el.querySelector('.card_param-result');
-        return valueSpan ? valueSpan.innerText.trim() : '';
+// Нормализация текста: схлопываем пробелы, убираем неразрывные
+function normText(s) {
+  return (s || "").replace(/\u00A0/g, " ").replace(/\s+/g, " ").trim();
+}
+
+// Извлечение значения по подписи ячейки: находим <td> с нужным текстом,
+// берём соседнюю ячейку (или родительскую строку). Возвращает '' если не найдено.
+function getValueByLabel(label) {
+  const cells = Array.from(document.querySelectorAll("td"));
+  for (const cell of cells) {
+    const txt = normText(cell.textContent);
+    if (txt === label || txt.startsWith(label + ":")) {
+      // Пробуем следующую ячейку в той же строке
+      const next = cell.nextElementSibling;
+      if (next && normText(next.textContent)) {
+        return normText(next.textContent);
+      }
+      // Или value-сосед в структуре label/value
+      const parentRow = cell.parentElement;
+      if (parentRow) {
+        const tds = Array.from(parentRow.querySelectorAll("td"));
+        const idx = tds.indexOf(cell);
+        if (idx >= 0 && idx + 1 < tds.length) {
+          const cand = normText(tds[idx + 1].textContent);
+          if (cand) return cand;
+        }
       }
     }
-    return '';
   }
+  return "";
+}
 
-  // Собираем ВСЕ пары «заголовок → значение» для анализа типа карточки
-  const allParams = {};
-  const elements = document.querySelectorAll('.card_parameter');
-  for (let el of elements) {
-    const titleSpan = el.querySelector('.card_param-title');
-    const valueSpan = el.querySelector('.card_param-result');
-    if (titleSpan && valueSpan) {
-      allParams[titleSpan.innerText.trim()] = valueSpan.innerText.trim();
+// Поиск по заголовкам блоков («Звания», «Место рождения», …) и их содержимому
+function getValueBySection(sectionTitle) {
+  const headers = Array.from(document.querySelectorAll("b, .label, td.label, th"));
+  for (const h of headers) {
+    if (normText(h.textContent) === sectionTitle) {
+      const container = h.closest("table") || h.parentElement;
+      if (container) {
+        const text = normText(container.textContent);
+        const after = text.split(sectionTitle)[1];
+        if (after) return after.replace(/^[:\s]+/, "").split(/\s{2,}/)[0].trim();
+      }
     }
   }
+  return "";
+}
 
-  const result = {
-    last_name:        getParamValue('Фамилия'),
-    first_name:       getParamValue('Имя'),
-    middle_name:      getParamValue('Отчество'),
-    date_birth:       getParamValue('Дата рождения'),
-    place_birth:      getParamValue('Место рождения'),
-    // Дата выбытия (тип 1) или Дата смерти (тип 2)
-    date_death:       getParamValue('Дата выбытия') || getParamValue('Дата смерти'),
-    rank:             getParamValue('Воинское звание'),
-    warunit:          getParamValue('Последнее место службы'),
-    cause_of_death:   getParamValue('Причина выбытия'),
-    primary_burial:   getParamValue('Первичное место захоронения'),
-    nomer_fonda:      getParamValue('Номер фонда источника информации'),
-    nomer_opisi:      getParamValue('Номер описи источника информации'),
-    nomer_dela:       getParamValue('Номер дела источника информации'),
-    document_type:    getParamValue('Название источника донесения'),
-    // Тип 2: «Место захоронения» — БЕЗ fallback на первичное (v03)
-    current_burial:   getParamValue('Место захоронения'),
-    // Новые поля (v03) — только если есть в карточке
-    country_burial:   getParamValue('Страна захоронения'),
-    region_burial:    getParamValue('Регион захоронения'),
-    rebural_from:     getParamValue('Откуда перезахоронен'),
-    conscription_location: getParamValue('Место призыва'),
-    primary_url:      window.location.href,
-  };
+// Собирает все параметры формы вида «Подпись: значение» из таблицы информации о выбытии
+function collectAllParams() {
+  const params = {};
+  const rows = document.querySelectorAll("tr");
+  rows.forEach((row) => {
+    const cells = row.querySelectorAll("td");
+    if (cells.length >= 2) {
+      const label = normText(cells[0].textContent).replace(/:$/, "");
+      const value = normText(cells[1].textContent);
+      if (label && value && !(label in params)) {
+        params[label] = value;
+      }
+    }
+  });
+  return params;
+}
 
-  // document_id: id_common или из URL
-  const idCommon = document.querySelector('[id_common]')?.getAttribute('id_common');
-  if (idCommon) {
-    result.document_id = idCommon;
-  } else {
-    const urlMatch = window.location.href.match(/id=(\d+)/);
-    if (urlMatch) result.document_id = urlMatch[1];
+// Извлечение document_id из текущего URL: id=(\d+)
+function getDocumentId() {
+  const m = location.href.match(/id=(\d+)/);
+  return m ? m[1] : "";
+}
+
+// Разбор блока «Доп. информация»: поиск параметра по ключевому слову «доп»
+// (регистронезависимо) среди подписей таблицы. Возвращает сырое значение или ''.
+function findAdditionalInfo(params) {
+  for (const label of Object.keys(params)) {
+    if (/доп.*инф/i.test(label)) {
+      return params[label];
+    }
+  }
+  return "";
+}
+
+// Значение по метке внутри текста «Доп. информация»: до ';' или до конца строки, trim.
+// Метка ищется регистронезависимо; возвращается кусок ДОКУМЕНТА, без домыслов.
+function extractLabeledFragment(text, labelRe) {
+  if (!text) return "";
+  const lines = String(text).split(/\r?\n/);
+  for (const line of lines) {
+    const re = new RegExp(labelRe.source, "i");
+    const m = line.match(re);
+    if (m) {
+      const rest = line.slice(m.index + m[0].length);
+      const value = rest.split(";")[0].trim();
+      if (value) return value;
+    }
+  }
+  return "";
+}
+
+// ---------- Основная функция-экстрактор (сериализуется в page.evaluate) ----------
+
+export function pageExtractor() {
+  // Все внутренние хелперы определяются ЗДЕСЬ, внутри pageExtractor,
+  // потому что page.evaluate сериализует только эту функцию.
+
+  function normText(s) {
+    return (s || "").replace(/\u00A0/g, " ").replace(/\s+/g, " ").trim();
   }
 
-  result['Заголовок'] = `${result.last_name} ${result.first_name} ${result.middle_name}`.trim();
-  result['Дата'] = new Date().toISOString().split('T')[0];
+  function getValueByLabel(label) {
+    const cells = Array.from(document.querySelectorAll("td"));
+    for (const cell of cells) {
+      const txt = normText(cell.textContent);
+      if (txt === label || txt.startsWith(label + ":")) {
+        const next = cell.nextElementSibling;
+        if (next && normText(next.textContent)) {
+          return normText(next.textContent);
+        }
+        const parentRow = cell.parentElement;
+        if (parentRow) {
+          const tds = Array.from(parentRow.querySelectorAll("td"));
+          const idx = tds.indexOf(cell);
+          if (idx >= 0 && idx + 1 < tds.length) {
+            const cand = normText(tds[idx + 1].textContent);
+            if (cand) return cand;
+          }
+        }
+      }
+    }
+    return "";
+  }
 
-  // Сохраняем «сырой» список всех параметров для анализа в notes
-  result._allParams = allParams;
+  function getValueBySection(sectionTitle) {
+    const headers = Array.from(document.querySelectorAll("b, .label, td.label, th"));
+    for (const h of headers) {
+      if (normText(h.textContent) === sectionTitle) {
+        const container = h.closest("table") || h.parentElement;
+        if (container) {
+          const text = normText(container.textContent);
+          const after = text.split(sectionTitle)[1];
+          if (after) return after.replace(/^[:\s]+/, "").split(/\s{2,}/)[0].trim();
+        }
+      }
+    }
+    return "";
+  }
 
-  return result;
+  function collectAllParams() {
+    const params = {};
+    const rows = document.querySelectorAll("tr");
+    rows.forEach((row) => {
+      const cells = row.querySelectorAll("td");
+      if (cells.length >= 2) {
+        const label = normText(cells[0].textContent).replace(/:$/, "");
+        const value = normText(cells[1].textContent);
+        if (label && value && !(label in params)) {
+          params[label] = value;
+        }
+      }
+    });
+    return params;
+  }
+
+  function getDocumentId() {
+    const m = location.href.match(/id=(\d+)/);
+    return m ? m[1] : "";
+  }
+
+  function findAdditionalInfo(params) {
+    for (const label of Object.keys(params)) {
+      if (/доп.*инф/i.test(label)) {
+        return params[label];
+      }
+    }
+    return "";
+  }
+
+  function extractLabeledFragment(text, labelRe) {
+    if (!text) return "";
+    const lines = String(text).split(/\r?\n/);
+    for (const line of lines) {
+      const re = new RegExp(labelRe.source, "i");
+      const m = line.match(re);
+      if (m) {
+        const rest = line.slice(m.index + m[0].length);
+        const value = rest.split(";")[0].trim();
+        if (value) return value;
+      }
+    }
+    return "";
+  }
+
+  // document_id и primary_url
+  const document_id = getDocumentId();
+  const primary_url = location.href;
+
+  // Персона: ФИО из заголовка «Фамилия: Имя Отчество» либо по отдельным подписям
+  const fullNameRaw =
+    getValueByLabel("Фамилия") ||
+    (() => {
+      const h = document.querySelector("h1, .title, b");
+      return h ? normText(h.textContent) : "";
+    })();
+
+  // Ожидаемый формат: «Фамилия Имя Отчество» или «Фамилия: Имя Отчество»
+  const nameParts = fullNameRaw
+    .replace(/^Фамилия:\s*/i, "")
+    .split(/\s+/)
+    .filter(Boolean);
+  const last_name = nameParts[0] || "";
+  const first_name = nameParts[1] || "";
+  const patronymic = nameParts.slice(2).join(" ") || "";
+
+  // Годы жизни/гибели
+  const birth_year = getValueByLabel("Год рождения") || getValueBySection("Год рождения");
+  const death_year = getValueByLabel("Год гибели") || getValueBySection("Год гибели");
+
+  // Звание и должность
+  const rank = getValueByLabel("Воинское звание") || getValueBySection("Звания");
+  const position = getValueByLabel("Воинская часть") || getValueByLabel("Должность");
+
+  // Место рождения: прямой параметр, при его отсутствии — метка из «Доп. информация» (п.2)
+  const additionalInfoRaw = findAdditionalInfo(collectAllParams());
+  const birth_place_direct =
+    getValueByLabel("Место рождения") || getValueBySection("Место рождения");
+  const birth_place = birth_place_direct || extractLabeledFragment(additionalInfoRaw, /Место рождения:/);
+
+  // place_birth / conscription_location — прямые поля, заполняются при наличии
+  const place_birth = birth_place_direct || extractLabeledFragment(additionalInfoRaw, /Место рождения:/);
+  const conscription_location_direct = getValueByLabel("Место службы") || getValueByLabel("Место призыва");
+  const conscription_location =
+    conscription_location_direct || extractLabeledFragment(additionalInfoRaw, /Место призыва:/);
+
+  // Плен
+  const place_of_captivity = getValueByLabel("Место пленения");
+  const capture_date = getValueByLabel("Пленён") || getValueByLabel("Дата пленения");
+
+  // Выбытие
+  const cause_of_death = getValueByLabel("Причина выбытия") || getValueBySection("Причина выбытия");
+  const death_date = getValueByLabel("Дата выбытия");
+  const death_place = getValueByLabel("Место захоронения");
+
+  // Захоронение / перезахоронение
+  const burial_info = getValueByLabel("Первичное место захоронения") || death_place;
+  const rebural_from = getValueByLabel("Вторичное место захоронения") || "";
+
+  // Источники: ссылки на документы
+  const sources = Array.from(document.querySelectorAll("a[href*='doc'], a[href*='source']"))
+    .map((a) => normText(a.textContent))
+    .filter(Boolean)
+    .join("; ");
+
+  // notes — сырой текст параметра «Доп. информация» дословно (п.2); нет параметра — пусто
+  const notes = additionalInfoRaw;
+
+  // Метаданные
+  const _verified = "false";
+  const _source_type = "OBD-Memorial";
+
+  // Полный словарь всех параметров для отладки
+  const allParams = collectAllParams();
+
+  return {
+    document_id,
+    primary_url,
+    last_name,
+    first_name,
+    patronymic,
+    birth_year,
+    death_year,
+    rank,
+    position,
+    birth_place,
+    place_birth,
+    conscription_location,
+    place_of_captivity,
+    capture_date,
+    cause_of_death,
+    death_date,
+    death_place,
+    burial_info,
+    rebural_from,
+    sources,
+    notes,
+    _verified,
+    _source_type,
+    _allParams: JSON.stringify(allParams),
+  };
 }
