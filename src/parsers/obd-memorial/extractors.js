@@ -52,13 +52,14 @@ export function pageExtractor() {
   // ---------- Утверждённый маппинг ----------
   row.document_id = (location.href.match(/id=(\d+)/) || [])[1] || "";
   row.primary_url = location.href.split("#")[0];
-  row["Заголовок"] = params["Фамилия, имя, отчество"] || "";
   row.last_name = params["Фамилия"] || "";
   row.first_name = params["Имя"] || "";
   row.middle_name = params["Отчество"] || "";
+  // Заголовок — сборное ФИО: «Фамилия Имя Отчество» (не из составной подписи)
+  row["Заголовок"] = `${row.last_name} ${row.first_name} ${row.middle_name}`.trim();
   row.date_birth = params["Год рождения"] || params["Дата рождения"] || "";
   row.rank = params["Звание"] || params["Воинское звание"] || "";
-  row.warunit = params["Место службы"] || params["Воинское формирование"] || "";
+  row.warunit = params["Последнее место службы"] || "";
   row.cause_of_death = params["Причина выбытия"] || params["Выбытие"] || "";
   row.date_death = params["Дата выбытия"] || params["Дата смерти"] || "";
   row.primary_burial = params["Первичное место захоронения"] || "";
@@ -67,10 +68,10 @@ export function pageExtractor() {
   row.country_burial = params["Страна захоронения"] || "";
   row.region_burial = params["Регион захоронения"] || "";
   row.conscription_location = params["Место призыва"] || "";
-  row.nomer_fonda = params["Номер фонда"] || "";
-  row.nomer_opisi = params["Номер описи"] || "";
-  row.nomer_dela = params["Номер дела"] || "";
-  row.document_type = params["Тип документа"] || "";
+  row.nomer_fonda = params["Номер фонда источника информации"] || "";
+  row.nomer_opisi = params["Номер описи источника информации"] || "";
+  row.nomer_dela = params["Номер дела источника информации"] || "";
+  row.document_type = params["Название источника донесения"] || "";
 
   // ---------- Единственные дополнения (TASK-0006, п.2) ----------
   // notes ← сырой текст «Доп. информация» дословно; нет параметра — пусто
