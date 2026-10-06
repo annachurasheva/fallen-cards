@@ -1,10 +1,10 @@
 #Requires -Version 7.0
-# run-edge-obd.ps1 — лаунчер парсера OBD (TASK-0005, п.7; TASK-0007: асинхронное чтение)
+# run-edge-obd.ps1 — лаунчер парсера OBD (TASK-0005, п.7; TASK-0009: рабочий ввод-вывод)
 #
 # 1) Запускает внешний Edge с CDP-портом (профиль изолирован, браузер остаётся открытым).
-# 2) Запускает node scripts/parse-obd.js и пробрасывает его stdout в консоль
-#    без буферизации через асинхронные обработчики OutputDataReceived/ErrorDataReceived.
-# 3) Сторож: таймер по отметке последнего вывода; тишина >30 секунд → строка активности.
+# 2) Запускает node scripts/parse-obd.js и пробрасывает его stdout/stderr в консоль
+#    без буферизации: два постоянных асинхронных задания ReadLineAsync() + WaitAny(500).
+# 3) Сторож: тишина >= WatchdogSeconds по отметке последнего вывода → строка активности.
 # 4) По завершении печатает код возврата и общее время работы.
 #
 # ПРИМЕРЫ:
@@ -84,50 +84,75 @@ $psi.StandardOutputEncoding = [System.Text.Encoding]::UTF8
 $psi.StandardErrorEncoding = [System.Text.Encoding]::UTF8
 
 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-
-# Отметка последнего вывода — обновляется из событийных обработчиков
-$script:lastOutputAt = Get-Date
+$lastOutputAt = Get-Date
 
 $proc = New-Object System.Diagnostics.Process
 $proc.StartInfo = $psi
-
-$outHandler = [System.Diagnostics.DataReceivedEventHandler] {
-    param($sender, $e)
-    if ($e.Data -ne $null) {
-        Write-Host $e.Data
-        $script:lastOutputAt = Get-Date
-    }
-}
-$errHandler = [System.Diagnostics.DataReceivedEventHandler] {
-    param($sender, $e)
-    if ($e.Data -ne $null) {
-        Write-Host $e.Data
-        $script:lastOutputAt = Get-Date
-    }
-}
-
-Register-ObjectEvent -InputObject $proc -EventName OutputDataReceived -Action $outHandler | Out-Null
-Register-ObjectEvent -InputObject $proc -EventName ErrorDataReceived -Action $errHandler | Out-Null
-
 $proc.Start() | Out-Null
-$proc.BeginOutputReadLine()
-$proc.BeginErrorReadLine()
 
 Write-Host "$(Get-Stamp) Парсер запущен: node parse-obd.js $($ParserArgs -join ' ')"
 
-# ---------- 3. Сторож: тишина более WatchdogSeconds → строка активности ----------
-while (-not $proc.WaitForExit(1000)) {
-    if (((Get-Date) - $script:lastOutputAt).TotalSeconds -ge $WatchdogSeconds) {
-        Write-Host "$(Get-Stamp) Процесс активен. Ожидание ответа от obd-memorial.ru..."
-        $script:lastOutputAt = Get-Date # не спамить каждую секунду
+# Два ПОСТОЯННЫХ асинхронных чтения построчно. Каждое завершённое задание
+# даёт очередную строку (null = поток закрыт); затем то же задание запускается снова.
+$taskOut = $proc.StandardOutput.ReadLineAsync()
+$taskErr = $proc.StandardError.ReadLineAsync()
+$outOpen = $true
+$errOpen = $true
+
+# Активное множество заданий (исключаем закрытые потоки из ожидания)
+$activeTasks = @($taskOut, $taskErr)
+
+while ($true) {
+    # Ждём любую новую строку либо таймаут 500 мс (для проверки сторожа)
+    $completedIndex = [System.Threading.Tasks.Task]::WaitAny($activeTasks, 500)
+
+    if ($completedIndex -ge 0) {
+        $completedTask = $activeTasks[$completedIndex]
+
+        if ($completedTask -eq $taskOut) {
+            $line = $taskOut.Result
+            if ($null -ne $line) {
+                Write-Host $line
+                $lastOutputAt = Get-Date
+                $taskOut = $proc.StandardOutput.ReadLineAsync() # постоянное задание перезапускаем
+            } else {
+                $outOpen = $false # stdout закрыт — исключаем из WaitAny
+            }
+        } elseif ($completedTask -eq $taskErr) {
+            $line = $taskErr.Result
+            if ($null -ne $line) {
+                Write-Host $line
+                $lastOutputAt = Get-Date
+                $taskErr = $proc.StandardError.ReadLineAsync()
+            } else {
+                $errOpen = $false
+            }
+        }
+
+        # Пересобрать активное множество (после закрытия потока или перезапуска задания)
+        $activeTasks = @()
+        if ($outOpen) { $activeTasks += $taskOut }
+        if ($errOpen) { $activeTasks += $taskErr }
+    } else {
+        # Таймаут WaitAny (-1): проверка сторожа по отметке последнего вывода
+        if (((Get-Date) - $lastOutputAt).TotalSeconds -ge $WatchdogSeconds) {
+            Write-Host "$(Get-Stamp) Процесс активен. Ожидание ответа от obd-memorial.ru..."
+            $lastOutputAt = Get-Date # не спамить каждые 500 мс
+        }
+    }
+
+    # Оба потока закрыты и процесс завершился → выход из цикла
+    if ((-not $outOpen) -and (-not $errOpen) -and $proc.WaitForExit(0)) {
+        break
+    }
+    # Защита: процесс умер, но хвостовые строки ещё могут читаться из открытых потоков —
+    # цикл продолжается, пока хотя бы один поток открыт; если оба закрылись — выйдем выше.
+    if ($proc.HasExited -and (-not $outOpen) -and (-not $errOpen)) {
+        break
     }
 }
 
-# Дочитать остаток асинхронных потоков до завершения событий
-Start-Sleep -Milliseconds 200
-Unregister-Event * -ErrorAction SilentlyContinue
-
-# ---------- 4. Итог ----------
+# ---------- 3. Итог ----------
 $stopwatch.Stop()
 $elapsed = $stopwatch.Elapsed
 $timeStr = "{0}м {1:D2}с" -f [int][Math]::Floor($elapsed.TotalMinutes), $elapsed.Seconds
