@@ -78,7 +78,8 @@ export async function parseUrls(
       const idFromUrl = (url.match(/id=(\d+)/) || [])[1] || "";
 
       const page = await browser.newPage();
-      let loadError = null;
+      let loadError = null; // сетевые ошибки / TIMEOUT — только от page.goto
+      let parseError = null; // TASK-0006, п.1: исключение внутри page.evaluate → PARSE_ERROR
       let data = null;
       try {
         await page.goto(url, { waitUntil: "networkidle2", timeout: NAV_TIMEOUT_MS });
@@ -86,7 +87,7 @@ export async function parseUrls(
         try {
           data = await page.evaluate(pageExtractor);
         } catch (e) {
-          loadError = e; // битый HTML / исключение в evaluate
+          parseError = e; // битый HTML / исключение в evaluate — НЕ сеть
         }
       } catch (e) {
         loadError = e; // TIMEOUT или NETWORK
@@ -94,7 +95,11 @@ export async function parseUrls(
         await page.close().catch(() => {});
       }
 
-      const errType = classifyError(loadError, data);
+      const errType = loadError
+        ? (/timeout/i.test(loadError.message || "") ? "TIMEOUT" : "NETWORK")
+        : parseError
+          ? "PARSE_ERROR"
+          : classifyError(null, data);
       if (errType) {
         const err = {
           index,
@@ -102,8 +107,8 @@ export async function parseUrls(
           url,
           documentId: idFromUrl,
           errorType: errType,
-          message: loadError
-            ? (loadError.message || String(loadError))
+          message: (loadError || parseError)
+            ? ((loadError || parseError).message || String(loadError || parseError))
             : errType === "EMPTY_PAGE"
               ? "Страница не содержит полей карточки"
               : "Не удалось разобрать страницу",
