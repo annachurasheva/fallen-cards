@@ -1,0 +1,4 @@
+document_id,primary_url,error_type,error_message,Дата
+552300142,https://obd-memorial.ru/html/info.htm?id=552300142,PARSE_ERROR,Attempted to use detached Frame 'DD103F15A599DACC5E7BC4EA4A383591'.,2026-10-06
+552300148,https://obd-memorial.ru/html/info.htm?id=552300148,TIMEOUT,Navigation timeout of 30000 ms exceeded,2026-10-06
+552300156,https://obd-memorial.ru/html/info.htm?id=552300156,NETWORK,net::ERR_TIMED_OUT at https://obd-memorial.ru/html/info.htm?id=552300156,2026-10-06
