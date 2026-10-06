@@ -1,3 +1,4 @@
+#Requires -Version 7.0
 # run-edge-obd.ps1 — лаунчер парсера OBD (TASK-0005, п.7)
 #
 # 1) Запускает внешний Edge с CDP-портом (профиль изолирован, браузер остаётся открытым).
@@ -7,8 +8,8 @@
 # 4) По завершении печатает код возврата и общее время работы.
 #
 # ПРИМЕРЫ:
-#   powershell -File tools/run-edge-obd.ps1 --input=links_id_658.txt
-#   powershell -File tools/run-edge-obd.ps1 -Port 9227 -- --input=file.txt --limit=50
+#   pwsh -File tools/run-edge-obd.ps1 --input=links_id_658.txt
+#   pwsh -File tools/run-edge-obd.ps1 -Port 9227 -- --input=file.txt --limit=50
 
 param(
     [int]$Port = 9226,
@@ -68,7 +69,7 @@ $parserScript = Join-Path $repoRoot "scripts\parse-obd.js"
 
 if ($ParserArgs.Count -eq 0) {
     Write-Host "$(Get-Stamp) Не переданы аргументы парсеру (--input=...). Пример:"
-    Write-Host "    powershell -File tools/run-edge-obd.ps1 --input=имя.txt"
+    Write-Host "    pwsh -File tools/run-edge-obd.ps1 --input=имя.txt"
     exit 1
 }
 

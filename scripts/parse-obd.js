@@ -328,7 +328,7 @@ function rowToCsvLine(row) {
       `${stamp()} Не удалось подключиться к Edge CDP localhost:${PORT}: ${e.message}`,
     );
     console.error(
-      `   Сначала запустите внешний Edge: powershell -File tools/run-edge-obd.ps1`,
+      `   Сначала запустите внешний Edge: pwsh -File tools/run-edge-obd.ps1`,
     );
     process.exit(1);
   }
