@@ -186,8 +186,7 @@ function rowToCsvLine(row) {
     fs.mkdirSync(outDir, { recursive: true });
     const now = new Date();
     const p = (n) => String(n).padStart(2, "0");
-    const checkTime =
-      `${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())} ` +
+    const checkTime = `${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())} ` +
       `${p(now.getHours())}:${p(now.getMinutes())}:${p(now.getSeconds())}`;
     const lines = [
       `# Файл: ${path.basename(inputPath)}`,
@@ -223,11 +222,7 @@ function rowToCsvLine(row) {
   //   2. ТОЛЬКО ПОТОМ fs.appendFileSync в processed_ids.txt.
   // Ситуация «id в реестре, а CSV нет» невозможна по построению.
   function flushBuffers() {
-    if (
-      fallenBuf.length === 0 &&
-      unclassifiedBuf.length === 0 &&
-      registryBuf.length === 0
-    ) {
+    if (fallenBuf.length === 0 && unclassifiedBuf.length === 0 && registryBuf.length === 0) {
       return;
     }
     ensureCsvHeader(fallenCsvPath, HEADERS.join(","));
@@ -238,21 +233,13 @@ function rowToCsvLine(row) {
       fallenBuf = [];
     }
     if (unclassifiedBuf.length > 0) {
-      fs.appendFileSync(
-        unclassifiedCsvPath,
-        unclassifiedBuf.join("\n") + "\n",
-        "utf-8",
-      );
+      fs.appendFileSync(unclassifiedCsvPath, unclassifiedBuf.join("\n") + "\n", "utf-8");
       unclassifiedBuf = [];
     }
     // Реестр — строго ПОСЛЕ физической записи CSV на диск
     if (registryBuf.length > 0) {
       fs.mkdirSync(summaryDir, { recursive: true }); // терпимость: файла может не быть
-      fs.appendFileSync(
-        globalProcessedFile,
-        registryBuf.join("\n") + "\n",
-        "utf-8",
-      );
+      fs.appendFileSync(globalProcessedFile, registryBuf.join("\n") + "\n", "utf-8");
       registryBuf = [];
     }
   }
@@ -266,10 +253,7 @@ function rowToCsvLine(row) {
     if (rec.status === "error") {
       counters.error++;
       errorRows.push(rec);
-      ensureCsvHeader(
-        errorCsvPath,
-        "document_id,primary_url,error_type,error_message,Дата",
-      );
+      ensureCsvHeader(errorCsvPath, "document_id,primary_url,error_type,error_message,Дата");
       fs.appendFileSync(
         errorCsvPath,
         [
@@ -282,11 +266,8 @@ function rowToCsvLine(row) {
         "utf-8",
       );
       printProgress({
-        current: idx,
-        total: totalNew,
-        documentId: rec.documentId,
-        status: "error",
-        errorType: rec.errorType,
+        current: idx, total: totalNew, documentId: rec.documentId,
+        status: "error", errorType: rec.errorType,
       });
       return;
     }
@@ -301,11 +282,8 @@ function rowToCsvLine(row) {
     registryBuf.push(`${rec.documentId}\t${rec.url}`);
 
     printProgress({
-      current: idx,
-      total: totalNew,
-      row: rec.row,
-      documentId: rec.documentId,
-      status: rec.status,
+      current: idx, total: totalNew, row: rec.row,
+      documentId: rec.documentId, status: rec.status,
     });
 
     const done = counters.fallen + counters.unclassified;
@@ -324,12 +302,8 @@ function rowToCsvLine(row) {
       onRecord,
     });
   } catch (e) {
-    console.error(
-      `${stamp()} Не удалось подключиться к Edge CDP localhost:${PORT}: ${e.message}`,
-    );
-    console.error(
-      `   Сначала запустите внешний Edge: pwsh -File tools/run-edge-obd.ps1`,
-    );
+    console.error(`${stamp()} Не удалось подключиться к Edge CDP localhost:${PORT}: ${e.message}`);
+    console.error(`   Сначала запустите внешний Edge: pwsh -File tools/run-edge-obd.ps1`);
     process.exit(1);
   }
 
@@ -345,18 +319,10 @@ function rowToCsvLine(row) {
       (repeats.length > 0 ? `  → ${path.basename(repeatsTxtPath)}` : ""),
   );
   console.log(`   Новых обработано:   ${totalNew}`);
-  console.log(
-    `       Павшие (fallen):       ${counters.fallen}  → ${path.basename(fallenCsvPath)}`,
-  );
-  console.log(
-    `       Прочие статусы:        ${counters.unclassified}  → ${path.basename(unclassifiedCsvPath)}`,
-  );
-  console.log(
-    `       Ошибки:                ${counters.error}  → ${path.basename(errorCsvPath)}`,
-  );
-  console.log(
-    `   Реестр обновлён:    ${registryAdded} записей (ошибки не в реестре)`,
-  );
+  console.log(`       Павшие (fallen):       ${counters.fallen}  → ${path.basename(fallenCsvPath)}`);
+  console.log(`       Прочие статусы:        ${counters.unclassified}  → ${path.basename(unclassifiedCsvPath)}`);
+  console.log(`       Ошибки:                ${counters.error}  → ${path.basename(errorCsvPath)}`);
+  console.log(`   Реестр обновлён:    ${registryAdded} записей (ошибки не в реестре)`);
 })().catch((err) => {
   console.error(`${stamp()} Фатальная ошибка:`, err);
   process.exit(1);

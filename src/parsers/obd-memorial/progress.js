@@ -29,19 +29,12 @@ function shortName(row) {
  * (сторож видит вывод в реальном времени, без буферизации).
  */
 export function makeProgressPrinter() {
-  return function printProgress({
-    current,
-    total,
-    row,
-    documentId,
-    status,
-    errorType,
-  }) {
+  return function printProgress({ current, total, row, documentId, status, errorType }) {
     let line;
     if (status === "error") {
       line =
-        `${stamp()} ${current}/${total} | [ОШИБКА] | ${documentId || "?"}` +
-        ` → error (${errorType || "UNKNOWN"})`;
+        `${stamp()} ${current}/${total} | [ОШИБКА] | ${documentId || "?"} ` +
+        `→ error (${errorType || "UNKNOWN"})`;
     } else {
       line =
         `${stamp()} ${current}/${total} | ${shortName(row)} | ` +
