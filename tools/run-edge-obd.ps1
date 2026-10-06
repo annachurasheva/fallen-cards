@@ -1,10 +1,10 @@
 #Requires -Version 7.0
-# run-edge-obd.ps1 — лаунчер парсера OBD (TASK-0005, п.7)
+# run-edge-obd.ps1 — лаунчер парсера OBD (TASK-0005, п.7; TASK-0007: асинхронное чтение)
 #
 # 1) Запускает внешний Edge с CDP-портом (профиль изолирован, браузер остаётся открытым).
-# 2) Запускает node scripts/parse-obd.js @InputArgs и пробрасывает его stdout
-#    в консоль без буферизации (построчно, по мере появления).
-# 3) Сторож: если от парсера нет вывода более 30 секунд — печатает строку активности.
+# 2) Запускает node scripts/parse-obd.js и пробрасывает его stdout в консоль
+#    без буферизации через асинхронные обработчики OutputDataReceived/ErrorDataReceived.
+# 3) Сторож: таймер по отметке последнего вывода; тишина >30 секунд → строка активности.
 # 4) По завершении печатает код возврата и общее время работы.
 #
 # ПРИМЕРЫ:
@@ -63,7 +63,7 @@ if (-not $cdpReady) {
     Write-Host "$(Get-Stamp) Edge уже активен на порту $Port — подключаемся без перезапуска."
 }
 
-# ---------- 2. Запуск парсера, проброс stdout без буферизации ----------
+# ---------- 2. Запуск парсера, асинхронный проброс stdout/stderr ----------
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $parserScript = Join-Path $repoRoot "scripts\parse-obd.js"
 
@@ -84,38 +84,50 @@ $psi.StandardOutputEncoding = [System.Text.Encoding]::UTF8
 $psi.StandardErrorEncoding = [System.Text.Encoding]::UTF8
 
 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-$lastOutputAt = Get-Date
 
-$proc = [System.Diagnostics.Process]::Start($psi)
+# Отметка последнего вывода — обновляется из событийных обработчиков
+$script:lastOutputAt = Get-Date
 
-Write-Host "$(Get-Stamp) Парсер запущен: node parse-obd.js $($ParserArgs -join ' ')"
+$proc = New-Object System.Diagnostics.Process
+$proc.StartInfo = $psi
 
-# Чтение stdout/stderr построчно + сторож тишины
-while (-not $proc.StandardOutput.EndOfStream) {
-    $readTask = $proc.StandardOutput.ReadLineAsync()
-    if ($readTask.Wait([TimeSpan]::FromSeconds($WatchdogSeconds))) {
-        $line = $readTask.Result
-        if ($null -ne $line) {
-            Write-Host $line
-            $lastOutputAt = Get-Date
-        }
-    } else {
-        # Нет вывода более WatchdogSeconds — процесс жив, ждём ответ сайта
-        Write-Host "$(Get-Stamp) Процесс активен. Ожидание ответа от obd-memorial.ru..."
+$outHandler = [System.Diagnostics.DataReceivedEventHandler] {
+    param($sender, $e)
+    if ($e.Data -ne $null) {
+        Write-Host $e.Data
+        $script:lastOutputAt = Get-Date
     }
-    # stderr draining (строки ошибок парсера тоже считаются жизнью)
-    while ($proc.StandardError.Peek() -ge 0) {
-        $errLine = $proc.StandardError.ReadLine()
-        Write-Host $errLine
-        $lastOutputAt = Get-Date
+}
+$errHandler = [System.Diagnostics.DataReceivedEventHandler] {
+    param($sender, $e)
+    if ($e.Data -ne $null) {
+        Write-Host $e.Data
+        $script:lastOutputAt = Get-Date
     }
 }
 
-$proc.WaitForExit()
-$stderrRest = $proc.StandardError.ReadToEnd()
-if ($stderrRest) { Write-Host $stderrRest.TrimEnd() }
+Register-ObjectEvent -InputObject $proc -EventName OutputDataReceived -Action $outHandler | Out-Null
+Register-ObjectEvent -InputObject $proc -EventName ErrorDataReceived -Action $errHandler | Out-Null
 
-# ---------- 3. Итог ----------
+$proc.Start() | Out-Null
+$proc.BeginOutputReadLine()
+$proc.BeginErrorReadLine()
+
+Write-Host "$(Get-Stamp) Парсер запущен: node parse-obd.js $($ParserArgs -join ' ')"
+
+# ---------- 3. Сторож: тишина более WatchdogSeconds → строка активности ----------
+while (-not $proc.WaitForExit(1000)) {
+    if (((Get-Date) - $script:lastOutputAt).TotalSeconds -ge $WatchdogSeconds) {
+        Write-Host "$(Get-Stamp) Процесс активен. Ожидание ответа от obd-memorial.ru..."
+        $script:lastOutputAt = Get-Date # не спамить каждую секунду
+    }
+}
+
+# Дочитать остаток асинхронных потоков до завершения событий
+Start-Sleep -Milliseconds 200
+Unregister-Event * -ErrorAction SilentlyContinue
+
+# ---------- 4. Итог ----------
 $stopwatch.Stop()
 $elapsed = $stopwatch.Elapsed
 $timeStr = "{0}м {1:D2}с" -f [int][Math]::Floor($elapsed.TotalMinutes), $elapsed.Seconds
