@@ -1,0 +1,54 @@
+{
+  "_operator_note": {
+    "purpose": "Реестр ключей воинских частей для fallen-cards. Назначение ключей — здесь; раскрытие в полные значения — в Astro-репо.",
+    "required_fields": ["dict_keys", "type", "number", "parent"],
+    "optional_fields": ["history_note"],
+    "workflow": "1. Добавить dict_keys (все написания из CSV). 2. Указать type (полк/дивизия/фронт/ап/тбр/обс). 3. Указать number (число или null для фронтов). 4. Указать parent (ключ родителя: для полка — дивизия, для дивизии — фронт, null для фронтов). 5. history_note — опционально (краткая справка).",
+    "boundary": "Этот файл — только для назначения ключей в fallen-cards. Поля children/camo_url/formation/disband/status_note/reference_url НЕ используются здесь — они принадлежат Astro-репо для раскрытия."
+  },
+  "unit-skf-front": {
+    "dict_keys": ["СКФ"],
+    "type": "фронт",
+    "number": null,
+    "parent": null,
+    "history_note": "Северо-Кавказский фронт. Период в действующей армии: 01.11.1941 — 30.09.1942"
+  },
+  "unit-krymf-front": {
+    "dict_keys": ["КрымФ"],
+    "type": "фронт",
+    "number": null,
+    "parent": null,
+    "history_note": "Крымский фронт. Период в действующей армии: 03.01.1942 — 13.08.1942"
+  },
+  "unit-398-sd": {
+    "dict_keys": ["СКФ 398 сд", "скф 398 сд"],
+    "type": "дивизия",
+    "number": 398,
+    "parent": "unit-skf-front"
+  },
+  "unit-404-sd": {
+    "dict_keys": ["404 сд", "скф 404 сд 44 А", "СКФ 404 сд 44 А"],
+    "type": "дивизия",
+    "number": 404,
+    "parent": "unit-krymf-front",
+    "history_note": "Уничтожена в майском разгроме Керчи (операция «Охота на дроф», 8–20.05.1942)"
+  },
+  "unit-826-sp": {
+    "dict_keys": [
+      "СКФ 826 сп 398 сд",
+      "скф 398 сд 826 сп",
+      "скф 826 полк 398 див.",
+      "скф 826 сп 398 див."
+    ],
+    "type": "полк",
+    "number": 826,
+    "parent": "unit-398-sd",
+    "history_note": "Период в действующей армии: 23.11.1941 — 19.05.1942"
+  },
+  "unit-643-sp": {
+    "dict_keys": ["643 сп 404 сд", "СКФ 643 сп 404 сд"],
+    "type": "полк",
+    "number": 643,
+    "parent": "unit-404-sd"
+  }
+}
