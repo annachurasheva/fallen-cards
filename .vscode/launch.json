@@ -27,7 +27,10 @@
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/scripts/normalize.js",
-      "args": ["--input=data/processed/raw.json", "--output=data/processed/normalized.json"],
+      "args": [
+        "--input=data/processed/raw.json",
+        "--output=data/processed/normalized.json"
+      ],
       "console": "integratedTerminal",
       "env": {
         "NODE_OPTIONS": "--no-warnings"
@@ -38,7 +41,17 @@
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/scripts/generate-cards.js",
-      "args": ["--input=data/processed/normalized.json", "--output=data/output/"],
+      "args": ["--dry-run"],
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_OPTIONS": "--no-warnings"
+      }
+    },
+    {
+      "name": "Запуск: units-report.js",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/units-report.js",
       "console": "integratedTerminal",
       "env": {
         "NODE_OPTIONS": "--no-warnings"
