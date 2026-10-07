@@ -227,11 +227,11 @@ function collectCsvFiles(dir) {
   const TOKEN_REGIMENT = "(?:гсп|полк|сп|п)(?:\\.+)?";
   const TOKEN_DIVISION = "(?:гсд|мсд|сд|дивизия|див)(?:\\.+)?";
   const reRegThenDiv = new RegExp(
-    `(\\d+)\\s*[-\\u0451]?й?\\s*${TOKEN_REGIMENT}[\\s\\S]*?(\\d+)\\s*[-\\u0451]?й?\\s*${TOKEN_DIVISION}`,
+    `(\\d+)\\s*[\\u0451]?й?\\s*${TOKEN_REGIMENT}[\\s\\S]*?(\\d+)\\s*[\\u0451]?й?\\s*${TOKEN_DIVISION}`,
     "iu",
   );
   const reDivThenReg = new RegExp(
-    `(\\d+)\\s*[-\\u0451]?й?\\s*${TOKEN_DIVISION}[\\s\\S]*?(\\d+)\\s*[-\\u0451]?й?\\s*${TOKEN_REGIMENT}`,
+    `(\\d+)\\s*[\\u0451]?й?\\s*${TOKEN_DIVISION}[\\s\\S]*?(\\d+)\\s*[\\u0451]?й?\\s*${TOKEN_REGIMENT}`,
     "iu",
   );
 
