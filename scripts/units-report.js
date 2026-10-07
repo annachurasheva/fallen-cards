@@ -46,7 +46,10 @@ function readJsonSafe(filepath) {
 }
 
 function normKey(s) {
-  return String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
+  return String(s || "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 // ---------- Рекорд-осознающий парсер CSV (как в generate-cards.js) ----------
@@ -146,26 +149,34 @@ function collectCsvFiles(dir) {
     process.exit(1);
   }
 
-  // Частоты различных написаний warunit (сырое написание — ключ статистики)
-  const freq = new Map(); // raw value -> {count, sessions:Set}
+  // Частоты различных написаний warunit; частота = число УНИКАЛЬНЫХ document_id
+  // с этим написанием (строки НЕ считаются: дубли одной персоны не надувают вес).
+  // Строки без document_id учитываются по одной (дедупликация невозможна).
+  const freq = new Map(); // raw value -> { ids:Set, sessions:Set }
   let totalRows = 0;
   let emptyWarunit = 0;
-
+  let noIdRows = 0;
+  const distinctIds = new Set();
   for (const csvFile of csvFiles) {
     const session = path.basename(path.dirname(csvFile));
     const objects = csvToObjects(readUtf8(csvFile));
-    for (const row of objects) {
+    objects.forEach((row, rowIdx) => {
       totalRows++;
       const raw = String(row.warunit || "").trim();
       if (!raw) {
         emptyWarunit++;
-        continue;
+        return;
       }
-      if (!freq.has(raw)) freq.set(raw, { count: 0, sessions: new Set() });
+      const docId = String(row.document_id || "").trim();
+      const dedupeKey = docId || `__row__:${session}:${rowIdx}`;
+      if (docId) distinctIds.add(docId);
+      else noIdRows++;
+      if (!freq.has(raw))
+        freq.set(raw, { ids: new Set(), sessions: new Set() });
       const e = freq.get(raw);
-      e.count++;
+      e.ids.add(dedupeKey);
       e.sessions.add(session);
-    }
+    });
   }
 
   // Статусы: есть в units_dict / нет в units_dict / есть в units_registry
@@ -175,7 +186,7 @@ function collectCsvFiles(dir) {
       const regKey = registryIndex.get(normKey(value)) || null;
       return {
         value,
-        count: info.count,
+        count: info.ids.size,
         sessions: [...info.sessions].sort(),
         in_units_dict: inDict,
         in_units_registry: !!regKey,
@@ -193,8 +204,8 @@ function collectCsvFiles(dir) {
   const lines = [
     `# Отчёт по warunit — ${today()}`,
     "",
-    `Источник: ${csvFiles.length} CSV-файл(ов), строк: ${totalRows} (пустой warunit: ${emptyWarunit}).`,
-    `Различных написаний: ${entries.length}. Распознано units_registry: ${recognized.length}. Кандидатов на новый ключ: ${candidates.length}.`,
+    `Источник: ${csvFiles.length} CSV-файл(ов), строк: ${totalRows} (уникальных document_id: ${distinctIds.size}; строк без id: ${noIdRows}; пустой warunit: ${emptyWarunit}).`,
+    `Частота = число уникальных document_id на написание.`,
     "",
     "> Пополнение словарей выполняется в Astro-репо (mem-2026-soursecraft-site).",
     "> Зеркала в fallen-cards — только для чтения. Решения о ключах — Анна-Ch.",
@@ -231,6 +242,8 @@ function collectCsvFiles(dir) {
         generated_date: today(),
         source_csv: csvFiles.map((f) => path.relative(ROOT, f)),
         total_rows: totalRows,
+        distinct_ids: distinctIds.size,
+        no_id_rows: noIdRows,
         distinct_values: entries.length,
         recognized: recognized.length,
         proposals: candidates.map((e) => ({
