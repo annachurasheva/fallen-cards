@@ -14,7 +14,7 @@ fallen-cards (сырьё и ключи)
   → data/cards/<источник>-<document_id>.md с frontmatter и ключами
       │
 mem-2026-soursecraft-site (Astro 5.1.5, производственный слой)
-  словари подмен и раскрытия (units_dict, units_registry, locations_dict, burials_*)
+  словари подмен и раскрытия (units_dict, unit_keys, locations_dict, burials_*)
   SCHEMA карточки по ключам; теги «сослуживцы»; авторы/персоны (authors.yaml)
   статика → RSS
       │
@@ -75,7 +75,7 @@ rebural_from_key: "loc-dalnie-kamyshi"
 published: 2026-10-06
 ```
 
-Astro при сборке берёт `unit-655-sp-404-sd` из units_registry и раскрывает
+Astro при сборке берёт `unit-655-sp-404-sd` из unit_keys.json и раскрывает
 в полное наименование + краткий боевой путь; берёт `loc-duscheti` из
 locations_dict и даёт современное название. Поля реестра (`formation`, `disband`,
 `history_note`, `camo_url`, `reference_url`) входят в карточку **только на этапе
@@ -83,7 +83,7 @@ locations_dict и даёт современное название. Поля р�
 словарей (новый полк, новая локация) → перегенерация статики → выгрузка.
 Карточки в fallen-cards не меняются: ключ тот же.
 
-**Владение словарями (TASK-0016):** словари `units_registry`, `units_dict`,
+**Владение словарями (TASK-0016):** словари `unit_keys`, `units_dict`,
 `burials_*` — рабочие инструменты fallen-cards: назначение ключей и пополнение
 выполняются здесь, решением Анны-Ch по предложениям отчёта units-report
 (цикл: units-report → proposals → решение → правка словаря → коммит

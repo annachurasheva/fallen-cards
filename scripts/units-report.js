@@ -4,7 +4,7 @@
  * Назначение: показать, какие написания `warunit` встречаются в принятых CSV,
  * распознаны ли они словарями, и какие кандидаты нуждаются в выдаче нового ключа.
  *
- * ВЛАДЕНИЕ СЛОВАРЯМИ (TASK-0016): словари units*dict / units_registry / burials_* —
+ * ВЛАДЕНИЕ СЛОВАРЯМИ (TASK-0016): словари units*dict / unit_keys / burials_* —
  * рабочие инструменты fallen-cards; пополнение выполняется ЗДЕСЬ решением Анны-Ch
  * по предложениям отчёта. Astro-репо получает копии словарей и раскрывает ключи
  * при генерации. locations_dict — внешний импорт, только чтение.
@@ -136,12 +136,12 @@ function collectCsvFiles(dir) {
   return out.sort();
 }
 
-// ---------- Проект пополнения units_registry.json (TASK-0016, п.2) ----------
+// ---------- Проект пополнения unit_keys.json (TASK-0016, п.2) ----------
 // Одна запись на каждое РАЗЛИЧНОЕ значение units_dict (полное имя), встретившееся в CSV.
 // type/number — из полного имени; parent полка — дивизия из имени (если есть в
 // реестре или в комплекте); parent дивизии — фронт из написаний (СКФ/КрымФ), иначе null;
 // history_note/camo_url/formation/disband — null, кроме однозначного переноса из
-// существующих записей реестра того же номера. Автоприменения в units_registry.json НЕТ.
+// существующих записей реестра того же номера. Автоприменения в unit_keys.json НЕТ.
 
 const UNIT_TYPE_PATTERNS = [
   { re: /дивизи[оая]\b(?!он)/i, type: "дивизия" }, // «…артиллерийский дивизион» — не дивизия
@@ -283,17 +283,14 @@ function buildRegistryDraft(unitsDict, unitsRegistry, entries, dateStr) {
       sessions: [...valueToSessions.get(fullName)].sort(),
       divNum,
       front: frontFromTexts(observed),
+      // Новая схема unit_keys.json: dict_keys/type/number/parent + опциональный
+      // history_note; архивные поля (children/camo_url/formation/disband/status_note/
+      // reference_url) не выносим — они принадлежат Astro-репо для раскрытия.
       entry: {
         dict_keys: [...observed].sort((a, b) => a.localeCompare(b, "ru")),
         type,
         number: Number(number),
         parent: null,
-        children: [],
-        camo_url: ex ? ex.camo_url ?? null : null,
-        formation: ex ? ex.formation ?? null : null,
-        disband: ex ? ex.disband ?? null : null,
-        status_note: ex ? ex.status_note ?? null : null,
-        reference_url: ex ? ex.reference_url ?? null : null,
         history_note: ex ? ex.history_note ?? null : null,
       },
     });
@@ -326,15 +323,15 @@ function buildRegistryDraft(unitsDict, unitsRegistry, entries, dateStr) {
 
   const draftJson = {
     generated_date: dateStr,
-    note: "Проект пополнения units_registry.json (черновик на ревью Анны-Ch). Автоприменение запрещено.",
+    note: "Проект пополнения unit_keys.json (черновик на ревью Анны-Ch). Автоприменение запрещено.",
     additions: registryAdditions,
     already_in_registry: alreadyInRegistry,
   };
 
   const mdLines = [
-    `# Проект пополнения units_registry — ${dateStr}`,
+    `# Проект пополнения unit_keys — ${dateStr}`,
     "",
-    "Черновик для ревью (TASK-0016, п.2). Никакого автоприменения в units_registry.json.",
+    "Черновик для ревью (TASK-0016, п.2). Никакого автоприменения в unit_keys.json.",
     "Частота = число уникальных document_id (по всем написаниям полного имени).",
     "",
     "| proposed_key | type | parent | частота | dict_keys | сессии |",
@@ -365,8 +362,11 @@ function buildRegistryDraft(unitsDict, unitsRegistry, entries, dateStr) {
 // ---------- Главная функция ----------
 (async () => {
   const unitsDict = readJsonSafe(path.join(DICT_DIR, "units_dict.json"));
-  const registryRaw = readJsonSafe(path.join(DICT_DIR, "units_registry.json"));
-  const unitsRegistry = registryRaw.units || registryRaw;
+  const unitKeysRaw = readJsonSafe(path.join(DICT_DIR, "unit_keys.json"));
+  // Схема unit_keys.json плоская: {_operator_note: {...}, unit-<ключ>: {...}} — без вложенного units
+  const unitsRegistry = Object.fromEntries(
+    Object.entries(unitKeysRaw).filter(([k]) => k !== "_operator_note"),
+  );
 
   // Индекс dict_keys реестра: нормализованное написание -> unit_key
   const registryIndex = new Map();
@@ -414,7 +414,7 @@ function buildRegistryDraft(unitsDict, unitsRegistry, entries, dateStr) {
     });
   }
 
-  // Статусы: есть в units_dict / нет в units_dict / есть в units_registry
+  // Статусы: есть в units_dict / нет в units_dict / есть в unit_keys
   const entries = [...freq.entries()]
     .map(([value, info]) => {
       const inDict = Object.prototype.hasOwnProperty.call(unitsDict, value);
@@ -487,7 +487,7 @@ function buildRegistryDraft(unitsDict, unitsRegistry, entries, dateStr) {
     const regKey = `unit-${reg}-sp`;
     const divKey = `unit-${div}-sd`;
     // Ворота (исправленные): regKey МОЖЕТ отсутствовать — он и есть предлагаемый полк;
-    // предложение рождается, если divKey есть в units_registry ИЛИ divKey включается
+    // предложение рождается, если divKey есть в unit_keys ИЛИ divKey включается
     // в тот же комплект предложения (новая дивизия рядом с новым полком).
     const divExists = isRegKey(divKey);
     const regExists = isRegKey(regKey);
@@ -573,7 +573,7 @@ function buildRegistryDraft(unitsDict, unitsRegistry, entries, dateStr) {
         Object.prototype.hasOwnProperty.call(unitsDict, v),
       ),
       sessions: [...new Set(groupEntries.flatMap((e) => e.sessions))].sort(),
-      action: "выдать unit_key в units_registry (fallen-cards), затем обновить копию в Astro",
+      action: "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro",
     });
   }
   structuredList.sort((a, b) => b.count - a.count);
@@ -606,14 +606,14 @@ function buildRegistryDraft(unitsDict, unitsRegistry, entries, dateStr) {
     `Источник: ${csvFiles.length} CSV-файл(ов), строк: ${totalRows} (уникальных document_id: ${distinctIds.size}; строк без id: ${noIdRows}; пустой warunit: ${emptyWarunit}).`,
     `Частота = число уникальных document_id на написание.`,
     "",
-    "> Словари units*dict / units_registry / burials_* — рабочие инструменты fallen-cards;",
+    "> Словари units*dict / unit_keys / burials_* — рабочие инструменты fallen-cards;",
     "> пополнение выполняется здесь решением Анны-Ch по предложениям отчёта.",
     "> Astro-репо получает копии словарей и раскрывает ключи при генерации.",
     "> locations_dict — внешний импорт, только чтение.",
     "",
     "## Распознанные написания",
     "",
-    "| warunit | частота | units_dict | units_registry | unit_key |",
+    "| warunit | частота | units_dict | unit_keys | unit_key |",
     "|---|---|---|---|---|",
     ...recognized.map(
       (e) =>
@@ -638,7 +638,7 @@ function buildRegistryDraft(unitsDict, unitsRegistry, entries, dateStr) {
     "## Структурированные кандидаты «полк + дивизия»",
     "",
     "Паттерн: число + сп/полк/гсп/п и число + сд/див/дивизия/гсд/мсд, в любом порядке;",
-    "предлагается, если дивизия есть в units_registry ИЛИ входит в тот же комплект",
+    "предлагается, если дивизия есть в unit_keys ИЛИ входит в тот же комплект",
     "предложения (полк может быть новым — он и есть продукт предложения).",
     "",
     ...(structuredBlocks.length
@@ -684,7 +684,7 @@ function buildRegistryDraft(unitsDict, unitsRegistry, entries, dateStr) {
           count: g.count,
           in_units_dict: g.in_units_dict,
           sessions: g.sessions,
-          action: "выдать unit_key в units_registry (fallen-cards), затем обновить копию в Astro",
+          action: "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro",
         })),
         structured: structuredBlocks,
       },

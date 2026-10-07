@@ -3,7 +3,7 @@
  *
  * Архитектура: fallen-cards выдаёт КЛЮЧИ (unit_key, location_key, burial_*_key),
  * раскрытие ключей в названия — задача Astro-генератора по словарям Astro-репо.
- * Словари в fallen-cards — зеркала ТОЛЬКО ДЛЯ ЧТЕНИЯ; значения в CSV не нормализуются.
+ * Словари (unit_keys.json и др.) — рабочие инструменты fallen-cards; значения в CSV не нормализуются.
  *
  * ИСПОЛЬЗОВАНИЕ:
  *   node scripts/generate-cards.js --dry-run
@@ -59,7 +59,7 @@ function stamp() {
   return `[${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}]`;
 }
 
-// Чтение JSON-зеркала словаря; отсутствие файла — не ошибка (пустой словарь)
+// Чтение JSON-словаря; отсутствие файла — не ошибка (пустой словарь)
 function readJsonSafe(filepath) {
   if (!fs.existsSync(filepath)) return {};
   try {
@@ -135,8 +135,11 @@ function csvToObjects(text) {
 
 // ---------- Словари (рабочие инструменты fallen-cards, см. data/dictionaries/README.md) ----------
 
-const unitsRegistryRaw = readJsonSafe(path.join(DICT_DIR, "units_registry.json"));
-const unitsRegistry = unitsRegistryRaw.units || unitsRegistryRaw; // формат v2: {version, units:{...}}
+const unitKeysRaw = readJsonSafe(path.join(DICT_DIR, "unit_keys.json"));
+// Схема unit_keys.json плоская: {_operator_note: {...}, unit-<ключ>: {...}} — без вложенного units
+const unitsRegistry = Object.fromEntries(
+  Object.entries(unitKeysRaw).filter(([k]) => k !== "_operator_note"),
+);
 const unitsDict = readJsonSafe(path.join(DICT_DIR, "units_dict.json"));
 const locationsDict = readJsonSafe(path.join(DICT_DIR, "locations_dict.json")); // может отсутствовать
 const burialsCurrent = readJsonSafe(path.join(DICT_DIR, "burials_current.json"));
@@ -164,17 +167,17 @@ function shortHash(s) {
 
 // ---------- Назначение ключей (значения НЕ нормализуются — только ключи) ----------
 
-// unit_key: warunit -> units_registry по dict_keys; не распознан -> unit_unknown_<hash>.
+// unit_key: warunit -> unit_keys.json по dict_keys; не распознан -> unit_unknown_<hash>.
 // TASK-0016, п.1а: базой fallback-ключа служит нормализованное ЗНАЧЕНИЕ units_dict,
 // если написание есть в словаре (синонимы схлопываются в один ключ); от сырого
-// написания — только когда написания нет ни в реестре, ни в словаре.
+// написания — только когда написания нет ни в unit_keys.json, ни в словаре.
 function assignUnitKey(warunit, proposals) {
   const raw = String(warunit || "").trim();
   if (!raw) return "";
   const nk = normKey(raw);
   const byRegistry = registryIndex.get(nk);
   if (byRegistry) return byRegistry;
-  // units_dict — словарь написаний: написание есть в словаре, но ключа в реестре нет —
+  // units_dict — словарь написаний: написание есть в словаре, но ключа в unit_keys.json нет —
   // всё равно кандидат; ключ выдаётся реестром здесь (см. README словарей)
   const dictValue = Object.prototype.hasOwnProperty.call(unitsDict, raw)
     ? unitsDict[raw]
