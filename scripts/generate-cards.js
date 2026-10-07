@@ -133,7 +133,7 @@ function csvToObjects(text) {
   });
 }
 
-// ---------- Словари-зеркала (только для чтения) ----------
+// ---------- Словари (рабочие инструменты fallen-cards, см. data/dictionaries/README.md) ----------
 
 const unitsRegistryRaw = readJsonSafe(path.join(DICT_DIR, "units_registry.json"));
 const unitsRegistry = unitsRegistryRaw.units || unitsRegistryRaw; // формат v2: {version, units:{...}}
@@ -164,29 +164,37 @@ function shortHash(s) {
 
 // ---------- Назначение ключей (значения НЕ нормализуются — только ключи) ----------
 
-// unit_key: warunit -> units_registry по dict_keys; не распознан -> unit_unknown_<hash>
+// unit_key: warunit -> units_registry по dict_keys; не распознан -> unit_unknown_<hash>.
+// TASK-0016, п.1а: базой fallback-ключа служит нормализованное ЗНАЧЕНИЕ units_dict,
+// если написание есть в словаре (синонимы схлопываются в один ключ); от сырого
+// написания — только когда написания нет ни в реестре, ни в словаре.
 function assignUnitKey(warunit, proposals) {
   const raw = String(warunit || "").trim();
   if (!raw) return "";
   const nk = normKey(raw);
   const byRegistry = registryIndex.get(nk);
   if (byRegistry) return byRegistry;
-  // units_dict — зеркало написаний: написание есть в словаре, но ключа в реестре нет —
-  // всё равно кандидат; ключ выдаётся только реестром Astro
-  const key = `unit_unknown_${shortHash(nk)}`;
+  // units_dict — словарь написаний: написание есть в словаре, но ключа в реестре нет —
+  // всё равно кандидат; ключ выдаётся реестром здесь (см. README словарей)
+  const dictValue = Object.prototype.hasOwnProperty.call(unitsDict, raw)
+    ? unitsDict[raw]
+    : undefined;
+  const basis =
+    typeof dictValue === "string" && dictValue.trim() ? normKey(dictValue) : nk;
+  const key = `unit_unknown_${shortHash(basis)}`;
   if (!proposals.seen.has(key)) {
     proposals.seen.add(key);
     proposals.list.push({
       kind: "unit",
       proposed_key: key,
       value: raw,
-      in_units_dict: Object.prototype.hasOwnProperty.call(unitsDict, raw),
+      in_units_dict: dictValue !== undefined,
     });
   }
   return key;
 }
 
-// location_key: через locations_dict (зеркало только для чтения); нет словаря/метки — loc_unknown_<hash>
+// location_key: через locations_dict (внешний импорт, только чтение); нет словаря/метки — loc_unknown_<hash>
 function assignLocationKey(value, proposals) {
   const raw = String(value || "").trim();
   if (!raw) return "";
