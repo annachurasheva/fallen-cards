@@ -46,6 +46,19 @@ units-report** (скрипт слоя подготовки, TASK-0014): каки
 ключей). Расхождения копий ломают назначение ключей; правки — сначала в Astro-репо,
 затем обновление зеркала.
 
+### Путь предложений (units-report.js)
+
+`node scripts/units-report.js` формирует журнал предложений:
+
+- `data/dictionaries/reports/units-<дата>.md` — все написания `warunit` с частотами
+  и статусами: есть в `units_dict` / нет в `units_dict` / есть в `units_registry`;
+- `data/dictionaries/reports/proposals.json` — кандидаты на выдачу нового ключа.
+
+Путь дальше: proposals.json передаётся в Astro-репо (`mem-2026-soursecraft-site`) →
+Анна-Ch принимает решение по каждому кандидату → новый ключ заводится в словарях
+Astro-репо → зеркало в fallen-cards обновляется копированием. Из fallen-cards
+предложения не применяются автоматически.
+
 ## Правила форматов JSON
 
 - кодировка UTF-8 без BOM;
