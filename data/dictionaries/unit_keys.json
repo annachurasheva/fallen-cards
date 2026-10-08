@@ -35,70 +35,89 @@
   "unit-398-sd": {
     "dict_keys": [
       "СКФ 398 сд",
-      "скф 398 сд"
+      "скф 398 сд",
+      "398 сд Крымского фронта",
+      "КрымФронт 398 сд"
     ],
     "type": "дивизия",
     "number": 398,
-    "parent": "unit-skf-front"
+    "parent": "unit-51a-kf",
+    "history_note": "Перенесён parent: unit-skf-front -> unit-krymf-front (П2). 398 сд в Крымском фронте: 44 А (янв–март 1942), 51 А (март–май 1942). Источник: docs/TEXT/398-ya-strelkovaya-diviziya.md, раздел «Подчинение». Уточнён parent: unit-krymf-front -> unit-51a-kf. 398 сд: 44 А (янв–март 1942), 51 А (март–май 1942). Выбрано последнее подчинение на момент майского разгрома (51 А). Источник: docs/TEXT/398-ya-strelkovaya-diviziya.md (Подчинение)."
   },
   "unit-404-sd": {
     "dict_keys": [
       "404 сд",
       "скф 404 сд 44 А",
-      "СКФ 404 сд 44 А"
+      "СКФ 404 сд 44 А",
+      "404 сд 9 ск 44 А",
+      "КрымФронт 404 сд"
     ],
     "type": "дивизия",
     "number": 404,
-    "parent": "unit-krymf-front",
-    "history_note": "Уничтожена в майском разгроме Керчи (операция «Охота на дроф», 8–20.05.1942)"
+    "parent": "unit-9-skorpus",
+    "history_note": "Уничтожена в майском разгроме Керчи (операция «Охота на дроф», 8–20.05.1942) Уточнён parent: unit-krymf-front -> unit-9-skorpus (П1). 404 сд входила в 9-й стрелковый корпус 44-й армии Крымского фронта (дек 1941 – янв 1942), затем 44 А без корпуса до уничтожения в мае 1942. Для упрощения графа оставлена внутри цепочки KrymFront -> 44А(в КФ) -> 9 ск. Источник: docs/TEXT/404-ya-strelkovaya-diviziya.md (Подчинение)."
   },
   "unit-400-sd": {
     "dict_keys": [
       "400 сд",
       "скф 400 сд",
-      "СКФ 400 сд 44 А"
+      "СКФ 400 сд 44 А",
+      "400 сд Крымского фронта",
+      "КрымФронт 400 сд"
     ],
     "type": "дивизия",
     "number": 400,
-    "parent": "unit-skf-front",
-    "history_note": "400-я стрелковая дивизия Северо-Кавказского фронта"
+    "parent": "unit-51a-kf",
+    "history_note": "400-я стрелковая дивизия Северо-Кавказского фронта Перенесён parent: unit-skf-front -> unit-krymf-front (П4). 400 сд в Крымском фронте: 47 А (янв–март 1942), 51 А (март–май 1942). Источник: docs/TEXT/400-ya-strelkovaya-diviziya.md, раздел «Подчинение». Уточнён parent: unit-krymf-front -> unit-51a-kf. 400 сд: 47 А (янв–март 1942), 51 А (март–май 1942). Выбрано последнее подчинение (51 А). Источник: docs/TEXT/400-ya-strelkovaya-diviziya.md (Подчинение)."
   },
   "unit-157-sd": {
     "dict_keys": [
       "157 сд",
       "СКФ 157 сд",
-      "скф 157 сд 44 А"
+      "скф 157 сд 44 А",
+      "157 сд Крымского фронта",
+      "КрымФронт 157 сд"
     ],
     "type": "дивизия",
     "number": 157,
-    "parent": "unit-skf-front"
+    "parent": "unit-44a-kf",
+    "history_note": "Уточнён parent: unit-skf-front -> unit-44a-kf (П3). 157 сд: 9 А (июнь–сентябрь 1941), Южный фронт, 44 А (ноябрь 1941 – май 1942, Крымский фронт), далее Сталинградский фронт (лето 1942). Период в Крыму покрыт родителем unit-44a-kf. Источник: docs/TEXT/157-ya-strelkovaya-diviziya.md; docs/TEXT/44-ya-armiya-sssr.md (окружение в Феодосии, янв 1942); TASK-0015-otchet."
   },
   "unit-236-sd": {
     "dict_keys": [
       "236 сд",
-      "скф 236 сд"
+      "скф 236 сд",
+      "236 сд Крымского фронта",
+      "КрымФронт 236 сд"
     ],
     "type": "дивизия",
     "number": 236,
-    "parent": "unit-skf-front"
+    "parent": "unit-44a-kf",
+    "history_note": "Перенесён parent: unit-skf-front -> unit-krymf-front (П8). 236 сд: 47 А (июль–октябрь 1941), 44 А (ноябрь 1941 – январь 1942), Кавказский/Крымский фронт, 44 А (январь–май 1942). Уничтожена в мае 1942, восстановлена; далее 18 А, 46 А. Источники: docs/TEXT/236-ya-strelkovaya-diviziya.md; docs/TEXT/44-ya-armiya-sssr.md (окружение в Феодосии, янв 1942); TASK-0015-otchet. Уточнён parent: unit-krymf-front -> unit-44a-kf. 236 сд — 44 А (ноябрь 1941 – май 1942, включая окружение в Феодосии в январе 1942). Источник: docs/TEXT/236-ya-strelkovaya-diviziya.md; docs/TEXT/44-ya-armiya-sssr.md."
   },
   "unit-276-sd": {
     "dict_keys": [
       "276 сд",
-      "скф 276 сд 44 А"
+      "скф 276 сд 44 А",
+      "276 сд Крымского фронта",
+      "КрымФронт 276 сд"
     ],
     "type": "дивизия",
     "number": 276,
-    "parent": "unit-skf-front"
+    "parent": "unit-51a-kf",
+    "history_note": "Перенесён parent: unit-skf-front -> unit-krymf-front (П5). 276 сд: 51 А (сент–дек 1941), сводный полк в СКВО (дек 1941 – фев 1942), Крымский фронт: 44 А (февр–апр 1942), 51 А (апр–май 1942). Примечание: часть периода (июль–сентябрь 1941, Орловский ВО) вне действующей армии; промежуточное подчинение СКВО отражено в history_note. Источники: docs/TEXT/276-ya-strelkovaya-diviziya.md; TASK-0015-otchet (стр. 276-я сд). Уточнён parent: unit-krymf-front -> unit-51a-kf. 276 сд: 51 А (сент–дек 1941), перформирована, 44 А (февр–апр 1942), 51 А (апр–май 1942). Выбрано последнее подчинение (51 А). Источник: docs/TEXT/276-ya-strelkovaya-diviziya.md; TASK-0015-otchet."
   },
   "unit-302-sd": {
     "dict_keys": [
       "302 сд",
-      "скф 302 сд"
+      "скф 302 сд",
+      "302 сд Крымского фронта",
+      "КрымФронт 302 сд"
     ],
     "type": "дивизия",
     "number": 302,
-    "parent": "unit-skf-front"
+    "parent": "unit-51a-kf",
+    "history_note": "Перенесён parent: unit-skf-front -> unit-krymf-front (П6). 302 сд (быв. 302 гсд): Крымский фронт, 51 А (декабрь 1941 – май 1942); далее Северо-Кавказский фронт, 51 А (июнь–июль 1942), Сталинград. Источники: docs/TEXT/302-ya-strelkovaya-diviziya.md; TASK-0015-otchet. Уточнён parent: unit-krymf-front -> unit-51a-kf. 302 сд (и 302 гсд) — 51 А Крымского фронта (дек 1941 – май 1942). Источник: docs/TEXT/302-ya-strelkovaya-diviziya.md; TASK-0015-otchet."
   },
   "unit-77-sd": {
     "dict_keys": [
@@ -124,11 +143,14 @@
   "unit-390-sd": {
     "dict_keys": [
       "390 сд",
-      "СКФ 390 сд"
+      "СКФ 390 сд",
+      "390 сд Крымского фронта",
+      "КрымФронт 390 сд"
     ],
     "type": "дивизия",
     "number": 390,
-    "parent": "unit-skf-front"
+    "parent": "unit-51a-kf",
+    "history_note": "Перенесён parent: unit-skf-front -> unit-krymf-front (П7). 390 сд: Закавказский фронт (авг–сент 1941), 46 А, 51 А (нояб–дек 1941), Кавказский фронт, Крымский фронт, 51 А (дек 1941 – май 1942). Уничтожена в мае 1942. Источники: docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md, раздел «Подчинение»; TASK-0015-otchet. Уточнён parent: unit-krymf-front -> unit-51a-kf. 390 сд — 51 А (нояб 1941 – май 1942) через Кавказский/Крымский фронт. Источник: docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md (Подчинение)."
   },
   "unit-63-sd": {
     "dict_keys": [
@@ -310,12 +332,12 @@
   },
   "unit-789-sp": {
     "dict_keys": [
-      "скф 227 сд 789 сп",
-      "779 сп 227 сд"
+      "скф 227 сд 789 сп"
     ],
     "type": "полк",
     "number": 789,
-    "parent": "unit-227-sd"
+    "parent": "unit-227-sd",
+    "history_note": "Исправление диктатора (TASK-0017): из dict_keys убрано написания «779 сп 227 сд» — оно относится к 779-му стрелковому полку (unit-779-sp); 789-й сп включался в сводный полк 227 сд, но не является 779 сп. Источник: TASK-0015-units-report.md (стр. 227-я сд)."
   },
   "unit-779-sp": {
     "dict_keys": [
@@ -404,7 +426,7 @@
     "type": "батальон связи",
     "number": 846,
     "parent": "unit-398-sd",
-    "history_note": "846-й отдельный батальон связи 398-й стрелковой дивизии"
+    "history_note": "846-й отдельный батальон связи 398-й стрелковой дивизии Объединено с unit-846-obs (TASK-0017): записи дублировали один объект — 846-й отдельный батальон связи 398-й сд; написания слиты в единый dict_keys."
   },
   "unit-392-medbat": {
     "dict_keys": [
@@ -415,7 +437,7 @@
     "type": "медико-санитарный батальон",
     "number": 392,
     "parent": "unit-236-sd",
-    "history_note": "392-й медико-санитарный батальон 236-й стрелковой дивизии"
+    "history_note": "392-й медико-санитарный батальон 236-й стрелковой дивизии Объединено с unit-392-msb (TASK-0017): записи дублировали один объект — 392-й медико-санитарный батальон 236-й сд; написания слиты в единый dict_keys."
   },
   "unit-404-sapbat": {
     "dict_keys": [
@@ -426,7 +448,7 @@
     "type": "сапёрный батальон",
     "number": 404,
     "parent": "unit-236-sd",
-    "history_note": "404-й отдельный сапёрный батальон 236-й стрелковой дивизии"
+    "history_note": "404-й отдельный сапёрный батальон 236-й стрелковой дивизии Объединено с unit-404-osb (TASK-0017): записи дублировали один объект — 404-й отдельный сапёрный батальон 236-й сд; написания слиты в единый dict_keys."
   },
   "unit-957-okshr": {
     "dict_keys": [
@@ -470,16 +492,7 @@
     "type": "армия",
     "number": 47,
     "parent": "unit-skf-front",
-    "history_note": null
-  },
-  "unit-47-oro": {
-    "dict_keys": [
-      "скф 47 А 47 оро",
-      "47 ср охраны 47 А"
-    ],
-    "type": "рота охраны",
-    "number": 47,
-    "parent": "unit-47-a"
+    "history_note": "Написание «N А Крымского фронта» зарезервировано за промежуточным ключом unit-51a-kf / unit-44a-kf / unit-47a-kf."
   },
   "unit-55-tbr": {
     "dict_keys": [
@@ -621,7 +634,7 @@
     "type": "армия",
     "number": 51,
     "parent": "unit-skf-front",
-    "history_note": null
+    "history_note": "Написание «N А Крымского фронта» зарезервировано за промежуточным ключом unit-51a-kf / unit-44a-kf / unit-47a-kf. Уточнение (TASK-0017): 51-я армия также входила в состав Крымского фронта (28.01–19.05.1942); для дивизий крымского периода создан промежуточный ключ unit-51a-kf (parent: unit-krymf-front). Источник: docs/TEXT/krymfront.md (Состав)."
   },
   "unit-44-a": {
     "dict_keys": [
@@ -630,7 +643,7 @@
     "type": "армия",
     "number": 44,
     "parent": "unit-skf-front",
-    "history_note": null
+    "history_note": "Написание «N А Крымского фронта» зарезервировано за промежуточным ключом unit-51a-kf / unit-44a-kf / unit-47a-kf."
   },
   "unit-15-sp": {
     "dict_keys": [
@@ -639,24 +652,6 @@
     "type": "сп",
     "number": 15,
     "parent": "unit-2-gv-sd",
-    "history_note": null
-  },
-  "unit-392-msb": {
-    "dict_keys": [
-      "скф 392 мед.-сан. бат."
-    ],
-    "type": "мсб",
-    "number": 392,
-    "parent": null,
-    "history_note": null
-  },
-  "unit-47-rc": {
-    "dict_keys": [
-      "47 ср охраны 47 А"
-    ],
-    "type": "рота",
-    "number": 47,
-    "parent": "unit-47-a",
     "history_note": null
   },
   "unit-24-tp": {
@@ -677,15 +672,6 @@
     "parent": "unit-276-sd",
     "history_note": null
   },
-  "unit-846-obs": {
-    "dict_keys": [
-      "скф 398 сд 846 обс"
-    ],
-    "type": "обс",
-    "number": 846,
-    "parent": null,
-    "history_note": null
-  },
   "unit-126-tb": {
     "dict_keys": [
       "126 отд. тб"
@@ -702,15 +688,6 @@
     "type": "олрс",
     "number": 427,
     "parent": "unit-44-a",
-    "history_note": null
-  },
-  "unit-404-osb": {
-    "dict_keys": [
-      "скф 404 отд. сап. бат. 236 сд"
-    ],
-    "type": "осб",
-    "number": 404,
-    "parent": null,
     "history_note": null
   },
   "unit-659-ols": {
@@ -947,5 +924,57 @@
     "number": 865,
     "parent": null,
     "history_note": null
+  },
+  "unit-51a-kf": {
+    "dict_keys": [
+      "51 А Крымского фронта",
+      "51-я армия Крымского фронта",
+      "СКФ 51 А"
+    ],
+    "type": "армия",
+    "number": 51,
+    "parent": "unit-krymf-front",
+    "history_note": "Переименован из unit-51a-kf (TASK-0017): канонический формат unit-{number}{type}-{context}. Промежуточный ключ: 51-я армия в составе Крымского фронта (28.01.1942 – 19.05.1942). Включает 398 сд, 400 сд, 276 сд, 302 сд, 390 сд и др. Источник: docs/TEXT/krymfront.md (Состав); docs/TEXT/398-ya-strelkovaya-diviziya.md, docs/TEXT/400-ya-strelkovaya-diviziya.md (Подчинение)."
+  },
+  "unit-44a-kf": {
+    "dict_keys": [
+      "44 А Крымского фронта",
+      "44-я армия Крымского фронта"
+    ],
+    "type": "армия",
+    "number": 44,
+    "parent": "unit-krymf-front",
+    "history_note": "Переименован из unit-44a-kf (TASK-0017): канонический формат unit-{number}{type}-{context}. Промежуточный ключ: 44-я армия в составе Крымского фронта (28.01.1942 – 19.05.1942). Включает 157 сд, 236 сд, 398 сд (янв–март 1942), 404 сд, 63 гсд, 302 гсд (до марта 1942). Источник: docs/TEXT/krymfront.md (Состав); docs/TEXT/44-ya-armiya-sssr.md; docs/TEXT/398-ya-strelkovaya-diviziya.md."
+  },
+  "unit-47a-kf": {
+    "dict_keys": [
+      "47 А Крымского фронта",
+      "47-я армия Крымского фронта"
+    ],
+    "type": "армия",
+    "number": 47,
+    "parent": "unit-krymf-front",
+    "history_note": "Переименован из unit-47a-kf (TASK-0017): канонический формат unit-{number}{type}-{context}. Промежуточный ключ: 47-я армия в составе Крымского фронта (28.01.1942 – май 1942). Включает 400 сд (янв–март 1942). Источник: docs/TEXT/krymfront.md (Состав); docs/TEXT/47-ya-armiya.md; docs/TEXT/400-ya-strelkovaya-diviziya.md."
+  },
+  "unit-9-skorpus": {
+    "dict_keys": [
+      "9-й стрелковый корпус",
+      "9 ск"
+    ],
+    "type": "стрелковый корпус",
+    "number": 9,
+    "parent": "unit-44a-kf",
+    "history_note": "9-й стрелковый корпус в составе 44-й армии (декабрь 1941 – январь 1942), Крымский фронт. Включал 404 сд. Источник: docs/TEXT/404-ya-strelkovaya-diviziya.md (Подчинение: «Кавказский фронт, 44-я армия, 9-й стрелковый корпус — с декабря 1941 по январь 1942 года»)."
+  },
+  "unit-47-rs": {
+    "dict_keys": [
+      "скф 47 А 47 оро",
+      "47 ср охраны 47 А",
+      "47 рота связи 47 А"
+    ],
+    "type": "рота связи",
+    "number": 47,
+    "parent": "unit-47-a",
+    "history_note": "Объединено с unit-47-rc (TASK-0017): записи дублировали один объект — 47-я рота связи (охраны?) 47-й армии; написания слиты в единый dict_keys. Тип уточнён: «рота связи» (написания «47 рота связи 47 А» и «47 ср охраны 47 А» — один объект; ключ переименован из unit-47-oro в unit-47-rs)."
   }
 }
