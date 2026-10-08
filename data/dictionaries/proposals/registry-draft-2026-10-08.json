@@ -1,0 +1,525 @@
+{
+  "generated_date": "2026-10-08",
+  "note": "Проект пополнения unit_keys.json (черновик на ревью Анны-Ch). Автоприменение запрещено.",
+  "additions": {
+    "unit-15-sp": {
+      "dict_keys": [
+        "15 гв. сп 2 гв. сд"
+      ],
+      "type": "сп",
+      "number": 15,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-55-tbr": {
+      "dict_keys": [
+        "55 мспб 55 тбр"
+      ],
+      "type": "тбр",
+      "number": 55,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-77-front": {
+      "dict_keys": [
+        "СКФ 77 сд"
+      ],
+      "type": "фронт",
+      "number": 77,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-392-msb": {
+      "dict_keys": [
+        "скф 392 мед.-сан. бат."
+      ],
+      "type": "мсб",
+      "number": 392,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-47-rc": {
+      "dict_keys": [
+        "47 ср охраны 47 А"
+      ],
+      "type": "рота",
+      "number": 47,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-422-ap": {
+      "dict_keys": [
+        "422 ап 157 сд"
+      ],
+      "type": "ап",
+      "number": 422,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-47-front": {
+      "dict_keys": [
+        "скф 865 сд 47 А"
+      ],
+      "type": "фронт",
+      "number": 47,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-958-ap": {
+      "dict_keys": [
+        "СКФ 958 ап 398 сд"
+      ],
+      "type": "ап",
+      "number": 958,
+      "parent": "unit-skf-front",
+      "history_note": null
+    },
+    "unit-961-ap": {
+      "dict_keys": [
+        "961 ап"
+      ],
+      "type": "ап",
+      "number": 961,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-44-front": {
+      "dict_keys": [
+        "скф 404 сд 44 А"
+      ],
+      "type": "фронт",
+      "number": 44,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-24-tp": {
+      "dict_keys": [
+        "24 тп"
+      ],
+      "type": "тп",
+      "number": 24,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-873-sp": {
+      "dict_keys": [
+        "873 сп"
+      ],
+      "type": "сп",
+      "number": 873,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-231-front": {
+      "dict_keys": [
+        "скф 231 оптд"
+      ],
+      "type": "фронт",
+      "number": 231,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-427-ols": {
+      "dict_keys": [
+        "44 А 427 олбс"
+      ],
+      "type": "олрс",
+      "number": 427,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-157-front": {
+      "dict_keys": [
+        "СКФ 157 сд"
+      ],
+      "type": "фронт",
+      "number": 157,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-404-osb": {
+      "dict_keys": [
+        "скф 404 отд. сап. бат. 236 сд"
+      ],
+      "type": "осб",
+      "number": 404,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-126-tb": {
+      "dict_keys": [
+        "126 отд. тб"
+      ],
+      "type": "тб",
+      "number": 126,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-659-ols": {
+      "dict_keys": [
+        "51 А 659 олбс"
+      ],
+      "type": "олрс",
+      "number": 659,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-846-obs": {
+      "dict_keys": [
+        "скф 398 сд 846 обс"
+      ],
+      "type": "обс",
+      "number": 846,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-39-tbr": {
+      "dict_keys": [
+        "39 тбр"
+      ],
+      "type": "тбр",
+      "number": 39,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-475-bao": {
+      "dict_keys": [
+        "КрымФ 475 бао"
+      ],
+      "type": "бао",
+      "number": 475,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-31-front": {
+      "dict_keys": [
+        "СКФ 31 озад"
+      ],
+      "type": "фронт",
+      "number": 31,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-97-pps": {
+      "dict_keys": [
+        "скф 47 А 97 пункт сбора аварийн. машин"
+      ],
+      "type": "ппс",
+      "number": 97,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-547-ap": {
+      "dict_keys": [
+        "скф 547 гап РГК"
+      ],
+      "type": "ап",
+      "number": 547,
+      "parent": "unit-skf-front",
+      "history_note": null
+    },
+    "unit-133-iap": {
+      "dict_keys": [
+        "133 иап КрымФ",
+        "КрымФ 133 иап"
+      ],
+      "type": "иап",
+      "number": 133,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-153-vps": {
+      "dict_keys": [
+        "153 упр. воен. полев. стр. впс 51 А"
+      ],
+      "type": "впс",
+      "number": 153,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-174-rc": {
+      "dict_keys": [
+        "174 эр"
+      ],
+      "type": "рота",
+      "number": 174,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-21-ap": {
+      "dict_keys": [
+        "21 гв. ап 2 гв. сд"
+      ],
+      "type": "ап",
+      "number": 21,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-460-rc": {
+      "dict_keys": [
+        "404 сд 460 мото-развед. рота"
+      ],
+      "type": "рота",
+      "number": 460,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-460-sp": {
+      "dict_keys": [
+        "460 отд. развед. мп"
+      ],
+      "type": "полк",
+      "number": 460,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-467-ap": {
+      "dict_keys": [
+        "467 кап"
+      ],
+      "type": "ап",
+      "number": 467,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-13-brota": {
+      "dict_keys": [
+        "СКФ 13 отд. броне. рота"
+      ],
+      "type": "брота",
+      "number": 13,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-18-minp": {
+      "dict_keys": [
+        "СКФ 18 гв. минп"
+      ],
+      "type": "минп",
+      "number": 18,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-199-obs": {
+      "dict_keys": [
+        "СКФ 199 отд. бат. связи 157 сд"
+      ],
+      "type": "обс",
+      "number": 199,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-427-ob": {
+      "dict_keys": [
+        "СКФ 3 рота 427 олбс"
+      ],
+      "type": "об",
+      "number": 427,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-236-front": {
+      "dict_keys": [
+        "скф 28 оптд 236 сд"
+      ],
+      "type": "фронт",
+      "number": 236,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-343-ptb": {
+      "dict_keys": [
+        "СКФ 343 пулеметн. бат. 151 УР"
+      ],
+      "type": "птб",
+      "number": 343,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-351-front": {
+      "dict_keys": [
+        "СКФ 351 озад"
+      ],
+      "type": "фронт",
+      "number": 351,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-61-ob": {
+      "dict_keys": [
+        "скф 61 дорма"
+      ],
+      "type": "об",
+      "number": 61,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-679-osb": {
+      "dict_keys": [
+        "СКФ 679 осб 404 сд"
+      ],
+      "type": "осб",
+      "number": 679,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-73-sp": {
+      "dict_keys": [
+        "СКФ 73 отд. мото. мех. полк"
+      ],
+      "type": "полк",
+      "number": 73,
+      "parent": "unit-skf-front",
+      "history_note": null
+    },
+    "unit-739-rc": {
+      "dict_keys": [
+        "СКФ 739 отср"
+      ],
+      "type": "рота",
+      "number": 739,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-79-ps": {
+      "dict_keys": [
+        "СКФ 79 пс"
+      ],
+      "type": "пс",
+      "number": 79,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-8-ob": {
+      "dict_keys": [
+        "скф 8 отд 77 гсд"
+      ],
+      "type": "об",
+      "number": 8,
+      "parent": null,
+      "history_note": null
+    },
+    "unit-865-sp": {
+      "dict_keys": [
+        "СКФ 865 сп"
+      ],
+      "type": "сп",
+      "number": 865,
+      "parent": null,
+      "history_note": null
+    }
+  },
+  "already_in_registry": [
+    {
+      "key": "unit-633-sp",
+      "proposed_key": "unit-633-sp",
+      "dict_keys_add": [
+        "633 сп"
+      ]
+    },
+    {
+      "key": "unit-826-sp",
+      "proposed_key": "unit-826-sp",
+      "dict_keys_add": [
+        "скф 398 сд 826 сп",
+        "скф 826 полк 398 див.",
+        "скф 826 сп 398 див.",
+        "СКФ 826 сп 398 сд"
+      ]
+    },
+    {
+      "key": "unit-384-sp",
+      "proposed_key": "unit-384-sp",
+      "dict_keys_add": [
+        "СКФ 384 сп 157 сд"
+      ]
+    },
+    {
+      "key": "unit-643-sp",
+      "proposed_key": "unit-643-sp",
+      "dict_keys_add": [
+        "643 сп 404 сд"
+      ]
+    },
+    {
+      "key": "unit-716-sp",
+      "proposed_key": "unit-716-sp",
+      "dict_keys_add": [
+        "СКФ 716 сп 157 сд"
+      ]
+    },
+    {
+      "key": "unit-814-sp",
+      "proposed_key": "unit-814-sp",
+      "dict_keys_add": [
+        "скф 814 сп 236 сд"
+      ]
+    },
+    {
+      "key": "unit-655-sp",
+      "proposed_key": "unit-655-sp",
+      "dict_keys_add": [
+        "655 сп 404 сд крымф"
+      ]
+    },
+    {
+      "key": "unit-509-sp",
+      "proposed_key": "unit-509-sp",
+      "dict_keys_add": [
+        "скф 509 п 236 сд",
+        "скф 509 сп 236 сд"
+      ]
+    },
+    {
+      "key": "unit-652-sp",
+      "proposed_key": "unit-652-sp",
+      "dict_keys_add": [
+        "СКФ 652 сп 404 сд"
+      ]
+    },
+    {
+      "key": "unit-827-sp",
+      "proposed_key": "unit-827-sp",
+      "dict_keys_add": [
+        "скф 827 сп 302 сд"
+      ]
+    },
+    {
+      "key": "unit-665-sp",
+      "proposed_key": "unit-665-sp",
+      "dict_keys_add": [
+        "СКФ 665 сп 404 сд"
+      ]
+    },
+    {
+      "key": "unit-105-sp",
+      "proposed_key": "unit-105-sp",
+      "dict_keys_add": [
+        "СКФ 77 гсд 105 гсп",
+        "СКФ 77 гсд 105 п",
+        "СКФ 77 гсд 105 сп"
+      ]
+    },
+    {
+      "key": "unit-876-sp",
+      "proposed_key": "unit-876-sp",
+      "dict_keys_add": [
+        "876 сп 276 сд"
+      ]
+    },
+    {
+      "key": "unit-824-sp",
+      "proposed_key": "unit-824-sp",
+      "dict_keys_add": [
+        "СКФ 824 сп 398 сд"
+      ]
+    },
+    {
+      "key": "unit-871-sp",
+      "proposed_key": "unit-871-sp",
+      "dict_keys_add": [
+        "скф 871 сп 276 сд 44 А"
+      ]
+    }
+  ]
+}
