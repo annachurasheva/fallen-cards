@@ -5,18 +5,24 @@
     "data\\processed\\huzuf_6_test\\huzuf_6_test-unclassified.csv",
     "data\\processed\\links_id_160_Огуз-Тобе\\links_id_160_Огуз-Тобе-fallen.csv",
     "data\\processed\\links_id_160_Огуз-Тобе\\links_id_160_Огуз-Тобе-unclassified.csv",
+    "data\\processed\\links_id_398_сд_03_1942_крым\\links_id_398_сд_03_1942_крым-fallen.csv",
+    "data\\processed\\links_id_398_сд_03_1942_крым\\links_id_398_сд_03_1942_крым-unclassified.csv",
     "data\\processed\\links_id_658_Арма-Эли\\links_id_658_Арма-Эли-fallen.csv",
     "data\\processed\\links_id_658_Арма-Эли\\links_id_658_Арма-Эли-unclassified.csv",
     "data\\processed\\links_id_Крымская_АССР_выс_66_3_\\links_id_Крымская_АССР_выс_66_3_-fallen.csv",
     "data\\processed\\links_id_Крымская_АССР_выс_66_3_\\links_id_Крымская_АССР_выс_66_3_-unclassified.csv",
+    "data\\processed\\links_pmn_obd\\links_pmn_obd-fallen.csv",
+    "data\\processed\\links_pmn_obd\\links_pmn_obd-unclassified.csv",
     "data\\processed\\links_pmn_to_obd\\links_pmn_to_obd-fallen.csv",
-    "data\\processed\\links_pmn_to_obd\\links_pmn_to_obd-unclassified.csv"
+    "data\\processed\\links_pmn_to_obd\\links_pmn_to_obd-unclassified.csv",
+    "data\\processed\\авто-бронетанкковых-войск\\авто-бронетанкковых-войск-fallen.csv",
+    "data\\processed\\авто-бронетанкковых-войск\\авто-бронетанкковых-войск-unclassified.csv"
   ],
-  "total_rows": 2005,
-  "distinct_ids": 1962,
+  "total_rows": 2321,
+  "distinct_ids": 2272,
   "no_id_rows": 0,
-  "distinct_values": 170,
-  "recognized": 66,
+  "distinct_values": 184,
+  "recognized": 80,
   "proposals": [
     {
       "kind": "unit",
@@ -29,32 +35,6 @@
       "sessions": [
         "huzuf_6_test",
         "links_id_Крымская_АССР_выс_66_3_"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
-      "value": "штаб 55 тбр",
-      "observed_values": [
-        "штаб 55 тбр"
-      ],
-      "count": 40,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_160_Огуз-Тобе"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
-      "value": "скф 47 А 47 оро",
-      "observed_values": [
-        "скф 47 А 47 оро"
-      ],
-      "count": 13,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_160_Огуз-Тобе"
       ],
       "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
     },
@@ -86,19 +66,6 @@
     },
     {
       "kind": "unit",
-      "value": "скф 47 А",
-      "observed_values": [
-        "скф 47 А"
-      ],
-      "count": 11,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_160_Огуз-Тобе"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
       "value": "СКФ 750 отд. инж. бат.",
       "observed_values": [
         "СКФ 750 отд. инж. бат."
@@ -112,14 +79,15 @@
     },
     {
       "kind": "unit",
-      "value": "56 тбр",
+      "value": "24 тп",
       "observed_values": [
-        "56 тбр"
+        "24 тп"
       ],
       "count": 10,
-      "in_units_dict": false,
+      "in_units_dict": true,
       "sessions": [
-        "links_id_658_Арма-Эли"
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
       ],
       "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
     },
@@ -138,6 +106,38 @@
     },
     {
       "kind": "unit",
+      "value": "873 сп",
+      "observed_values": [
+        "873 сп"
+      ],
+      "count": 7,
+      "in_units_dict": true,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ],
+      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
+    },
+    {
+      "kind": "unit",
+      "value": "пп 492 в/ч 15",
+      "observed_values": [
+        "пп 492 в/ч 15",
+        "п/п 492 в/ч 15",
+        "в/ч 15 ппс 492",
+        "ппс 492 в/ч 15"
+      ],
+      "count": 7,
+      "in_units_dict": true,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ],
+      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
+    },
+    {
+      "kind": "unit",
       "value": "СКФ 793 отд. кабельн.-шест. рота связи",
       "observed_values": [
         "СКФ 793 отд. кабельн.-шест. рота связи"
@@ -146,32 +146,6 @@
       "in_units_dict": false,
       "sessions": [
         "links_id_658_Арма-Эли"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
-      "value": "24 тп",
-      "observed_values": [
-        "24 тп"
-      ],
-      "count": 5,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_Крымская_АССР_выс_66_3_"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
-      "value": "873 сп",
-      "observed_values": [
-        "873 сп"
-      ],
-      "count": 5,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_Крымская_АССР_выс_66_3_"
       ],
       "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
     },
@@ -203,18 +177,16 @@
     },
     {
       "kind": "unit",
-      "value": "пп 492 в/ч 15",
+      "value": "126 отд. тб",
       "observed_values": [
-        "пп 492 в/ч 15",
-        "в/ч 15 ппс 492",
-        "п/п 492 в/ч 15",
-        "ппс 492 в/ч 15"
+        "126 отд. тб"
       ],
-      "count": 5,
+      "count": 4,
       "in_units_dict": true,
       "sessions": [
         "links_id_658_Арма-Эли",
-        "links_id_Крымская_АССР_выс_66_3_"
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
       ],
       "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
     },
@@ -285,6 +257,19 @@
     },
     {
       "kind": "unit",
+      "value": "скф 44 А 157 сд 384 сп",
+      "observed_values": [
+        "скф 44 А 157 сд 384 сп"
+      ],
+      "count": 4,
+      "in_units_dict": false,
+      "sessions": [
+        "links_pmn_obd"
+      ],
+      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
+    },
+    {
+      "kind": "unit",
       "value": "скф 44 А 961 ап",
       "observed_values": [
         "скф 44 А 961 ап"
@@ -345,20 +330,6 @@
       "in_units_dict": false,
       "sessions": [
         "links_id_658_Арма-Эли"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
-      "value": "126 отд. тб",
-      "observed_values": [
-        "126 отд. тб"
-      ],
-      "count": 3,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_658_Арма-Эли",
-        "links_id_Крымская_АССР_выс_66_3_"
       ],
       "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
     },
@@ -442,19 +413,6 @@
     },
     {
       "kind": "unit",
-      "value": "39 тбр",
-      "observed_values": [
-        "39 тбр"
-      ],
-      "count": 2,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_160_Огуз-Тобе"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
       "value": "44 А 126 отб",
       "observed_values": [
         "44 А 126 отб"
@@ -520,6 +478,32 @@
     },
     {
       "kind": "unit",
+      "value": "скф 236 сд 44 А",
+      "observed_values": [
+        "скф 236 сд 44 А"
+      ],
+      "count": 2,
+      "in_units_dict": false,
+      "sessions": [
+        "links_pmn_obd"
+      ],
+      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
+    },
+    {
+      "kind": "unit",
+      "value": "скф 271 сд 44 А",
+      "observed_values": [
+        "скф 271 сд 44 А"
+      ],
+      "count": 2,
+      "in_units_dict": false,
+      "sessions": [
+        "links_pmn_obd"
+      ],
+      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
+    },
+    {
+      "kind": "unit",
       "value": "СКФ 31 озад",
       "observed_values": [
         "СКФ 31 озад"
@@ -567,6 +551,19 @@
       "in_units_dict": false,
       "sessions": [
         "links_id_658_Арма-Эли"
+      ],
+      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
+    },
+    {
+      "kind": "unit",
+      "value": "скф 510 автомоб. рота 398 сд",
+      "observed_values": [
+        "скф 510 автомоб. рота 398 сд"
+      ],
+      "count": 2,
+      "in_units_dict": true,
+      "sessions": [
+        "links_id_398_сд_03_1942_крым"
       ],
       "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
     },
@@ -820,19 +817,6 @@
     },
     {
       "kind": "unit",
-      "value": "47 ср охраны 47 А",
-      "observed_values": [
-        "47 ср охраны 47 А"
-      ],
-      "count": 1,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_160_Огуз-Тобе"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
       "value": "477 гап",
       "observed_values": [
         "477 гап"
@@ -841,19 +825,6 @@
       "in_units_dict": false,
       "sessions": [
         "links_id_658_Арма-Эли"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
-      "value": "55 мспб 55 тбр",
-      "observed_values": [
-        "55 мспб 55 тбр"
-      ],
-      "count": 1,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_160_Огуз-Тобе"
       ],
       "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
     },
@@ -1028,6 +999,19 @@
     },
     {
       "kind": "unit",
+      "value": "скф 205 осб 398 сд",
+      "observed_values": [
+        "скф 205 осб 398 сд"
+      ],
+      "count": 1,
+      "in_units_dict": true,
+      "sessions": [
+        "links_id_398_сд_03_1942_крым"
+      ],
+      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
+    },
+    {
+      "kind": "unit",
       "value": "скф 25 гв. минп 223 гмд",
       "observed_values": [
         "скф 25 гв. минп 223 гмд"
@@ -1062,6 +1046,19 @@
       "in_units_dict": true,
       "sessions": [
         "links_id_160_Огуз-Тобе"
+      ],
+      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
+    },
+    {
+      "kind": "unit",
+      "value": "скф 320 сд 44 А",
+      "observed_values": [
+        "скф 320 сд 44 А"
+      ],
+      "count": 1,
+      "in_units_dict": false,
+      "sessions": [
+        "links_pmn_obd"
       ],
       "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
     },
@@ -1236,6 +1233,19 @@
     },
     {
       "kind": "unit",
+      "value": "скф 763 отср 398 сд",
+      "observed_values": [
+        "скф 763 отср 398 сд"
+      ],
+      "count": 1,
+      "in_units_dict": true,
+      "sessions": [
+        "links_id_398_сд_03_1942_крым"
+      ],
+      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
+    },
+    {
+      "kind": "unit",
       "value": "СКФ 79 пс",
       "observed_values": [
         "СКФ 79 пс"
@@ -1326,5 +1336,20 @@
       "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
     }
   ],
-  "structured": []
+  "structured": [
+    {
+      "kind": "unit_structured",
+      "pair_key": "unit-384-sp|unit-157-sd",
+      "proposed_key": "unit-157-sd",
+      "regiment_key": "unit-384-sp",
+      "division_key": "unit-157-sd",
+      "regiment_exists": true,
+      "division_exists": true,
+      "bundle": [],
+      "observed_values": [
+        "скф 44 А 157 сд 384 сп"
+      ],
+      "count": 4
+    }
+  ]
 }
