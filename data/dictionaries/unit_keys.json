@@ -341,5 +341,17 @@
     "number": 957,
     "parent": "unit-236-sd",
     "history_note": "Тип «полк» (сокр. «п»); уточнение по архиву — стрелковый или иной"
+  },
+  "unit-47-a": {
+    "dict_keys": ["47 А", "скф 47 А"],
+    "type": "армия",
+    "number": 47,
+    "parent": "unit-skf-front"
+  },
+  "unit-47-oro": {
+    "dict_keys": ["скф 47 А 47 оро", "47 ср охраны 47 А"],
+    "type": "рота охраны",
+    "number": 47,
+    "parent": "unit-47-a"
   }
 }
