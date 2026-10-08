@@ -3,11 +3,11 @@
     "purpose": "Реестр ключей воинских частей для fallen-cards. Назначение ключей — здесь; раскрытие в полные значения — в Astro-репо.",
     "required_fields": ["dict_keys", "type", "number", "parent"],
     "optional_fields": ["history_note"],
-    "workflow": "1. Добавить dict_keys (все написания из CSV). 2. Указать type (полк/дивизия/фронт/ап/тбр/обс). 3. Указать number (число или null для фронтов). 4. Указать parent (ключ родителя: для полка — дивизия, для дивизии — фронт, null для фронтов). 5. history_note — опционально (краткая справка).",
-    "boundary": "Этот файл — только для назначения ключей в fallen-cards. Поля children/camo_url/formation/disband/status_note/reference_url НЕ используются здесь — они принадлежат Astro-репо для раскрытия."
+    "workflow": "1. Добавить dict_keys (все написания из CSV). 2. Указать type (полк/дивизия/фронт). 3. Указать number (число или null для фронтов). 4. Указать parent (ключ родителя). 5. history_note — опционально.",
+    "boundary": "Поля children/camo_url/formation/disband/status_note/reference_url НЕ используются здесь — они принадлежат Astro-репо для раскрытия."
   },
   "unit-skf-front": {
-    "dict_keys": ["СКФ"],
+    "dict_keys": ["СКФ", "скф"],
     "type": "фронт",
     "number": null,
     "parent": null,
@@ -33,6 +33,63 @@
     "parent": "unit-krymf-front",
     "history_note": "Уничтожена в майском разгроме Керчи (операция «Охота на дроф», 8–20.05.1942)"
   },
+  "unit-400-sd": {
+    "dict_keys": ["400 сд", "скф 400 сд", "СКФ 400 сд 44 А"],
+    "type": "дивизия",
+    "number": 400,
+    "parent": "unit-skf-front",
+    "history_note": "400-я стрелковая дивизия Северо-Кавказского фронта"
+  },
+  "unit-157-sd": {
+    "dict_keys": ["157 сд", "СКФ 157 сд", "скф 157 сд 44 А"],
+    "type": "дивизия",
+    "number": 157,
+    "parent": "unit-skf-front"
+  },
+  "unit-236-sd": {
+    "dict_keys": ["236 сд", "скф 236 сд"],
+    "type": "дивизия",
+    "number": 236,
+    "parent": "unit-skf-front"
+  },
+  "unit-276-sd": {
+    "dict_keys": ["276 сд", "скф 276 сд 44 А"],
+    "type": "дивизия",
+    "number": 276,
+    "parent": "unit-skf-front"
+  },
+  "unit-302-sd": {
+    "dict_keys": ["302 сд", "скф 302 сд"],
+    "type": "дивизия",
+    "number": 302,
+    "parent": "unit-skf-front"
+  },
+  "unit-77-sd": {
+    "dict_keys": ["77 сд", "77 гсд", "СКФ 77 гсд", "СКФ 77 сд"],
+    "type": "дивизия",
+    "number": 77,
+    "parent": "unit-skf-front",
+    "history_note": "77-я горнострелковая дивизия Северо-Кавказского фронта"
+  },
+  "unit-227-sd": {
+    "dict_keys": ["227 сд", "скф 227 сд"],
+    "type": "дивизия",
+    "number": 227,
+    "parent": "unit-skf-front"
+  },
+  "unit-390-sd": {
+    "dict_keys": ["390 сд", "СКФ 390 сд"],
+    "type": "дивизия",
+    "number": 390,
+    "parent": "unit-skf-front"
+  },
+  "unit-63-sd": {
+    "dict_keys": ["63 гсд", "63 сд"],
+    "type": "дивизия",
+    "number": 63,
+    "parent": null,
+    "history_note": "63-я горнострелковая дивизия (parent не уточнён по текущим данным)"
+  },
   "unit-826-sp": {
     "dict_keys": [
       "СКФ 826 сп 398 сд",
@@ -46,9 +103,173 @@
     "history_note": "Период в действующей армии: 23.11.1941 — 19.05.1942"
   },
   "unit-643-sp": {
-    "dict_keys": ["643 сп 404 сд", "СКФ 643 сп 404 сд"],
+    "dict_keys": ["643 сп 404 сд", "СКФ 643 сп 404 сд", "643 сп"],
     "type": "полк",
     "number": 643,
     "parent": "unit-404-sd"
+  },
+  "unit-633-sp": {
+    "dict_keys": ["СКФ 633 сп 157 сд", "633 сп"],
+    "type": "полк",
+    "number": 633,
+    "parent": "unit-157-sd"
+  },
+  "unit-821-sp": {
+    "dict_keys": ["СКФ 821 сп 398 сд", "скф 398 сд 821 сп"],
+    "type": "полк",
+    "number": 821,
+    "parent": "unit-398-sd"
+  },
+  "unit-824-sp": {
+    "dict_keys": ["скф 398 сд 824 сп", "СКФ 824 сп 398 сд"],
+    "type": "полк",
+    "number": 824,
+    "parent": "unit-398-sd"
+  },
+  "unit-384-sp": {
+    "dict_keys": ["СКФ 384 сп 157 сд", "384 сп"],
+    "type": "полк",
+    "number": 384,
+    "parent": "unit-157-sd"
+  },
+  "unit-829-sp": {
+    "dict_keys": ["скф 400 сд 829 сп", "829 сп 400 сд"],
+    "type": "полк",
+    "number": 829,
+    "parent": "unit-400-sd"
+  },
+  "unit-832-sp": {
+    "dict_keys": ["скф 400 сд 832 сп", "832 сп 400 сд"],
+    "type": "полк",
+    "number": 832,
+    "parent": "unit-400-sd"
+  },
+  "unit-845-sp": {
+    "dict_keys": ["скф 845 п 236 сд"],
+    "type": "полк",
+    "number": 845,
+    "parent": "unit-236-sd",
+    "history_note": "Тип «полк» (сокр. «п»); уточнение по архиву — стрелковый или иной"
+  },
+  "unit-716-sp": {
+    "dict_keys": ["СКФ 716 сп 157 сд", "СКФ 716 сп"],
+    "type": "полк",
+    "number": 716,
+    "parent": "unit-157-sd"
+  },
+  "unit-814-sp": {
+    "dict_keys": ["скф 814 сп 236 сд"],
+    "type": "полк",
+    "number": 814,
+    "parent": "unit-236-sd"
+  },
+  "unit-655-sp": {
+    "dict_keys": [
+      "СКФ 655 сп 404 сд",
+      "655 сп 404 сд",
+      "655 сп 404 сд крымф",
+      "655 сп",
+      "скф 400 сд 655 сп"
+    ],
+    "type": "полк",
+    "number": 655,
+    "parent": "unit-404-sd"
+  },
+  "unit-509-sp": {
+    "dict_keys": ["скф 509 сп 236 сд", "скф 509 п 236 сд"],
+    "type": "полк",
+    "number": 509,
+    "parent": "unit-236-sd"
+  },
+  "unit-652-sp": {
+    "dict_keys": ["СКФ 652 сп 404 сд", "652 сп"],
+    "type": "полк",
+    "number": 652,
+    "parent": "unit-404-sd"
+  },
+  "unit-827-sp": {
+    "dict_keys": ["скф 827 сп 302 сд"],
+    "type": "полк",
+    "number": 827,
+    "parent": "unit-302-sd"
+  },
+  "unit-834-sp": {
+    "dict_keys": ["скф 400 сд 834 сп", "834 сп 400 сд"],
+    "type": "полк",
+    "number": 834,
+    "parent": "unit-400-sd"
+  },
+  "unit-665-sp": {
+    "dict_keys": ["СКФ 665 сп 404 сд"],
+    "type": "полк",
+    "number": 665,
+    "parent": "unit-404-sd"
+  },
+  "unit-105-sp": {
+    "dict_keys": [
+      "СКФ 105 сп 77 сд",
+      "СКФ 77 гсд 105 гсп",
+      "СКФ 77 гсд 105 п",
+      "СКФ 77 гсд 105 сп"
+    ],
+    "type": "полк",
+    "number": 105,
+    "parent": "unit-77-sd"
+  },
+  "unit-789-sp": {
+    "dict_keys": ["скф 227 сд 789 сп", "779 сп 227 сд"],
+    "type": "полк",
+    "number": 789,
+    "parent": "unit-227-sd"
+  },
+  "unit-779-sp": {
+    "dict_keys": ["779 сп 227 сд"],
+    "type": "полк",
+    "number": 779,
+    "parent": "unit-227-sd"
+  },
+  "unit-784-sp": {
+    "dict_keys": ["скф 784 сп 390 сд"],
+    "type": "полк",
+    "number": 784,
+    "parent": "unit-390-sd"
+  },
+  "unit-876-sp": {
+    "dict_keys": ["876 сп 276 сд", "876 сп", "282 сд 876 сп"],
+    "type": "полк",
+    "number": 876,
+    "parent": "unit-276-sd",
+    "history_note": "В составе 276-й сд. Написание «282 сд 876 сп» — описка писаря (в 282-й дивизии такого полка не было); учтено в dict_keys для распознавания"
+  },
+  "unit-346-sp": {
+    "dict_keys": ["346 гсп 63 гсд 44 А"],
+    "type": "полк",
+    "number": 346,
+    "parent": "unit-63-sd"
+  },
+  "unit-831-sp": {
+    "dict_keys": ["скф 400 сд 831 сп", "831 сп 400 сд"],
+    "type": "полк",
+    "number": 831,
+    "parent": "unit-400-sd"
+  },
+  "unit-792-sp": {
+    "dict_keys": ["скф 792 сп 390 сд"],
+    "type": "полк",
+    "number": 792,
+    "parent": "unit-390-sd"
+  },
+  "unit-871-sp": {
+    "dict_keys": ["скф 871 сп 276 сд 44 А"],
+    "type": "полк",
+    "number": 871,
+    "parent": "unit-276-sd"
+  },
+  "unit-957-sp": {
+    "dict_keys": ["скф 957 п 236 сд"],
+    "type": "полк",
+    "number": 957,
+    "parent": "unit-236-sd",
+    "history_note": "Тип «полк» (сокр. «п»); уточнение по архиву — стрелковый или иной"
   }
 }
