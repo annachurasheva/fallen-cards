@@ -353,5 +353,48 @@
     "type": "рота охраны",
     "number": 47,
     "parent": "unit-47-a"
+  },
+  "unit-55-tbr": {
+    "dict_keys": [
+      "55 тбр",
+      "55 тбр КрымФ",
+      "55 ТБр",
+      "55 танковой бригады",
+      "55 танковая бригада"
+    ],
+    "type": "танковая бригада",
+    "number": 55,
+    "parent": "unit-krymf-front",
+    "history_note": "55-я танковая бригада автобронетанковых войск Крымского фронта (донесение: ЦАМО 38/11385/39)"
+  },
+  "unit-shtab-55-tbr": {
+    "dict_keys": ["штаб 55 тбр", "штаб. 55 тбр"],
+    "type": "штаб",
+    "number": 55,
+    "parent": "unit-55-tbr"
+  },
+  "unit-56-tbr": {
+    "dict_keys": ["56 тбр", "56 ТБр", "56 танковой бригады"],
+    "type": "танковая бригада",
+    "number": 56,
+    "parent": "unit-krymf-front"
+  },
+  "unit-39-tbr": {
+    "dict_keys": ["39 тбр", "39 ТБр"],
+    "type": "танковая бригада",
+    "number": 39,
+    "parent": "unit-krymf-front"
+  },
+  "unit-40-tbr": {
+    "dict_keys": ["40 тбр", "40 ТБр"],
+    "type": "танковая бригада",
+    "number": 40,
+    "parent": "unit-krymf-front"
+  },
+  "unit-55-mspb": {
+    "dict_keys": ["55 мспб 55 тбр"],
+    "type": "мотострелково-пулемётный батальон",
+    "number": 55,
+    "parent": "unit-55-tbr"
   }
 }
