@@ -47,39 +47,12 @@
       "parent": null,
       "history_note": null
     },
-    "unit-422-ap": {
-      "dict_keys": [
-        "422 ап 157 сд"
-      ],
-      "type": "ап",
-      "number": 422,
-      "parent": null,
-      "history_note": null
-    },
     "unit-47-front": {
       "dict_keys": [
         "скф 865 сд 47 А"
       ],
       "type": "фронт",
       "number": 47,
-      "parent": null,
-      "history_note": null
-    },
-    "unit-958-ap": {
-      "dict_keys": [
-        "СКФ 958 ап 398 сд"
-      ],
-      "type": "ап",
-      "number": 958,
-      "parent": "unit-skf-front",
-      "history_note": null
-    },
-    "unit-961-ap": {
-      "dict_keys": [
-        "961 ап"
-      ],
-      "type": "ап",
-      "number": 961,
       "parent": null,
       "history_note": null
     },
@@ -456,10 +429,31 @@
       ]
     },
     {
+      "key": "unit-422-ap",
+      "proposed_key": "unit-422-ap",
+      "dict_keys_add": [
+        "422 ап 157 сд"
+      ]
+    },
+    {
       "key": "unit-655-sp",
       "proposed_key": "unit-655-sp",
       "dict_keys_add": [
         "655 сп 404 сд крымф"
+      ]
+    },
+    {
+      "key": "unit-958-ap",
+      "proposed_key": "unit-958-ap",
+      "dict_keys_add": [
+        "СКФ 958 ап 398 сд"
+      ]
+    },
+    {
+      "key": "unit-961-ap",
+      "proposed_key": "unit-961-ap",
+      "dict_keys_add": [
+        "961 ап"
       ]
     },
     {

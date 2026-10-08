@@ -16,7 +16,7 @@
   "distinct_ids": 1962,
   "no_id_rows": 0,
   "distinct_values": 170,
-  "recognized": 57,
+  "recognized": 66,
   "proposals": [
     {
       "kind": "unit",
@@ -42,48 +42,6 @@
       "in_units_dict": true,
       "sessions": [
         "links_id_160_Огуз-Тобе"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
-      "value": "957 окшр",
-      "observed_values": [
-        "957 окшр"
-      ],
-      "count": 21,
-      "in_units_dict": false,
-      "sessions": [
-        "links_id_658_Арма-Эли"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
-      "value": "СКФ 422 ап 157 сд",
-      "observed_values": [
-        "СКФ 422 ап 157 сд",
-        "СКФ 157 сд 422 ап"
-      ],
-      "count": 17,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_658_Арма-Эли",
-        "links_id_Крымская_АССР_выс_66_3_"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
-      "value": "скф 392 мед.-сан. бат.",
-      "observed_values": [
-        "скф 392 мед.-сан. бат."
-      ],
-      "count": 13,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_160_Огуз-Тобе",
-        "links_id_658_Арма-Эли"
       ],
       "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
     },
@@ -160,33 +118,6 @@
       ],
       "count": 10,
       "in_units_dict": false,
-      "sessions": [
-        "links_id_658_Арма-Эли"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
-      "value": "СКФ 958 ап 398 сд",
-      "observed_values": [
-        "СКФ 958 ап 398 сд"
-      ],
-      "count": 10,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_658_Арма-Эли",
-        "links_id_Крымская_АССР_выс_66_3_"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
-      "value": "961 ап",
-      "observed_values": [
-        "961 ап"
-      ],
-      "count": 8,
-      "in_units_dict": true,
       "sessions": [
         "links_id_658_Арма-Эли"
       ],
@@ -341,20 +272,6 @@
     },
     {
       "kind": "unit",
-      "value": "скф 404 отд. сап. бат. 236 сд",
-      "observed_values": [
-        "скф 404 отд. сап. бат. 236 сд"
-      ],
-      "count": 4,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_658_Арма-Эли",
-        "links_id_Крымская_АССР_выс_66_3_"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
       "value": "СКФ 404 сд",
       "observed_values": [
         "СКФ 404 сд"
@@ -447,19 +364,6 @@
     },
     {
       "kind": "unit",
-      "value": "422 ап 157 сд",
-      "observed_values": [
-        "422 ап 157 сд"
-      ],
-      "count": 3,
-      "in_units_dict": true,
-      "sessions": [
-        "links_id_Крымская_АССР_выс_66_3_"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
       "value": "51 А 659 олбс",
       "observed_values": [
         "51 А 659 олбс"
@@ -520,19 +424,6 @@
       "in_units_dict": false,
       "sessions": [
         "links_id_658_Арма-Эли"
-      ],
-      "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
-    },
-    {
-      "kind": "unit",
-      "value": "скф 398 сд 846 обс",
-      "observed_values": [
-        "скф 398 сд 846 обс"
-      ],
-      "count": 3,
-      "in_units_dict": true,
-      "sessions": [
-        "links_pmn_to_obd"
       ],
       "action": "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro"
     },
