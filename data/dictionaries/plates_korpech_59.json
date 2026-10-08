@@ -8,7 +8,12 @@
     { "n": 4, "rank_raw": "ряд.", "fio": "Асефиров А.В." },
     { "n": 5, "rank_raw": "политрук", "fio": "Аникин В.Т." },
     { "n": 6, "rank_raw": "ряд.", "fio": "Буравин Н.П." },
-    { "n": 7, "rank_raw": "ряд.", "fio": "Базилев И.В.", "obd_url": "https://obd-memorial.ru/html/info.htm?id=33125235" },
+    {
+      "n": 7,
+      "rank_raw": "ряд.",
+      "fio": "Базилев И.В.",
+      "obd_url": "https://obd-memorial.ru/html/info.htm?id=33125235"
+    },
     { "n": 8, "rank_raw": "л-нт", "fio": "Борисов Л.А." },
     { "n": 9, "rank_raw": "ряд.", "fio": "Бабко П.А." },
     { "n": 10, "rank_raw": "к/арм.", "fio": "Басатников И.С." },
@@ -18,11 +23,21 @@
     { "n": 14, "rank_raw": "л-нт", "fio": "Вторушин Г.П." },
     { "n": 15, "rank_raw": "мл. л-нт", "fio": "Варичев И.А." },
     { "n": 16, "rank_raw": "ряд.", "fio": "Горкин А.Г." },
-    { "n": 17, "rank_raw": "сержант", "fio": "Гречкин А.Н.", "obd_url": "https://obd-memorial.ru/html/info.htm?id=33125245" },
+    {
+      "n": 17,
+      "rank_raw": "сержант",
+      "fio": "Гречкин А.Н.",
+      "obd_url": "https://obd-memorial.ru/html/info.htm?id=33125245"
+    },
     { "n": 18, "rank_raw": "к/арм.", "fio": "Гаспарян С.А." },
     { "n": 19, "rank_raw": "ряд.", "fio": "Грищенко А.Г." },
     { "n": 20, "rank_raw": "ряд.", "fio": "Гулов Ш." },
-    { "n": 21, "rank_raw": "ряд.", "fio": "Дордулия И.И.", "obd_url": "https://obd-memorial.ru/html/info.htm?id=533125249" },
+    {
+      "n": 21,
+      "rank_raw": "ряд.",
+      "fio": "Дордулия И.И.",
+      "obd_url": "https://obd-memorial.ru/html/info.htm?id=533125249"
+    },
     { "n": 22, "rank_raw": "ряд.", "fio": "Демиденко Н.Е." },
     { "n": 23, "rank_raw": "мл. л-нт", "fio": "Довгопол С.Я." },
     { "n": 24, "rank_raw": "в. служ.", "fio": "Давидов Х.Р." },
@@ -56,10 +71,20 @@
     { "n": 52, "rank_raw": "воен.тех-к 2 ранга", "fio": "Зыков Е.А." },
     { "n": 53, "rank_raw": "к/арм.", "fio": "Манукин Е.Р." },
     { "n": 54, "rank_raw": "с-нт", "fio": "Орешкин И.В." },
-    { "n": 55, "rank_raw": "юрист 3 ранга", "fio": "Сисейкин П.С." },
+    {
+      "n": 55,
+      "rank_raw": "юрист 3 ранга",
+      "fio": "Сисейкин П.С.",
+      "obd_url": "https://obd-memorial.ru/html/info.htm?id=74390027"
+    },
     { "n": 56, "rank_raw": "ряд.", "fio": "Сарма П.Л." },
     { "n": 57, "rank_raw": "политрук", "fio": "Клименко А.Г." },
     { "n": 58, "rank_raw": "л-нт", "fio": "Сидоров Г.В.", "verify": true },
-    { "n": 58, "rank_raw": "сержант", "fio": "Сидоров Г.В.", "obd_url": "https://obd-memorial.ru/html/info.htm?id=33125286" }
+    {
+      "n": 58,
+      "rank_raw": "сержант",
+      "fio": "Сидоров Г.В.",
+      "obd_url": "https://obd-memorial.ru/html/info.htm?id=33125286"
+    }
   ]
 }
