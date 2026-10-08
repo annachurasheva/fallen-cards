@@ -1,26 +1,21 @@
 /**
- * units-report.js — отчёт по warunit и журнал предложений (TASK-0014, TASK-0016).
- *
- * Назначение: показать, какие написания `warunit` встречаются в принятых CSV,
- * распознаны ли они словарями, и какие кандидаты нуждаются в выдаче нового ключа.
- *
- * ВЛАДЕНИЕ СЛОВАРЯМИ (TASK-0016): словари units*dict / unit_keys / burials_* —
- * рабочие инструменты fallen-cards; пополнение выполняется ЗДЕСЬ решением Анны-Ch
- * по предложениям отчёта. Astro-репо получает копии словарей и раскрывает ключи
- * при генерации. locations_dict — внешний импорт, только чтение.
- *
- * ЧАСТОТЫ (TASK-0016): частота написания = число уникальных document_id;
- * строки без document_id учитываются по одной с ключом `__row__:<сессия>:<номер>`.
- * КАНДИДАТЫ: группировка по значению units_dict (одна часть = одно предложение,
- * observed_values = все написания); структурированный паттерн «полк + дивизия»
- * с расширенными токенами (гсп|полк|сп|п; гсд|мсд|сд|дивизия|див), длинные первыми.
+ * units-report.js — отчёт по воинским частям (units_dict / unit_keys) для ревью Анны-Ch.
  *
  * ИСПОЛЬЗОВАНИЕ:
- *   node scripts/units-report.js
+ *   node scripts/units-report.js [--input=data/processed] [--dict=data/dictionaries/units_dict.json]
  *
- * ВХОД : все *-fallen.csv / *-unclassified.csv в data/processed/<имя>/ (рекурсивно)
- * ВЫХОД: data/dictionaries/reports/units-<дата>.md  — отчёт с частотами и статусами
- *        data/dictionaries/reports/proposals.json   — кандидаты на выдачу нового ключа
+ * ВЫХОД:
+ *   data/dictionaries/reports/units-<дата>_<время>.md          — сводка и кандидаты
+ *   data/dictionaries/proposals/proposals-<дата>_<время>.json  — машиночитаемые предложения
+ *   data/dictionaries/proposals/registry-draft-<дата>_<время>.json/.md — проект пополнения unit_keys
+ *
+ * ПРАВИЛА (TASK-0016):
+ *   - частоты считаются по УНИКАЛЬНЫМ document_id (дубли строк не завышают частоту);
+ *   - группировка написаний — по значению units_dict (синонимы в одной группе);
+ *   - структурированный кандидат «полк + дивизия» рождается, когда паттерн матчит
+ *     И (divKey есть в unit_keys ИЛИ divKey включается в тот же комплект предложения);
+ *     regKey может отсутствовать — он и есть предлагаемый полк;
+ *   - никакого автоприменения в unit_keys.json.
  */
 
 import fs from "fs";
@@ -30,9 +25,20 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 
-const PROCESSED_DIR = path.join(ROOT, "data", "processed");
-const DICT_DIR = path.join(ROOT, "data", "dictionaries");
-const REPORTS_DIR = path.join(DICT_DIR, "reports");
+// ---------- Параметры ----------
+const args = process.argv.slice(2);
+const INPUT_ARG = args.find((a) => a.startsWith("--input="));
+const DICT_ARG = args.find((a) => a.startsWith("--dict="));
+
+const processedRoot = INPUT_ARG
+  ? path.resolve(ROOT, INPUT_ARG.split("=").slice(1).join("="))
+  : path.join(ROOT, "data", "processed");
+const dictPath = DICT_ARG
+  ? path.resolve(ROOT, DICT_ARG.split("=").slice(1).join("="))
+  : path.join(ROOT, "data", "dictionaries", "units_dict.json");
+const keysPath = path.join(ROOT, "data", "dictionaries", "unit_keys.json");
+const reportsDir = path.join(ROOT, "data", "dictionaries", "reports");
+const proposalsDir = path.join(ROOT, "data", "dictionaries", "proposals");
 
 // ---------- Утилиты ----------
 
@@ -40,680 +46,416 @@ function readUtf8(filepath) {
   return fs.readFileSync(filepath, "utf-8").replace(/^\uFEFF/, "");
 }
 
-function today() {
-  return new Date().toISOString().split("T")[0];
+// Метка времени для имён файлов: YYYY-MM-DD_HHMM (история прогонов)
+function dateStr() {
+  const d = new Date();
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}`;
 }
 
-function readJsonSafe(filepath) {
-  if (!fs.existsSync(filepath)) return {};
-  try {
-    return JSON.parse(readUtf8(filepath));
-  } catch (e) {
-    console.error(`Словарь повреждён: ${filepath}: ${e.message}`);
-    return {};
-  }
-}
-
-function normKey(s) {
-  return String(s || "")
-    .toLowerCase()
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-// ---------- Рекорд-осознающий парсер CSV (как в generate-cards.js) ----------
-
-function parseCsvRecords(text) {
-  const rows = [];
-  let field = "";
-  let record = [];
+// Разбор CSV одной строки с учётом кавычек
+function parseCsvLine(line) {
+  const out = [];
+  let cur = "";
   let inQuotes = false;
-  let rowHasData = false;
-
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
     if (inQuotes) {
-      if (c === '"') {
-        if (text[i + 1] === '"') {
-          field += '"';
+      if (ch === '"') {
+        if (line[i + 1] === '"') {
+          cur += '"';
           i++;
         } else {
           inQuotes = false;
         }
       } else {
-        field += c;
+        cur += ch;
       }
-    } else if (c === '"') {
+    } else if (ch === '"') {
       inQuotes = true;
-      rowHasData = true;
-    } else if (c === ",") {
-      record.push(field);
-      field = "";
-      rowHasData = true;
-    } else if (c === "\n" || c === "\r") {
-      if (c === "\r" && text[i + 1] === "\n") i++;
-      record.push(field);
-      field = "";
-      if (rowHasData || record.length > 1) rows.push(record);
-      record = [];
-      rowHasData = false;
+    } else if (ch === ",") {
+      out.push(cur);
+      cur = "";
     } else {
-      field += c;
-      rowHasData = true;
+      cur += ch;
     }
   }
-  if (field !== "" || record.length > 0) {
-    record.push(field);
-    rows.push(record);
-  }
-  return rows;
+  out.push(cur);
+  return out;
 }
 
-function csvToObjects(text) {
-  const rows = parseCsvRecords(text.replace(/^\uFEFF/, ""));
-  if (rows.length === 0) return [];
-  const headers = rows[0].map((h) => h.trim());
-  return rows.slice(1).map((r) => {
-    const obj = {};
-    headers.forEach((h, idx) => {
-      obj[h] = r[idx] !== undefined ? r[idx] : "";
-    });
-    return obj;
-  });
-}
-
-// ---------- Сбор файлов ----------
-
+// Сбор всех fallen.csv из data/processed/**
 function collectCsvFiles(dir) {
-  const out = [];
-  if (!fs.existsSync(dir)) return out;
-  for (const name of fs.readdirSync(dir)) {
-    const full = path.join(dir, name);
-    const st = fs.statSync(full);
-    if (st.isDirectory()) out.push(...collectCsvFiles(full));
-    else if (/-(fallen|unclassified)\.csv$/.test(name)) out.push(full);
-  }
-  return out.sort();
+  const found = [];
+  if (!fs.existsSync(dir)) return found;
+  const walk = (d) => {
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      const full = path.join(d, e.name);
+      if (e.isDirectory()) walk(full);
+      else if (e.isFile() && /-fallen\.csv$/.test(e.name)) found.push(full);
+    }
+  };
+  walk(dir);
+  return found;
 }
 
-// ---------- Проект пополнения unit_keys.json (TASK-0016, п.2) ----------
-// Одна запись на каждое РАЗЛИЧНОЕ значение units_dict (полное имя), встретившееся в CSV.
-// type/number — из полного имени; parent полка — дивизия из имени (если есть в
-// реестре или в комплекте); parent дивизии — фронт из написаний (СКФ/КрымФ), иначе null;
-// history_note/camo_url/formation/disband — null, кроме однозначного переноса из
-// существующих записей реестра того же номера. Автоприменения в unit_keys.json НЕТ.
+// ---------- Токены и паттерны «полк + дивизия» ----------
+const TOKEN_REGIMENT = "(?:гсп|полк|сп|п)";
+const TOKEN_DIVISION = "(?:гсд|мсд|сд|дивизия|див)";
 
-const UNIT_TYPE_PATTERNS = [
-  { re: /дивизи[оая]\b(?!он)/i, type: "дивизия" }, // «…артиллерийский дивизион» — не дивизия
-  { re: /дивизион\b/i, type: "дивизион" },
-  { re: /горнострелков\S*\s+полк/i, type: "сп" }, // гсп — тоже стрелковый полк (-sp)
-  { re: /стрелков\S*\s+полк/i, type: "сп" },
-  { re: /артиллерийск\S*\s+полк/i, type: "ап" },
-  { re: /авиационн\S*\s+полк/i, type: "иап" },
-  { re: /минометн\S*\s+полк/i, type: "минп" },
-  { re: /танков\S*\s+полк/i, type: "тп" },
-  { re: /связи\s+полк|полк\s+связи/i, type: "пс" },
-  { re: /развед\S*.{0,15}полк/i, type: "мп" },
-  { re: /механизи\S*\s+полк|полк/i, type: "полк" },
-  { re: /танков\S*\s+бригад/i, type: "тбр" },
-  { re: /роты связи|рота связи/i, type: "олрс" },
-  { re: /сап\S*\s+батальон/i, type: "осб" },
-  { re: /батальон связи/i, type: "обс" },
-  { re: /мед\S*-?\s*сан\S*\s+батальон|медико-санитарный батальон/i, type: "мсб" },
-  { re: /пулеметн\S*\s+батальон/i, type: "птб" },
-  { re: /аэродромного обслуживания/i, type: "бао" },
-  { re: /танков\S*\s+батальон/i, type: "тб" },
-  { re: /мотострелково\S*\s+батальон/i, type: "mspb" },
-  { re: /отдельн\S*\s+батальон/i, type: "об" },
-  { re: /батальон/i, type: "об" },
-  { re: /бронерота/i, type: "брота" },
-  { re: /охраны/i, type: "рота" },
-  { re: /рота/i, type: "рота" },
-  { re: /бригад/i, type: "бригада" },
-  { re: /управление военно-полевого строительства/i, type: "впс" },
-  { re: /дорожное управление/i, type: "дорма" },
-  { re: /укрепл\S* район/i, type: "ур" },
-  { re: /пункт сбора/i, type: "ппс" },
-  { re: /^Армия|\bАрми/i, type: "армия" },
-  { re: /фронт/i, type: "фронт" },
-];
+const reRegThenDiv = new RegExp(
+  `(\\d+)\\s*[\\u0451]?й?\\s*${TOKEN_REGIMENT}[\\s\\S]*?(\\d+)\\s*[\\u0451]?й?\\s*${TOKEN_DIVISION}`,
+  "iu",
+);
+const reDivThenReg = new RegExp(
+  `(\\d+)\\s*[\\u0451]?й?\\s*${TOKEN_DIVISION}[\\s\\S]*?(\\d+)\\s*[\\u0451]?й?\\s*${TOKEN_REGIMENT}`,
+  "iu",
+);
 
-// Род юнита -> суффикс ключа по конвенции реестра (unit-<номер>-sp / -sd)
-const KEY_SUFFIX_BY_TYPE = {
-  сп: "sp", полк: "sp", ап: "ap", иап: "iap", минп: "minp", тп: "tp", пс: "ps",
-  мп: "mp", дивизия: "sd", дивизион: "adn", тбр: "tbr", бригада: "br",
-  олрс: "ols", осб: "osb", обс: "obs", мсб: "msb", птб: "ptb", бао: "bao",
-  тб: "tb", mspb: "mspb", об: "ob", рота: "rc", брота: "brota", впс: "vps",
-  дорма: "dorma", ур: "ur", ппс: "pps", армия: "army", фронт: "front", част: "unit",
-};
-
-// Слово рода в имени для извлечения номера (первое число перед этим словом)
-const WORD_BY_TYPE = {
-  сп: "полк", полк: "полк", ап: "полк", иап: "полк", минп: "полк", тп: "полк",
-  пс: "полк", мп: "полк", дивизия: "дивизи", дивизион: "дивизион", тбр: "бригад",
-  бригада: "бригад", олрс: "рот", осб: "батальон", обс: "батальон", мсб: "батальон",
-  птб: "батальон", бао: "батальон", тб: "батальон", mspb: "батальон", об: "батальон",
-  рота: "рот", брота: "рот", впс: "управлени", дорма: "управлени", ур: "район",
-  ппс: "пункт", армия: "Арми", фронт: "фронт",
-};
-
-function parseUnitType(fullName) {
-  for (const p of UNIT_TYPE_PATTERNS) {
-    if (p.re.test(fullName)) return p.type;
-  }
-  return "част";
-}
-
-// Номер юнита: первое число перед словом рода. Для полка имя строится так,
-// что номер стоит непосредственно перед словом («876-й стрелковый полк …»).
-function extractNumberForType(fullName, type) {
-  const word = WORD_BY_TYPE[type] || null;
-  if (!word) return null;
-  const m = fullName.match(new RegExp(`(\\d+)[-йаяе\\u0451]?[^\\d]*?${word}`, "i"));
-  return m ? m[1] : null;
-}
-
-// Дивизия из полного имени: последнее число перед словом «дивизия/дивизии»
-// с учётом определений («77-й горнострелковой дивизии» → 77).
-function extractParentDivisionNumber(fullName) {
-  const all = [...fullName.matchAll(/(\d+)[-йаяе\u0451]?[^\d]{0,40}?дивизи[йие]\b/gi)];
-  if (all.length === 0) return null;
-  return all[all.length - 1][1];
-}
-
-function frontFromTexts(texts) {
-  let skf = false;
-  let krym = false;
-  for (const t of texts) {
-    const v = normKey(t);
-    if (/скф|северо-кавказск/.test(v)) skf = true;
-    if (/крымф|крымск/.test(v)) krym = true;
-  }
-  if (skf && !krym) return "unit-skf-front";
-  if (krym && !skf) return "unit-krymf-front";
+// Фронт из написания → ключ фронта (для parent дивизии)
+function frontFromText(text) {
+  const t = (text || "").toLowerCase();
+  if (/скф|север[^\s]*флот/.test(t)) return "unit-skf-front";
+  if (/крымф|крымск[^\s]*фронт/.test(t)) return "unit-krymf-front";
   return null;
 }
 
-function buildRegistryDraft(unitsDict, unitsRegistry, entries, dateStr) {
-  // Полные имена, встретившиеся в принятых CSV: значение dict <- наблюдавшиеся написания
-  const valueToObserved = new Map(); // dict value -> Set(raw writings from CSV)
-  const valueToIds = new Map(); // dict value -> Set(dedupe keys уникальных document_id)
-  const valueToSessions = new Map(); // dict value -> Set(сессий)
-  for (const e of entries) {
-    const v = unitsDict[e.value];
-    if (typeof v !== "string" || !v) continue; // только написания, покрытые units_dict
-    if (!valueToObserved.has(v)) {
-      valueToObserved.set(v, new Set());
-      valueToIds.set(v, new Set());
-      valueToSessions.set(v, new Set());
-    }
-    valueToObserved.get(v).add(e.value);
-    for (const id of e._ids) valueToIds.get(v).add(id);
-    for (const s of e.sessions) valueToSessions.get(v).add(s);
-  }
-
-  // Ключи реестра по типу/номеру для переноса известных полей и поиска родителя
-  const regByTypeNumber = new Map(); // "<type>:<number>" -> unitKey
-  for (const [unitKey, unit] of Object.entries(unitsRegistry)) {
-    if (unit && unit.number != null) {
-      regByTypeNumber.set(`${unit.type}:${unit.number}`, unitKey);
-    }
-  }
-
-  // Первый проход: собрать записи и определить комплекты (новые дивизии)
-  const drafts = new Map(); // proposed_key -> draft entry
-  for (const [fullName, observed] of valueToObserved) {
-    const type = parseUnitType(fullName);
-    const number = extractNumberForType(fullName, type);
-    if (!number) continue; // имя без привязанного номера — не предлагаем ключ вслепую
-    const suffix = KEY_SUFFIX_BY_TYPE[type] || "unit";
-    const proposedKey = `unit-${number}-${suffix}`;
-    const existingKey = regByTypeNumber.get(`${type}:${number}`) ||
-      (proposedKey in unitsRegistry ? proposedKey : null);
-    const ex = existingKey ? unitsRegistry[existingKey] : null;
-    const divNum = type === "полк" || type === "ап" ? extractParentDivisionNumber(fullName) : null;
-    drafts.set(proposedKey, {
-      proposedKey,
-      existingKey,
-      fullName,
-      type,
-      number: Number(number),
-      dictKeys: [...observed].sort((a, b) => a.localeCompare(b, "ru")),
-      count: valueToIds.get(fullName).size,
-      sessions: [...valueToSessions.get(fullName)].sort(),
-      divNum,
-      front: frontFromTexts(observed),
-      // Новая схема unit_keys.json: dict_keys/type/number/parent + опциональный
-      // history_note; архивные поля (children/camo_url/formation/disband/status_note/
-      // reference_url) не выносим — они принадлежат Astro-репо для раскрытия.
-      entry: {
-        dict_keys: [...observed].sort((a, b) => a.localeCompare(b, "ru")),
-        type,
-        number: Number(number),
-        parent: null,
-        history_note: ex ? ex.history_note ?? null : null,
-      },
-    });
-  }
-
-  // Второй проход: parent'ы
-  for (const d of drafts.values()) {
-    if (d.type === "полк" || d.type === "ап") {
-      if (d.divNum) {
-        const divKey = `unit-${d.divNum}-sd`;
-        // дивизия есть в реестре ИЛИ включается в тот же комплект предложения
-        if (divKey in unitsRegistry || drafts.has(divKey)) d.entry.parent = divKey;
-      }
-      if (d.entry.parent === null && d.front) d.entry.parent = d.front;
-    } else if (d.type === "дивизия") {
-      d.entry.parent = d.front; // фронт из написаний, иначе null
-    }
-  }
-
-  // Существовавшие в реестре записи: помечаем, поля перенесены как есть
-  const registryAdditions = {};
-  const alreadyInRegistry = [];
-  for (const d of drafts.values()) {
-    if (d.existingKey) {
-      alreadyInRegistry.push({ key: d.existingKey, proposed_key: d.proposedKey, dict_keys_add: d.dictKeys });
-      continue; // в черновик добавлений НЕ кладём: запись уже в реестре
-    }
-    registryAdditions[d.proposedKey] = d.entry;
-  }
-
-  const draftJson = {
-    generated_date: dateStr,
-    note: "Проект пополнения unit_keys.json (черновик на ревью Анны-Ch). Автоприменение запрещено.",
-    additions: registryAdditions,
-    already_in_registry: alreadyInRegistry,
-  };
-
-  const mdLines = [
-    `# Проект пополнения unit_keys — ${dateStr}`,
-    "",
-    "Черновик для ревью (TASK-0016, п.2). Никакого автоприменения в unit_keys.json.",
-    "Частота = число уникальных document_id (по всем написаниям полного имени).",
-    "",
-    "| proposed_key | type | parent | частота | dict_keys | сессии |",
-    "|---|---|---|---|---|---|",
-    ...Object.entries(registryAdditions)
-      .sort((a, b) => b[1].number - a[1].number)
-      .map(([key, e]) =>
-        `| ${key} | ${e.type} | ${e.parent ?? "null"} | ${(drafts.get(key) || {}).count ?? ""} | ${(e.dict_keys || []).join("; ").replace(/\|/g, "\\|")} | ${((drafts.get(key) || {}).sessions || []).join(", ")} |`,
-      ),
-    "",
-    alreadyInRegistry.length
-      ? [
-          "## Уже в реестре (предлагается лишь дописать dict_keys)",
-          "",
-          "| ключ | dict_keys для сверки |",
-          "|---|---|",
-          ...alreadyInRegistry.map(
-            (r) => `| ${r.key} | ${r.dict_keys_add.join("; ").replace(/\|/g, "\\|")} |`,
-          ),
-        ]
-      : [],
-    "",
-  ].flat();
-
-  return { draftJson, mdLines };
+// Ключ полка: unit-<номер>-sp ; дивизии: unit-<номер>-sd
+function makeRegKey(num) {
+  return `unit-${num}-sp`;
+}
+function makeDivKey(num) {
+  return `unit-${num}-sd`;
+}
+function isRegKey(key) {
+  return /^unit-\d+-sp$/.test(key);
+}
+function isDivKey(key) {
+  return /^unit-\d+-sd$/.test(key);
 }
 
-// ---------- Главная функция ----------
+// ---------- Основная логика ----------
 (async () => {
-  const unitsDict = readJsonSafe(path.join(DICT_DIR, "units_dict.json"));
-  const unitKeysRaw = readJsonSafe(path.join(DICT_DIR, "unit_keys.json"));
-  // Схема unit_keys.json плоская: {_operator_note: {...}, unit-<ключ>: {...}} — без вложенного units
-  const unitsRegistry = Object.fromEntries(
-    Object.entries(unitKeysRaw).filter(([k]) => k !== "_operator_note"),
-  );
-
-  // Индекс dict_keys реестра: нормализованное написание -> unit_key
-  const registryIndex = new Map();
-  for (const [unitKey, unit] of Object.entries(unitsRegistry)) {
-    const keysList = Array.isArray(unit.dict_keys) ? unit.dict_keys : [];
-    for (const k of keysList) {
-      const nk = normKey(k);
-      if (nk && !registryIndex.has(nk)) registryIndex.set(nk, unitKey);
-    }
+  // Словари
+  if (!fs.existsSync(dictPath)) {
+    console.error(`Словарь units_dict не найден: ${dictPath}`);
+    process.exit(1);
+  }
+  const unitsDict = JSON.parse(readUtf8(dictPath)); // { "<ключ>": "<значение>" }
+  const valueToKeys = new Map(); // значение → [ключи]
+  for (const [k, v] of Object.entries(unitsDict)) {
+    if (k.startsWith("_")) continue;
+    if (!valueToKeys.has(v)) valueToKeys.set(v, []);
+    valueToKeys.get(v).push(k);
   }
 
-  const csvFiles = collectCsvFiles(PROCESSED_DIR);
+  let unitKeys = {};
+  if (fs.existsSync(keysPath)) {
+    const raw = JSON.parse(readUtf8(keysPath));
+    unitKeys = raw; // новая плоская схема: без вложенного .units
+  }
+
+  // Чтение CSV: уникальные document_id на каждое различное написание warunit
+  const csvFiles = collectCsvFiles(processedRoot);
   if (csvFiles.length === 0) {
-    console.error(`CSV не найдены: ${PROCESSED_DIR}`);
+    console.error(`CSV (-fallen.csv) не найдены в: ${processedRoot}`);
     process.exit(1);
   }
 
-  // Частоты различных написаний warunit; частота = число УНИКАЛЬНЫХ document_id
-  // с этим написанием (строки НЕ считаются: дубли одной персоны не надувают вес).
-  // Строки без document_id учитываются по одной с ключом `__row__:<сессия>:<номер>`.
-  const freq = new Map(); // raw value -> { ids:Set, sessions:Set }
+  // writing → { ids: Set(document_id), dictKeys: Set, sessions: Set }
+  const writings = new Map();
   let totalRows = 0;
-  let emptyWarunit = 0;
   let noIdRows = 0;
-  const distinctIds = new Set();
-  for (const csvFile of csvFiles) {
-    const session = path.basename(path.dirname(csvFile));
-    const objects = csvToObjects(readUtf8(csvFile));
-    objects.forEach((row, rowIdx) => {
+
+  for (const file of csvFiles) {
+    const session = path.basename(path.dirname(file));
+    const lines = readUtf8(file).split(/\r?\n/).filter((l) => l.trim() !== "");
+    if (lines.length < 2) continue;
+    const headers = parseCsvLine(lines[0]);
+    const idxWarunit = headers.indexOf("warunit");
+    const idxDocId = headers.indexOf("document_id");
+    if (idxWarunit === -1) continue;
+
+    for (const line of lines.slice(1)) {
+      const cols = parseCsvLine(line);
+      const wu = (cols[idxWarunit] || "").trim();
+      if (!wu) continue;
       totalRows++;
-      const raw = String(row.warunit || "").trim();
-      if (!raw) {
-        emptyWarunit++;
-        return;
+      const docId = idxDocId !== -1 ? (cols[idxDocId] || "").trim() : "";
+      if (!writings.has(wu)) {
+        writings.set(wu, { ids: new Set(), dictKeys: new Set(), sessions: new Set(), noId: 0 });
       }
-      const docId = String(row.document_id || "").trim();
-      const dedupeKey = docId || `__row__:${session}:${rowIdx}`;
-      if (docId) distinctIds.add(docId);
-      else noIdRows++;
-      if (!freq.has(raw))
-        freq.set(raw, { ids: new Set(), sessions: new Set() });
-      const e = freq.get(raw);
-      e.ids.add(dedupeKey);
-      e.sessions.add(session);
-    });
+      const rec = writings.get(wu);
+      rec.sessions.add(session);
+      if (docId) rec.ids.add(docId);
+      else {
+        rec.noId++;
+        noIdRows++;
+      }
+      const keysForValue = valueToKeys.get(wu);
+      if (keysForValue) keysForValue.forEach((k) => rec.dictKeys.add(k));
+    }
   }
 
-  // Статусы: есть в units_dict / нет в units_dict / есть в unit_keys
-  const entries = [...freq.entries()]
-    .map(([value, info]) => {
-      const inDict = Object.prototype.hasOwnProperty.call(unitsDict, value);
-      const regKey = registryIndex.get(normKey(value)) || null;
-      return {
-        value,
-        count: info.ids.size,
-        _ids: info.ids, // для группировки: сумма уникальных document_id (TASK-0016)
-        sessions: [...info.sessions].sort(),
-        in_units_dict: inDict,
-        in_units_registry: !!regKey,
-        unit_key: regKey,
-      };
-    })
-    .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value, "ru"));
+  // Частота: уникальные document_id (+ фолбек __row__ для строк без id)
+  const freqOf = (rec) => rec.ids.size + (rec.noId > 0 ? rec.noId : 0);
 
-  const recognized = entries.filter((e) => e.in_units_registry);
-  const candidates = entries.filter((e) => !e.in_units_registry);
+  const entries = [...writings.entries()].map(([writing, rec]) => ({
+    writing,
+    count: freqOf(rec),
+    dictKeys: [...rec.dictKeys],
+    sessions: [...rec.sessions],
+  }));
+  entries.sort((a, b) => b.count - a.count);
 
-  // ---------- Группировка кандидатов по значению units_dict (TASK-0016, п.1а) ----------
-  // Одна часть (одно полное имя в словаре) = одно предложение;
-  // observed_values = все встреченные написания; частота = сумма уникальных document_id.
-  const dictGroups = new Map(); // dict value | null -> [entries]
-  for (const e of candidates) {
-    const v = unitsDict[e.value];
-    const gkey = typeof v === "string" && v ? v : `__raw__:${normKey(e.value)}`;
-    if (!dictGroups.has(gkey)) dictGroups.set(gkey, []);
-    dictGroups.get(gkey).push(e);
+  const recognized = entries.filter((e) => e.dictKeys.length > 0);
+  const unrecognized = entries.filter((e) => e.dictKeys.length === 0);
+
+  // Группировка кандидатов по значению units_dict: синонимы в одной группе
+  const groups = new Map(); // значение → { values: [написания], dictKeys:Set, ids:Set, noId, sessions:Set }
+  for (const e of entries) {
+    const key = e.dictKeys.length > 0 ? unitsDict[e.dictKeys[0]] : e.writing;
+    if (!groups.has(key)) {
+      groups.set(key, { values: [], dictKeys: new Set(), ids: new Set(), noId: 0, sessions: new Set() });
+    }
+    const g = groups.get(key);
+    g.values.push(e.writing);
+    e.dictKeys.forEach((k) => g.dictKeys.add(k));
+    const rec = writings.get(e.writing);
+    rec.ids.forEach((id) => g.ids.add(id));
+    g.noId += rec.noId;
+    rec.sessions.forEach((s) => g.sessions.add(s));
   }
 
-  // ---------- Структурированные кандидаты «полк + дивизия» (TASK-0016) ----------
-  // Паттерн: число + токен полка и число + токен дивизии, в любом порядке.
-  // Токены расширенные, с границами слов, длинные первыми.
-  const isRegKey = (key) => Object.prototype.hasOwnProperty.call(unitsRegistry, key);
-
-  const TOKEN_REGIMENT = "(?:гсп|полк|сп|п)(?:\\.+)?";
-  const TOKEN_DIVISION = "(?:гсд|мсд|сд|дивизия|див)(?:\\.+)?";
-  const reRegThenDiv = new RegExp(
-    `(\\d+)\\s*[\\u0451]?й?\\s*${TOKEN_REGIMENT}[\\s\\S]*?(\\d+)\\s*[\\u0451]?й?\\s*${TOKEN_DIVISION}`,
-    "iu",
-  );
-  const reDivThenReg = new RegExp(
-    `(\\d+)\\s*[\\u0451]?й?\\s*${TOKEN_DIVISION}[\\s\\S]*?(\\d+)\\s*[\\u0451]?й?\\s*${TOKEN_REGIMENT}`,
-    "iu",
-  );
-
-  // Фронт из написания для parent новой дивизии комплекта (TASK-0016, п.1)
-  const frontFromValue = (value) => {
-    const v = normKey(value);
-    if (/скф|северо-кавказск/.test(v)) return "unit-skf-front";
-    if (/крымф|крымск/.test(v)) return "unit-krymf-front";
-    return null;
-  };
-
-  const structuredGroups = new Map(); // pairKey -> {reg, div, values:Set, ids:Set, fronts:Set}
-  const matchedValues = new Set(); // написание может дать пару только один раз
-  const addStructured = (value, info) => {
-    if (matchedValues.has(value)) return false;
+  // Структурированные кандидаты «полк + дивизия»
+  // Ворота (обновлённые): предложение рождается, когда паттерн матчит И
+  // (divKey есть в unit_keys ИЛИ divKey включается в тот же комплект предложения).
+  // regKey может отсутствовать — он и есть предлагаемый полк.
+  const structuredMap = new Map(); // `${regNum}|${divNum}` → блок
+  for (const [value, g] of groups) {
     let m = value.match(reRegThenDiv);
-    let reg, div;
+    let regNum = null;
+    let divNum = null;
     if (m) {
-      reg = m[1];
-      div = m[2];
+      regNum = m[1];
+      divNum = m[2];
     } else {
       m = value.match(reDivThenReg);
-      if (!m) return false;
-      div = m[1];
-      reg = m[2];
-    }
-    const regKey = `unit-${reg}-sp`;
-    const divKey = `unit-${div}-sd`;
-    // Ворота (исправленные): regKey МОЖЕТ отсутствовать — он и есть предлагаемый полк;
-    // предложение рождается, если divKey есть в unit_keys ИЛИ divKey включается
-    // в тот же комплект предложения (новая дивизия рядом с новым полком).
-    const divExists = isRegKey(divKey);
-    const regExists = isRegKey(regKey);
-    if (!divExists && !(!regExists && !isRegKey(`unit-${reg}-sd`) && !isRegKey(`unit-${div}-sp`))) {
-      return false;
-    }
-    matchedValues.add(value);
-    const pairKey = `${regKey}|${divKey}`;
-    if (!structuredGroups.has(pairKey)) {
-      structuredGroups.set(pairKey, {
-        reg,
-        div,
-        regKey,
-        divKey,
-        values: new Set(),
-        ids: new Set(),
-        fronts: new Set(),
-      });
-    }
-    const g = structuredGroups.get(pairKey);
-    g.values.add(value);
-    for (const id of info.ids) g.ids.add(id);
-    const fr = frontFromValue(value);
-    if (fr) g.fronts.add(fr);
-    return true;
-  };
-
-  // ---------- Комплект предложения по паре «полк + дивизия» ----------
-  // proposed_key полка — unit-<номер>-sp с parent: unit-<номер>-sd;
-  // при отсутствии дивизии в реестре комплект содержит вторую запись
-  // unit-<номер>-sd (type: дивизия, parent — фронт из написания, иначе null).
-  function buildBundle(g) {
-    const divExists = isRegKey(g.divKey);
-    const regExists = isRegKey(g.regKey);
-    const divFront =
-      divExists && unitsRegistry[g.divKey]
-        ? unitsRegistry[g.divKey].parent ?? null
-        : g.fronts.size === 1
-          ? [...g.fronts][0]
-          : null;
-    const bundle = [];
-    if (!regExists) {
-      bundle.push({
-        proposed_key: g.regKey,
-        type: "полк",
-        number: Number(g.reg),
-        parent: g.divKey,
-        new_division_in_bundle: !divExists,
-      });
-    }
-    if (!divExists) {
-      bundle.push({
-        proposed_key: g.divKey,
-        type: "дивизия",
-        number: Number(g.div),
-        parent: divFront,
-      });
-    }
-    return { divExists, regExists, divFront, bundle };
-  }
-
-  const structuredList = [];
-  for (const [gkey, groupEntries] of dictGroups) {
-    const totalIds = new Set();
-    for (const e of groupEntries) for (const id of e._ids) totalIds.add(id);
-    const observedValues = groupEntries.map((e) => e.value);
-    const rep = groupEntries.reduce((a, b) => (b.count > a.count ? b : a));
-    // структурированный кандидат: все написания группы проверяются паттерном;
-    // одно написание может дать пару «полк+дивизия» только один раз
-    const structuredHits = [];
-    for (const e of groupEntries) {
-      if (addStructured(e.value, { ids: e._ids })) {
-        structuredHits.push([...structuredGroups.keys()].pop());
+      if (m) {
+        divNum = m[1];
+        regNum = m[2];
       }
     }
-    structuredList.push({
-      kind: "unit_structured_candidate",
-      group_basis: gkey.startsWith("__raw__:") ? null : gkey,
-      proposed_key: structuredHits[0] || rep.unit_key || rep.proposed_key_fallback,
-      observed_values: observedValues,
-      count: totalIds.size,
-      in_units_dict: observedValues.some((v) =>
-        Object.prototype.hasOwnProperty.call(unitsDict, v),
-      ),
-      sessions: [...new Set(groupEntries.flatMap((e) => e.sessions))].sort(),
-      action: "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro",
-    });
+    if (!m) continue;
+
+    const regKey = makeRegKey(regNum);
+    const divKey = makeDivKey(divNum);
+    const divInRegistry = isDivKey(divKey) && Object.prototype.hasOwnProperty.call(unitKeys, divKey);
+    const regInRegistry = isRegKey(regKey) && Object.prototype.hasOwnProperty.call(unitKeys, regKey);
+
+    // Комплект предложения: всегда proposed полк; дивизия добавляется, если её нет в реестре
+    const proposed = [];
+    if (!regInRegistry) {
+      proposed.push({
+        proposed_key: regKey,
+        type: "полк",
+        number: regNum,
+        parent: divKey, // parent полка — дивизия (из имени/написания)
+        observed_values: g.values,
+        dict_keys: [...g.dictKeys],
+      });
+    }
+    if (!divInRegistry) {
+      proposed.push({
+        proposed_key: divKey,
+        type: "дивизия",
+        number: divNum,
+        parent: frontFromText(value), // фронт из написания: СКФ→unit-skf-front, КрымФ→unit-krymf-front, иначе null
+        observed_values: g.values,
+        dict_keys: [...g.dictKeys],
+      });
+    }
+
+    // Ворота: divKey в unit_keys ИЛИ divKey в комплекте → считаем структурированным
+    const divOk = divInRegistry || proposed.some((p) => p.proposed_key === divKey);
+    if (!divOk) continue;
+
+    const id = `${regNum}|${divNum}`;
+    if (!structuredMap.has(id)) {
+      structuredMap.set(id, {
+        regKey,
+        divKey,
+        regNum,
+        divNum,
+        count: 0,
+        ids: new Set(),
+        noId: 0,
+        values: [],
+        dictKeys: new Set(),
+        sessions: new Set(),
+        proposed: [],
+      });
+    }
+    const s = structuredMap.get(id);
+    s.count += g.ids.size + (g.noId > 0 ? g.noId : 0);
+    g.ids.forEach((x) => s.ids.add(x));
+    s.noId += g.noId;
+    s.values.push(...g.values);
+    g.dictKeys.forEach((k) => s.dictKeys.add(k));
+    g.sessions.forEach((x) => s.sessions.add(x));
+    for (const p of proposed) {
+      if (!s.proposed.some((q) => q.proposed_key === p.proposed_key)) s.proposed.push(p);
+    }
   }
-  structuredList.sort((a, b) => b.count - a.count);
+  const structuredList = [...structuredMap.values()].sort((a, b) => b.count - a.count);
 
-  const structuredBlocks = [...structuredGroups.entries()]
-    .map(([pairKey, g]) => {
-      const b = buildBundle(g);
-      return {
-        kind: "unit_structured",
-        pair_key: pairKey,
-        proposed_key: b.regExists ? g.divKey : g.regKey,
-        regiment_key: g.regKey,
-        division_key: g.divKey,
-        regiment_exists: b.regExists,
-        division_exists: b.divExists,
-        bundle: b.bundle,
-        observed_values: [...g.values],
-        count: g.ids.size,
-      };
-    })
-    .filter((blk) => blk.observed_values.length > 0)
-    .sort((a, b) => b.count - a.count);
+  // ---------- Проект пополнения unit_keys (draft, без автоприменения) ----------
+  const draft = {};
+  const draftRows = [];
+  for (const s of structuredList) {
+    for (const p of s.proposed) {
+      const k = p.proposed_key;
+      if (Object.prototype.hasOwnProperty.call(unitKeys, k)) continue; // уже в словаре
+      if (!draft[k]) {
+        // history_note — только если однозначно известно из существующих записей того же номера
+        let historyNote = null;
+        for (const [ek, ev] of Object.entries(unitKeys)) {
+          if (ev && ev.number === p.number && ev.type === p.type && ev.history_note) {
+            historyNote = ev.history_note;
+            break;
+          }
+        }
+        draft[k] = {
+          dict_keys: [...new Set([...(draft[k]?.dict_keys || []), ...p.dict_keys])],
+          type: p.type,
+          number: p.number,
+          parent: p.parent,
+          history_note: historyNote,
+        };
+      }
+      p.dict_keys.forEach((dk) => draft[k].dict_keys.push(dk));
+      draft[k].dict_keys = [...new Set(draft[k].dict_keys)];
+      draftRows.push({
+        proposed_key: k,
+        type: draft[k].type,
+        parent: draft[k].parent,
+        count: s.count,
+        dict_keys: draft[k].dict_keys,
+        sessions: [...s.sessions],
+      });
+    }
+  }
 
-  // ---------- Отчёт md ----------
-  fs.mkdirSync(REPORTS_DIR, { recursive: true });
-  const reportPath = path.join(REPORTS_DIR, `units-${today()}.md`);
-  const lines = [
-    `# Отчёт по warunit — ${today()}`,
+  // ---------- Запись выходов ----------
+  fs.mkdirSync(reportsDir, { recursive: true });
+  fs.mkdirSync(proposalsDir, { recursive: true });
+
+  const stampName = dateStr();
+  const reportPath = path.join(reportsDir, `units-${stampName}.md`);
+  const proposalsPath = path.join(proposalsDir, `proposals-${stampName}.json`);
+  const draftJsonPath = path.join(proposalsDir, `registry-draft-${stampName}.json`);
+  const draftMdPath = path.join(proposalsDir, `registry-draft-${stampName}.md`);
+
+  // proposals.json
+  const proposalsPayload = {
+    generated_at: new Date().toISOString(),
+    distinct_ids: entries.reduce((acc, e) => acc + writings.get(e.writing).ids.size, 0),
+    no_id_rows: noIdRows,
+    candidates: [...groups.entries()].map(([value, g]) => ({
+      value,
+      observed_values: g.values,
+      dict_keys: [...g.dictKeys],
+      frequency: g.ids.size + (g.noId > 0 ? g.noId : 0),
+      sessions: [...g.sessions],
+    })),
+    structured: structuredList.map((s) => ({
+      key_pair: `${s.regKey} + ${s.divKey}`,
+      frequency: s.count,
+      observed_values: [...new Set(s.values)],
+      dict_keys: [...s.dictKeys],
+      sessions: [...s.sessions],
+      proposed: s.proposed,
+    })),
+  };
+  fs.writeFileSync(proposalsPath, JSON.stringify(proposalsPayload, null, 2) + "\n", "utf-8");
+
+  // registry-draft.json (плоская схема unit_keys: dict_keys/type/number/parent/history_note)
+  const draftPayload = { _operator_note: `Проект пополнения unit_keys от ${stampName}. Автоприменение запрещено.` };
+  for (const [k, v] of Object.entries(draft)) {
+    draftPayload[k] = {
+      dict_keys: [...new Set(v.dict_keys)],
+      type: v.type,
+      number: v.number,
+      parent: v.parent,
+      history_note: v.history_note,
+    };
+  }
+  fs.writeFileSync(draftJsonPath, JSON.stringify(draftPayload, null, 2) + "\n", "utf-8");
+
+  // registry-draft.md — таблица для ревью
+  const mdLines = [
+    `# Проект пополнения unit_keys — ${stampName}`,
     "",
-    `Источник: ${csvFiles.length} CSV-файл(ов), строк: ${totalRows} (уникальных document_id: ${distinctIds.size}; строк без id: ${noIdRows}; пустой warunit: ${emptyWarunit}).`,
-    `Частота = число уникальных document_id на написание.`,
-    "",
-    "> Словари units*dict / unit_keys / burials_* — рабочие инструменты fallen-cards;",
-    "> пополнение выполняется здесь решением Анны-Ch по предложениям отчёта.",
-    "> Astro-репо получает копии словарей и раскрывает ключи при генерации.",
-    "> locations_dict — внешний импорт, только чтение.",
-    "",
-    "## Распознанные написания",
-    "",
-    "| warunit | частота | units_dict | unit_keys | unit_key |",
-    "|---|---|---|---|---|",
-    ...recognized.map(
-      (e) =>
-        `| ${e.value.replace(/\|/g, "\\|")} | ${e.count} | ${e.in_units_dict ? "есть" : "нет"} | есть | ${e.unit_key} |`,
+    "| proposed_key | type | parent | частота | dict_keys | сессии |",
+    "|---|---|---|---|---|---|",
+    ...draftRows.map(
+      (r) =>
+        `| ${r.proposed_key} | ${r.type} | ${r.parent ?? "null"} | ${r.count} | ${r.dict_keys.join(", ") || "—"} | ${r.sessions.join(", ")} |`,
     ),
     "",
-    "## Кандидаты на выдачу нового ключа (группировка по units_dict)",
-    "",
-    "Одна часть (одно значение units_dict) = одна строка; observed_values — все написания.",
-    "",
-    "| observed_values | частота | units_dict | сессии |",
-    "|---|---|---|---|",
-    ...(structuredList.length
-      ? structuredList.map(
-          (g) =>
-            `| ${g.observed_values
-              .map((v) => v.replace(/\|/g, "\\|"))
-              .join("; ")} | ${g.count} | ${g.in_units_dict ? "есть" : "нет"} | ${g.sessions.join(", ")} |`,
-        )
-      : ["| — | | | |"]),
-    "",
-    "## Структурированные кандидаты «полк + дивизия»",
-    "",
-    "Паттерн: число + сп/полк/гсп/п и число + сд/див/дивизия/гсд/мсд, в любом порядке;",
-    "предлагается, если дивизия есть в unit_keys ИЛИ входит в тот же комплект",
-    "предложения (полк может быть новым — он и есть продукт предложения).",
-    "",
-    ...(structuredBlocks.length
-      ? structuredBlocks.flatMap((b) => {
-          const rows = [
-            `### ${b.proposed_key} (частота: ${b.count})`,
-            "",
-            `- полк: ${b.regiment_key}${b.regiment_exists ? " (есть в реестре)" : " (предлагается)"}, дивизия: ${b.division_key}${b.division_exists ? " (есть в реестре)" : " (предлагается)"}`,
-            `- observed_values: ${b.observed_values.join("; ")}`,
-          ];
-          if (b.bundle.length > 0) {
-            rows.push(`- комплект предложения:`);
-            for (const item of b.bundle) {
-              rows.push(
-                `  - ${item.proposed_key} — ${item.type}, parent: ${item.parent ?? "null"}`,
-              );
-            }
-          }
-          rows.push("");
-          return rows;
-        })
-      : ["— нет кандидатов, удовлетворяющих условию (дивизия в реестре или в комплекте)", ""]),
+    "Автоприменение в unit_keys.json запрещено. Решение за Анной-Ch.",
   ];
-  fs.writeFileSync(reportPath, lines.join("\n"), "utf-8");
+  fs.writeFileSync(draftMdPath, mdLines.join("\n") + "\n", "utf-8");
 
-  // ---------- proposals.json ----------
-  const proposalsPath = path.join(REPORTS_DIR, "proposals.json");
-  fs.writeFileSync(
-    proposalsPath,
-    JSON.stringify(
-      {
-        generated_date: today(),
-        source_csv: csvFiles.map((f) => path.relative(ROOT, f)),
-        total_rows: totalRows,
-        distinct_ids: distinctIds.size,
-        no_id_rows: noIdRows,
-        distinct_values: entries.length,
-        recognized: recognized.length,
-        proposals: structuredList.map((g) => ({
-          kind: "unit",
-          value: g.observed_values[0],
-          observed_values: g.observed_values,
-          count: g.count,
-          in_units_dict: g.in_units_dict,
-          sessions: g.sessions,
-          action: "выдать unit_key в unit_keys.json (fallen-cards), затем обновить копию в Astro",
-        })),
-        structured: structuredBlocks,
-      },
-      null,
-      2,
-    ) + "\n",
-    "utf-8",
-  );
+  // Отчёт units-<stamp>.md
+  const lines = [];
+  lines.push(`# Отчёт по воинским частям — ${stampName}`);
+  lines.push("");
+  lines.push(`Всего строк с warunit: ${totalRows} | Различных написаний: ${entries.length} | Распознано: ${recognized.length} | Не распознано: ${unrecognized.length}`);
+  lines.push(`Уникальных document_id: ${proposalsPayload.distinct_ids} | Строк без id: ${noIdRows}`);
+  lines.push("");
+  lines.push("## Не распознанные написания (кандидаты в units_dict)");
+  lines.push("");
+  if (unrecognized.length === 0) {
+    lines.push("— все написания покрыты units_dict —");
+  } else {
+    for (const e of unrecognized) {
+      lines.push(`- **${e.writing}** — частота ${e.count} (сессии: ${e.sessions.join(", ")})`);
+    }
+  }
+  lines.push("");
+  lines.push("## Структурированные кандидаты (полк + дивизия)");
+  lines.push("");
+  if (structuredList.length === 0) {
+    lines.push("— нет матчей паттерна при текущем словаре —");
+  } else {
+    for (const s of structuredList) {
+      lines.push(`### ${s.regKey} + ${s.divKey}`);
+      lines.push(`- Написания: ${[...new Set(s.values)].join(" / ")}`);
+      lines.push(`- Частота (уникальных document_id): ${s.count}`);
+      lines.push(`- dict_keys: ${[...s.dictKeys].join(", ") || "—"}`);
+      lines.push(`- Сессии: ${[...s.sessions].join(", ")}`);
+      for (const p of s.proposed) {
+        lines.push(`- Предложение: \`${p.proposed_key}\` (${p.type}, parent: ${p.parent ?? "null"})`);
+      }
+      lines.push("");
+    }
+  }
+  lines.push("## Распознанные группы (по значениям units_dict)");
+  lines.push("");
+  for (const [value, g] of groups) {
+    if (g.dictKeys.size === 0) continue;
+    lines.push(`- **${value}** — ${g.ids.size + (g.noId || 0)} уник., написания: ${g.values.join(" / ")}`);
+  }
+  fs.writeFileSync(reportPath, lines.join("\n") + "\n", "utf-8");
 
-  console.log(`Отчёт по warunit завершён:`);
-  console.log(`   Написаний различных: ${entries.length}`);
-  console.log(`   Распознано:          ${recognized.length}`);
-  console.log(`   Кандидатов (групп):  ${structuredList.length}`);
-  console.log(`   Структурированных:   ${structuredBlocks.length}`);
-  console.log(`   → ${path.relative(ROOT, reportPath)}`);
-  console.log(`   → ${path.relative(ROOT, proposalsPath)}`);
-
-  // ---------- Проект пополнения реестра (черновик на ревью, п.2) ----------
-  const PROPOSALS_DIR = path.join(DICT_DIR, "proposals");
-  fs.mkdirSync(PROPOSALS_DIR, { recursive: true });
-  const dateStr = today();
-  const draftJsonPath = path.join(PROPOSALS_DIR, `registry-draft-${dateStr}.json`);
-  const draftMdPath = path.join(PROPOSALS_DIR, `registry-draft-${dateStr}.md`);
-  const { draftJson, mdLines } = buildRegistryDraft(unitsDict, unitsRegistry, entries, dateStr);
-  fs.writeFileSync(draftJsonPath, JSON.stringify(draftJson, null, 2) + "\n", "utf-8");
-  fs.writeFileSync(draftMdPath, mdLines.join("\n"), "utf-8");
-  console.log(`   Проект реестра:      добавлений ${Object.keys(draftJson.additions).length}, уже в реестре ${draftJson.already_in_registry.length}`);
-  console.log(`   → ${path.relative(ROOT, draftJsonPath)}`);
-  console.log(`   → ${path.relative(ROOT, draftMdPath)}`);
+  // Консольная сводка
+  console.log(`Написаний различных: ${entries.length}`);
+  console.log(`Распознано: ${recognized.length}`);
+  console.log(`Структурированных: ${structuredList.length}`);
+  console.log(`Отчёт: ${path.relative(ROOT, reportPath)}`);
+  console.log(`Proposals: ${path.relative(ROOT, proposalsPath)}`);
+  console.log(`Draft: ${path.relative(ROOT, draftJsonPath)} , ${path.relative(ROOT, draftMdPath)}`);
 })().catch((err) => {
   console.error("Фатальная ошибка:", err);
   process.exit(1);
