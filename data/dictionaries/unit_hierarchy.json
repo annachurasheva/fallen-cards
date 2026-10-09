@@ -1,0 +1,942 @@
+{
+  "_operator_note": {
+    "purpose": "Картотека иерархии воинских частей для визуальной сверки. Используется оператором (Анна-Ch) для принятия решений о parent в unit_keys.json. Не читается скриптами конвейера (generate-cards.js, units-report.js, parse-obd.js словари unit_* не трогают); исключение — разовый проверочный скрипт scripts/build-unit-hierarchy.js.",
+    "sources": [
+      "docs/TEXT/*.md",
+      "docs/TASK-0015-units-report.md"
+    ],
+    "levels": [
+      "front",
+      "army",
+      "division",
+      "regiment",
+      "battalion_company",
+      "auxiliary"
+    ],
+    "rules": [
+      "source_doc — путь к .md в docs/TEXT/, откуда взяты данные о составе; null, если источника ещё нет.",
+      "children — массив unit_key прямых подчинённых; сверяется с parent в unit_keys.json двусторонне (проверяет build-unit-hierarchy.js).",
+      "composition_from_doc — только у дивизий: эталонный перечень частей по историческому документу (с ним оператор сверяет написания в CSV).",
+      "unit_id — unit_key из unit_keys.json; null — запись картотеки без ключа реестра (например, 138-я сд).",
+      "Данные взяты только из docs/TEXT и отчёта TASK-0015; домыслы запрещены."
+    ]
+  },
+  "fronts": {},
+  "corpses": {},
+  "armies": {},
+  "divisions": {},
+  "regiments": {},
+  "battalion_company": {},
+  "auxiliary": {
+    "unit-skf-front": {
+      "full_name": "Северо-Кавказский фронт",
+      "period": "01.11.1941 — 30.09.1942",
+      "predecessors": [
+        "СКВО"
+      ],
+      "successors": [
+        "Черноморская ГВ ЗакФ"
+      ],
+      "source_doc": null,
+      "parent": null,
+      "type": "фронт"
+    },
+    "unit-krymf-front": {
+      "full_name": "Крымский фронт",
+      "period": "28.01.1942 — 19.05.1942",
+      "predecessors": [
+        "Кавказский фронт"
+      ],
+      "successors": [
+        "Северо-Кавказское направление (ГКК СНК, 21.04.1942)"
+      ],
+      "source_doc": null,
+      "parent": null,
+      "type": "фронт"
+    },
+    "unit-398-sd": {
+      "full_name": "398-я стрелковая дивизия",
+      "parent": "unit-51a-kf",
+      "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md",
+      "period": "1941-09 — 1942-05-19",
+      "status_note": "Уничтожена в майском наступлении 11-й армии; расформирована официально 19.05.1942",
+      "chain_of_command_from_doc": [
+        "Закавказский фронт — авг.—сент. 1941",
+        "Закавказский фронт, 44-я армия — сент. 1941 — 23.11.1941",
+        "Закавказский фронт, 51-я армия — 23.11.1941 — 30.12.1941",
+        "Кавказский фронт — 30.12.1941 — янв. 1942",
+        "Крымский фронт, 44-я армия — янв. — март 1942",
+        "Крымский фронт, 51-я армия — март — май 1942"
+      ],
+      "composition_from_doc": {
+        "rifle_regiments": [
+          821,
+          824,
+          826
+        ],
+        "artillery_regiment": 958,
+        "anti_tank_division": 178,
+        "antiaircraft_battery": "186 (682 озад)",
+        "mortar_division": 680,
+        "recon_company": 457,
+        "sapper_battalion": 676,
+        "signal_battalion": 846,
+        "med_battalion": 480,
+        "chem_company": 473,
+        "transport_company": 510,
+        "bakery": 245,
+        "vet_hospital": 820,
+        "post_station": 1453,
+        "bank_office": 725
+      },
+      "type": "дивизия"
+    },
+    "unit-404-sd": {
+      "full_name": "404-я стрелковая дивизия",
+      "parent": "unit-9-skorpus",
+      "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md",
+      "period": "1941-09 — 1942-06-14",
+      "status_note": "Уничтожена в майском разгроме Керчи; расформирована официально 14.06.1942",
+      "chain_of_command_from_doc": [
+        "Закавказский фронт — авг. — сент. 1941",
+        "Закавказский фронт, 44-я армия — сент. — дек. 1941",
+        "Кавказский фронт, 44-я армия, 9-й стрелковый корпус — дек. 1941 — янв. 1942",
+        "Крымский фронт, 44-я армия — янв. — май 1942"
+      ],
+      "composition_from_doc": {
+        "rifle_regiments": [
+          643,
+          652,
+          655
+        ],
+        "artillery_regiment": 961,
+        "anti_tank_division": 187,
+        "antiaircraft_battery": "189 (685 озад)",
+        "mortar_division": 682,
+        "recon_company": 460,
+        "sapper_battalion": 679,
+        "signal_battalion": 849,
+        "med_battalion": 483,
+        "chem_company": 476,
+        "transport_company": 341,
+        "bakery": "248 (112 полевой автохлебозавод)",
+        "vet_hospital": 823,
+        "post_station": 1457,
+        "bank_office": 728
+      },
+      "validation_notes": [
+        "Написание «скф 400 сд 655 сп» (dict_keys unit-655-sp) противоречит документу: 655-й сп — полк 404-й сд; кандидатура на исправление parent.",
+        "unit-665-sp («СКФ 665 сп 404 сд») приписан к 404 сд по архивному написанию, но в эталонном составе документа 665-го сп нет (только 643, 652, 655)."
+      ],
+      "type": "дивизия"
+    },
+    "unit-400-sd": {
+      "full_name": "400-я стрелковая дивизия",
+      "parent": "unit-51a-kf",
+      "source_doc": "docs/TEXT/400-ya-strelkovaya-diviziya.md",
+      "period": "1941-11-23 — 1942-06-14",
+      "status_note": "Уничтожена в майском разгроме (Парпачский перешеек); расформирована официально 14.06.1942",
+      "chain_of_command_from_doc": [
+        "Закавказский фронт — авг. — сент. 1941",
+        "Закавказский фронт, 44-я армия — сент. 1941 — 23.11.1941",
+        "Закавказский фронт, 51-я армия — 23.11.1941 — 30.12.1941",
+        "Кавказский фронт — 30.12.1941 — янв. 1942",
+        "Крымский фронт, 47-я армия — янв. — март 1942",
+        "Крымский фронт, 51-я армия — март — май 1942"
+      ],
+      "composition_from_doc": {
+        "rifle_regiments": [
+          829,
+          832,
+          834
+        ],
+        "artillery_regiment": 959,
+        "anti_tank_division": 181,
+        "antiaircraft_battery": "187 (683 озад)",
+        "mortar_division": 681,
+        "recon_company": 458,
+        "sapper_battalion": 677,
+        "signal_battalion": 847,
+        "med_battalion": 481,
+        "chem_company": 474,
+        "transport_company": 511,
+        "bakery": 246,
+        "vet_hospital": 821,
+        "post_station": 1454,
+        "bank_office": 726
+      },
+      "validation_notes": [
+        "unit-831-sp («скф 400 сд 831 сп») приписан к 400 сд по архивному написанию, но в эталонном составе документа 831-го сп нет (только 829, 832, 834).",
+        "Приданный 979-й артиллерийский полк РГК — не штатная часть дивизии, ключа в реестре нет."
+      ],
+      "type": "дивизия"
+    },
+    "unit-157-sd": {
+      "full_name": "157-я стрелковая дивизия",
+      "parent": "unit-44a-kf",
+      "source_doc": "docs/TEXT/157-ya-strelkovaya-diviziya.md",
+      "period": "1939 — 1942-08 (1-е формирование; далее переформирована, с ноября 1942 — 76-я гв. сд)",
+      "status_note": "В Крыму — бои за Феодосию (дек 1941 — янв 1942), Ак-Монайский перешеек; уничтожена/рассечена в июле 1942 у Котельниково (уже вне Крыма)",
+      "chain_of_command_from_doc": [
+        "Осень 1941 — Одесса, Севастополь, подступы к Керчи",
+        "28.–29.12.1941 — десант в Феодосию (совместно с кораблями ЧФ)",
+        "янв. — авг. 1942 — почти весь период в составе 51-й армии (по тексту документа)",
+        "авг. 1942 — выведена в резерв, формирование у ст. Тихорецкая"
+      ],
+      "composition_from_doc": {
+        "rifle_regiments": [
+          384,
+          633,
+          716
+        ],
+        "artillery_regiment": 422
+      },
+      "type": "дивизия"
+    },
+    "unit-236-sd": {
+      "full_name": "236-я стрелковая дивизия",
+      "parent": "unit-44a-kf",
+      "source_doc": "docs/TEXT/236-ya-strelkovaya-diviziya.md",
+      "period": "04.12.1941 — 29.03.1943 (крымский этап: дек 1941 — май 1942)",
+      "status_note": "Высадка в Феодосию дек 1941; большие потери при оставлении Крыма (операция «Охота на дроф»); далее — Битва за Кавказ",
+      "chain_of_command_from_doc": [
+        "декабрь 1941 — морской десант в порт Феодосия",
+        "май 1942 — оставление Крыма"
+      ],
+      "composition_from_doc": {
+        "rifle_regiments": [
+          177,
+          509,
+          814
+        ],
+        "rifle_regiments_alternate_names": "177 сп (в др. написаниях 818, 976 сп); 509 сп (180 сп)",
+        "artillery_regiment": "687 (889) ап",
+        "anti_tank_division": "27 (28) оиптд",
+        "antiaircraft_battery": "178 зенитная артбатарея (292 озад) — до 29.3.43",
+        "recon_company": "496 орр (311 разведбатальон)",
+        "sapper_battalion": 404,
+        "signal_battalion": "615 обс (630 орс)",
+        "med_battalion": 392,
+        "chem_company": "102 (10) орхз",
+        "transport_company": "94 атр (665 автотранспортный батальон)",
+        "bakery": "337 пх (459 полевой автохлебозавод)",
+        "vet_hospital": 236,
+        "post_station": 701,
+        "bank_office": 508
+      },
+      "validation_notes": [
+        "Эталонный состав документа относится к позднему периоду (Кубань/Украина, 1943+); написания реестра («скф 845 п 236 сд», «скф 957 п 236 сд») относятся к крымскому периоду 1942 и в документе отсутствуют.",
+        "Написание «404 отд. сап. бат.» совпадает с номером дивизии — проверять, что речь о сапбатальоне, а не о дивизии (ключ unit-404-sapbat).",
+        "unit-28-optd («скф 28 оптд 236 сд») приписан к 236 сд по написанию; в эталонном составе оптимистично отсутствует — требует решения оператора."
+      ],
+      "type": "дивизия"
+    },
+    "unit-276-sd": {
+      "full_name": "276-я стрелковая дивизия (1-го формирования)",
+      "parent": "unit-51a-kf",
+      "source_doc": "docs/TEXT/276-ya-strelkovaya-diviziya.md",
+      "period": "1941-07 — 1942-05 (фактически), по документам расформирована 30.07.1942",
+      "status_note": "Разгромлена в Керченской оборонительной операции; остатки (~2000 чел.) сосредоточены на ст. Варениковская, расформирована в конце мая 1942",
+      "chain_of_command_from_doc": [
+        "20.08.1941 — 05.12.1941 — 51-я армия, 9-й стрелковый корпус (войска Крыма)",
+        "04.03.1942 — 01.04.1942 — Крымский фронт (резерв, с 5 марта р-н Чурабаш)",
+        "01.04.1942 — 08.05.1942 — Крымский фронт, 44-я армия",
+        "май 1942 — разгром вместе с 44 А"
+      ],
+      "composition_from_doc": {
+        "management": "Управление дивизии",
+        "rifle_regiments": [
+          871,
+          873,
+          876
+        ],
+        "artillery_regiment": 852,
+        "anti_tank_division": 353,
+        "antiaircraft_battery": "180 зенбатр (677 озад)",
+        "mortar_division": 674,
+        "recon_company": 372,
+        "sapper_battalion": 568,
+        "signal_battalion": "748 обс (255 орс)",
+        "med_battalion": 316,
+        "chem_company": 381,
+        "transport_company": "325 (743) атр",
+        "bakery": "499 (427) пх",
+        "vet_hospital": "323 (668) двл",
+        "post_station": "2145 (963) ппс",
+        "bank_office": "590 (847) пкг"
+      },
+      "validation_notes": [
+        "В реестре parent unit-276-sd = unit-51a-kf, тогда как по таблице «В составе» документа последний период — 44-я армия (01.04—08.05.1942). Требует решения оператора (см. validation_issues).",
+        "Написание «282 сд 876 сп» (units_raw_list.csv) — описка писаря: 876-й сп — полк 276-й сд (подтверждено документом и донесением SS «Лейбштандарт»)."
+      ],
+      "type": "дивизия"
+    },
+    "unit-302-sd": {
+      "full_name": "302-я стрелковая дивизия",
+      "parent": "unit-51a-kf",
+      "source_doc": "docs/TEXT/302-ya-strelkovaya-diviziya.md",
+      "period": "1941-07 (формирование) — крымский этап: дек 1941 — май 1942",
+      "status_note": "Керченско-Феодосийская операция: к 01.01.1942 вышла на рубеж Семисотка — Парпач",
+      "chain_of_command_from_doc": [
+        "Крымский фронт, 51-я армия — участие в десантной операции, рубеж Семисотка — Парпач",
+        "25.07.1942 — 51-я армия, Северо-Кавказский фронт — оборонительные бои"
+      ],
+      "composition_from_doc": {
+        "management": "управление",
+        "rifle_regiments": [
+          823,
+          825,
+          827
+        ],
+        "artillery_regiment": 865,
+        "training_battalion": 19,
+        "anti_tank_division": "231 оиптд (до 18.11.1943), 232 оиптд (с 19.11.1943)",
+        "recon_company": 248,
+        "sapper_battalion": 601,
+        "signal_battalion": "634 обс (634, 335 орс)",
+        "med_battalion": 393,
+        "chem_company": 215,
+        "transport_company": 398,
+        "bakery": "426 (493) пх",
+        "vet_hospital": 270
+      },
+      "validation_notes": [
+        "unit-865-sd («скф 865 сд 47 А») в реестре заведена как дивизия; по документу 865 — лёгкий артиллерийский полк 302-й сд. Написание может быть искажением «865 ап 302 сд». Требует решения оператора (см. validation_issues)."
+      ],
+      "type": "дивизия"
+    },
+    "unit-77-sd": {
+      "full_name": "77-я горнострелковая дивизия",
+      "parent": "unit-skf-front",
+      "source_doc": null,
+      "period": "упоминается в docs/TEXT/398-… (взятие Корпечи 16.03.1942) и в написаниях реестра («СКФ 77 гсд»)",
+      "composition_from_doc": null,
+      "type": "дивизия"
+    },
+    "unit-227-sd": {
+      "full_name": "227-я стрелковая дивизия",
+      "parent": "unit-skf-front",
+      "source_doc": null,
+      "composition_from_doc": null,
+      "type": "дивизия"
+    },
+    "unit-390-sd": {
+      "full_name": "390-я стрелковая дивизия (1-го формирования)",
+      "parent": "unit-51a-kf",
+      "source_doc": "docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md",
+      "period": "1941-08 — 1942 (расформирована после крымского разгрома)",
+      "status_note": "Уничтожена в майском разгроме Керчи (комдив Бабаян — до 14.06.1942)",
+      "chain_of_command_from_doc": [
+        "Закавказский фронт — авг. — сент. 1941",
+        "Закавказский фронт, 46-я армия — сент. 1941 — 23.11.1941",
+        "Закавказский фронт, 51-я армия — 23.11.1941 — 30.12.1941",
+        "Кавказский фронт, 51-я армия — 30.12.1941 — 28.01.1942",
+        "Крымский фронт, 51-я армия — 28.01.1942 — май 1942"
+      ],
+      "composition_from_doc": {
+        "rifle_regiments": [
+          784,
+          789,
+          792
+        ],
+        "artillery_regiment": 954,
+        "anti_tank_division": 147,
+        "antiaircraft_battery": "182 (678 озад)",
+        "mortar_division": 676,
+        "recon_company": 453,
+        "sapper_battalion": 672,
+        "signal_battalion": 842,
+        "med_battalion": 476,
+        "chem_company": 469,
+        "transport_company": 506,
+        "bakery": "814 пх (214 полевой автохлебозавод)",
+        "vet_hospital": 816,
+        "post_station": 1449,
+        "bank_office": 720
+      },
+      "validation_notes": [
+        "789-й сп по документу входит в состав 390-й сд, но в реестре unit-789-sp имеет parent unit-227-sd (написание «скф 227 сд 789 сп»). Требует решения оператора (см. validation_issues)."
+      ],
+      "type": "дивизия"
+    },
+    "unit-63-sd": {
+      "full_name": "63-я горнострелковая дивизия",
+      "parent": null,
+      "source_doc": null,
+      "period": "май 1942 — 63 гсд в составе 44-й армии Крымского фронта (первый эшелон, усилена 961-м ап)",
+      "status_note": "Разгромлена в Керченской операции 8—20.05.1942; дальнейшая судьба по источникам репозитория не установлена — parent в реестре не задан",
+      "composition_from_doc": null,
+      "type": "дивизия"
+    },
+    "unit-826-sp": {
+      "full_name": "826-й стрелковый полк",
+      "parent": "unit-398-sd",
+      "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-643-sp": {
+      "full_name": "643-й стрелковый полк",
+      "parent": "unit-404-sd",
+      "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-633-sp": {
+      "full_name": "633-й стрелковый полк",
+      "parent": "unit-157-sd",
+      "source_doc": "docs/TEXT/157-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-821-sp": {
+      "full_name": "821-й стрелковый полк",
+      "parent": "unit-398-sd",
+      "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-824-sp": {
+      "full_name": "824-й стрелковый полк",
+      "parent": "unit-398-sd",
+      "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-384-sp": {
+      "full_name": "384-й стрелковый полк",
+      "parent": "unit-157-sd",
+      "source_doc": "docs/TEXT/157-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-829-sp": {
+      "full_name": "829-й стрелковый полк",
+      "parent": "unit-400-sd",
+      "source_doc": "docs/TEXT/400-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-832-sp": {
+      "full_name": "832-й стрелковый полк",
+      "parent": "unit-400-sd",
+      "source_doc": "docs/TEXT/400-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-845-sp": {
+      "full_name": "845-й полк (236 сд)",
+      "parent": "unit-236-sd",
+      "source_doc": null,
+      "type": "полк"
+    },
+    "unit-716-sp": {
+      "full_name": "716-й стрелковый полк",
+      "parent": "unit-157-sd",
+      "source_doc": "docs/TEXT/157-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-814-sp": {
+      "full_name": "814-й стрелковый полк",
+      "parent": "unit-236-sd",
+      "source_doc": "docs/TEXT/236-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-655-sp": {
+      "full_name": "655-й стрелковый полк",
+      "parent": "unit-404-sd",
+      "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-509-sp": {
+      "full_name": "509-й стрелковый полк",
+      "parent": "unit-236-sd",
+      "source_doc": "docs/TEXT/236-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-652-sp": {
+      "full_name": "652-й стрелковый полк",
+      "parent": "unit-404-sd",
+      "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-827-sp": {
+      "full_name": "827-й стрелковый полк",
+      "parent": "unit-302-sd",
+      "source_doc": "docs/TEXT/302-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-834-sp": {
+      "full_name": "834-й стрелковый полк",
+      "parent": "unit-400-sd",
+      "source_doc": "docs/TEXT/400-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-665-sp": {
+      "full_name": "665-й стрелковый полк",
+      "parent": "unit-404-sd",
+      "source_doc": null,
+      "type": "полк"
+    },
+    "unit-105-sp": {
+      "full_name": "105-й стрелковый (гв. стрелковый) полк",
+      "parent": "unit-77-sd",
+      "source_doc": null,
+      "type": "полк"
+    },
+    "unit-789-sp": {
+      "full_name": "789-й стрелковый полк",
+      "parent": "unit-227-sd",
+      "source_doc": null,
+      "type": "полк"
+    },
+    "unit-779-sp": {
+      "full_name": "779-й стрелковый полк",
+      "parent": "unit-227-sd",
+      "source_doc": null,
+      "type": "полк"
+    },
+    "unit-784-sp": {
+      "full_name": "784-й стрелковый полк",
+      "parent": "unit-390-sd",
+      "source_doc": "docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md",
+      "type": "полк"
+    },
+    "unit-876-sp": {
+      "full_name": "876-й стрелковый полк",
+      "parent": "unit-276-sd",
+      "source_doc": "docs/TEXT/276-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-346-sp": {
+      "full_name": "346-й горно-стрелковый полк",
+      "parent": "unit-63-sd",
+      "source_doc": null,
+      "type": "полк"
+    },
+    "unit-831-sp": {
+      "full_name": "831-й стрелковый полк",
+      "parent": "unit-400-sd",
+      "source_doc": null,
+      "type": "полк"
+    },
+    "unit-961-ap": {
+      "full_name": "961-й артиллерийский полк",
+      "parent": "unit-404-sd",
+      "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md",
+      "type": "артиллерийский полк"
+    },
+    "unit-958-ap": {
+      "full_name": "958-й артиллерийский полк",
+      "parent": "unit-398-sd",
+      "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md",
+      "type": "артиллерийский полк"
+    },
+    "unit-422-ap": {
+      "full_name": "422-й артиллерийский полк",
+      "parent": "unit-157-sd",
+      "source_doc": "docs/TEXT/157-ya-strelkovaya-diviziya.md",
+      "type": "артиллерийский полк"
+    },
+    "unit-846-obss": {
+      "full_name": "846 батальон связи",
+      "parent": "unit-398-sd",
+      "type": "батальон связи",
+      "source_doc": null
+    },
+    "unit-392-medbat": {
+      "full_name": "392 медико-санитарный батальон",
+      "parent": "unit-236-sd",
+      "type": "медико-санитарный батальон",
+      "source_doc": null
+    },
+    "unit-404-sapbat": {
+      "full_name": "404 сапёрный батальон",
+      "parent": "unit-236-sd",
+      "type": "сапёрный батальон",
+      "source_doc": null
+    },
+    "unit-957-okshr": {
+      "full_name": "957-я отдельная кабельно-шестовая рота",
+      "parent": "unit-44-a",
+      "source_doc": "docs/TEXT/957ya-otdelnaya-kabelnoshestovaya-rota-v-sostave-rkka.md",
+      "type": "окшр"
+    },
+    "unit-792-sp": {
+      "full_name": "792-й стрелковый полк",
+      "parent": "unit-390-sd",
+      "source_doc": "docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md",
+      "type": "полк"
+    },
+    "unit-871-sp": {
+      "full_name": "871-й стрелковый полк",
+      "parent": "unit-276-sd",
+      "source_doc": "docs/TEXT/276-ya-strelkovaya-diviziya.md",
+      "type": "полк"
+    },
+    "unit-957-sp": {
+      "full_name": "957-й полк (236 сд)",
+      "parent": "unit-236-sd",
+      "source_doc": null,
+      "type": "полк"
+    },
+    "unit-47-a": {
+      "full_name": "47-я армия",
+      "parent": "unit-skf-front",
+      "source_doc": null,
+      "note": "Запись реестра unit-47-a (написания «47 А» без уточнения фронта). Источник docs/TEXT/47-ya-armiya.md содержит состав армии периода 1944 г., не крымского — использовать осторожно.",
+      "type": "армия"
+    },
+    "unit-55-tbr": {
+      "full_name": "55 танковая бригада",
+      "parent": "unit-krymf-front",
+      "type": "танковая бригада",
+      "source_doc": null
+    },
+    "unit-shtab-55-tbr": {
+      "full_name": "55 штаб",
+      "parent": "unit-55-tbr",
+      "type": "штаб",
+      "source_doc": null
+    },
+    "unit-56-tbr": {
+      "full_name": "56 танковая бригада",
+      "parent": "unit-krymf-front",
+      "type": "танковая бригада",
+      "source_doc": null
+    },
+    "unit-39-tbr": {
+      "full_name": "39 танковая бригада",
+      "parent": "unit-krymf-front",
+      "type": "танковая бригада",
+      "source_doc": null
+    },
+    "unit-40-tbr": {
+      "full_name": "40 танковая бригада",
+      "parent": "unit-krymf-front",
+      "type": "танковая бригада",
+      "source_doc": null
+    },
+    "unit-55-mspb": {
+      "full_name": "55 мотострелково-пулемётный батальон",
+      "parent": "unit-55-tbr",
+      "type": "мотострелково-пулемётный батальон",
+      "source_doc": null
+    },
+    "unit-865-sd": {
+      "full_name": "865-я стрелковая дивизия (предположительная — см. validation_notes)",
+      "parent": "unit-skf-front",
+      "source_doc": null,
+      "composition_from_doc": null,
+      "validation_notes": [
+        "Единственное основание существования ключа — написание «скф 865 сд 47 А»; по docs/TEXT/302-… 865-й лап — артполк 302-й сд. Возможно, это искажённое «865 ап 302 сд»."
+      ],
+      "type": "дивизия"
+    },
+    "unit-28-optd": {
+      "full_name": "28 оптд",
+      "parent": "unit-236-sd",
+      "type": "оптд",
+      "source_doc": null
+    },
+    "unit-231-optd": {
+      "full_name": "231-й отдельный пулемётно-танковый(?) дивизион",
+      "parent": "unit-skf-front",
+      "source_doc": null,
+      "type": "оптд"
+    },
+    "unit-351-ozad": {
+      "full_name": "351 озад",
+      "parent": "unit-skf-front",
+      "type": "озад",
+      "source_doc": null
+    },
+    "unit-31-ozad": {
+      "full_name": "31 озад",
+      "parent": "unit-skf-front",
+      "type": "озад",
+      "source_doc": null
+    },
+    "unit-shtab-63-gsd": {
+      "full_name": "63 штаб",
+      "parent": "unit-63-sd",
+      "type": "штаб",
+      "source_doc": null
+    },
+    "unit-shtab-157-sd": {
+      "full_name": "157 штаб",
+      "parent": "unit-157-sd",
+      "type": "штаб",
+      "source_doc": null
+    },
+    "unit-2-gv-sd": {
+      "full_name": "2-я гвардейская стрелковая дивизия",
+      "parent": null,
+      "source_doc": null,
+      "composition_from_doc": null,
+      "type": "дивизия"
+    },
+    "unit-51-a": {
+      "full_name": "51-я армия",
+      "parent": "unit-skf-front",
+      "source_doc": null,
+      "note": "Запись реестра unit-51-a (написания «51 А» без уточнения фронта). Крымский период 51 А детализирован отдельной записью unit-51a-kf.",
+      "type": "армия"
+    },
+    "unit-44-a": {
+      "full_name": "44-я армия",
+      "parent": "unit-skf-front",
+      "source_doc": null,
+      "note": "Запись реестра unit-44-a (написания «44 А» без уточнения фронта). Крымский период 44 А детализирован отдельной записью unit-44a-kf.",
+      "type": "армия"
+    },
+    "unit-15-sp": {
+      "full_name": "15-й гвардейский стрелковый полк",
+      "parent": "unit-2-gv-sd",
+      "source_doc": null,
+      "type": "сп"
+    },
+    "unit-24-tp": {
+      "full_name": "24 тп",
+      "parent": null,
+      "type": "тп",
+      "source_doc": null
+    },
+    "unit-873-sp": {
+      "full_name": "873-й стрелковый полк",
+      "parent": "unit-276-sd",
+      "source_doc": "docs/TEXT/276-ya-strelkovaya-diviziya.md",
+      "type": "сп"
+    },
+    "unit-126-tb": {
+      "full_name": "126 тб",
+      "parent": null,
+      "type": "тб",
+      "source_doc": null
+    },
+    "unit-427-ols": {
+      "full_name": "427 олрс",
+      "parent": "unit-44-a",
+      "type": "олрс",
+      "source_doc": null
+    },
+    "unit-659-ols": {
+      "full_name": "659 олрс",
+      "parent": "unit-51-a",
+      "type": "олрс",
+      "source_doc": null
+    },
+    "unit-475-bao": {
+      "full_name": "475 бао",
+      "parent": null,
+      "type": "бао",
+      "source_doc": null
+    },
+    "unit-97-pps": {
+      "full_name": "97 ппс",
+      "parent": "unit-47-a",
+      "type": "ппс",
+      "source_doc": null
+    },
+    "unit-510-rc": {
+      "full_name": "510 рота",
+      "parent": null,
+      "type": "рота",
+      "source_doc": null
+    },
+    "unit-547-ap": {
+      "full_name": "547-й гаубичный артиллерийский полк РГК",
+      "parent": "unit-skf-front",
+      "source_doc": null,
+      "type": "гап РГК"
+    },
+    "unit-133-iap": {
+      "full_name": "133 иап",
+      "parent": null,
+      "type": "иап",
+      "source_doc": null
+    },
+    "unit-153-vps": {
+      "full_name": "153 впс",
+      "parent": null,
+      "type": "впс",
+      "source_doc": null
+    },
+    "unit-174-rc": {
+      "full_name": "174 рота",
+      "parent": null,
+      "type": "рота",
+      "source_doc": null
+    },
+    "unit-21-ap": {
+      "full_name": "21-й гвардейский артиллерийский полк",
+      "parent": "unit-2-gv-sd",
+      "source_doc": null,
+      "type": "ап"
+    },
+    "unit-460-rc": {
+      "full_name": "460 рота",
+      "parent": null,
+      "type": "рота",
+      "source_doc": null
+    },
+    "unit-460-sp": {
+      "full_name": "460 полк",
+      "parent": null,
+      "type": "полк",
+      "source_doc": null
+    },
+    "unit-467-ap": {
+      "full_name": "467-й пушкарь артиллерийский полк",
+      "parent": null,
+      "source_doc": null,
+      "type": "ап"
+    },
+    "unit-13-brota": {
+      "full_name": "13 брота",
+      "parent": null,
+      "type": "брота",
+      "source_doc": null
+    },
+    "unit-18-minp": {
+      "full_name": "18 минп",
+      "parent": null,
+      "type": "минп",
+      "source_doc": null
+    },
+    "unit-199-obs": {
+      "full_name": "199 обс",
+      "parent": null,
+      "type": "обс",
+      "source_doc": null
+    },
+    "unit-427-ob": {
+      "full_name": "427 об",
+      "parent": "unit-427-ols",
+      "type": "об",
+      "source_doc": null
+    },
+    "unit-205-osb": {
+      "full_name": "205 осб",
+      "parent": null,
+      "type": "осб",
+      "source_doc": null
+    },
+    "unit-343-ptb": {
+      "full_name": "343 птб",
+      "parent": null,
+      "type": "птб",
+      "source_doc": null
+    },
+    "unit-61-ob": {
+      "full_name": "61 об",
+      "parent": null,
+      "type": "об",
+      "source_doc": null
+    },
+    "unit-679-osb": {
+      "full_name": "679 осб",
+      "parent": null,
+      "type": "осб",
+      "source_doc": null
+    },
+    "unit-73-sp": {
+      "full_name": "73-й отдельный моторизованный(?) полк",
+      "parent": "unit-skf-front",
+      "source_doc": null,
+      "type": "полк"
+    },
+    "unit-739-rc": {
+      "full_name": "739 рота",
+      "parent": null,
+      "type": "рота",
+      "source_doc": null
+    },
+    "unit-763-rc": {
+      "full_name": "763 рота",
+      "parent": null,
+      "type": "рота",
+      "source_doc": null
+    },
+    "unit-79-ps": {
+      "full_name": "79 пс",
+      "parent": null,
+      "type": "пс",
+      "source_doc": null
+    },
+    "unit-8-ob": {
+      "full_name": "8 об",
+      "parent": null,
+      "type": "об",
+      "source_doc": null
+    },
+    "unit-865-sp": {
+      "full_name": "865 сп",
+      "parent": null,
+      "type": "сп",
+      "source_doc": null
+    },
+    "unit-51a-kf": {
+      "full_name": "51-я армия (Крымский фронт)",
+      "parent": "unit-krymf-front",
+      "source_doc": null,
+      "period": "28.01.1942 — 19.05.1942",
+      "note": "Дивизии 51 А Крыма по docs/TEXT: 398-я (март—май 1942), 400-я (март—май 1942), 276-я (апр—май 1942), 302-я (дек 1941 — май 1942), 390-я (янв—май 1942). Подразделения 51 А по написаниям реестра: 153 впс («153 упр. воен. полев. стр. впс 51 А»). unit-659-ols в реестре привязан к глобальной 51 А (unit-51-a), не к крымской.",
+      "type": "армия"
+    },
+    "unit-44a-kf": {
+      "full_name": "44-я армия (Крымский фронт)",
+      "parent": "unit-krymf-front",
+      "source_doc": null,
+      "period": "28.01.1942 — 19.05.1942",
+      "note": "Состав по krymfront.md (раздел «Состав»: 44-я, 47-я, 51-я армии). Дивизии 44 А Крыма по docs/TEXT/44-ya-armiya-sssr.md: 157-я, 236-я, 345-я, 404-я, 416-я стрелковые, 9-я и 63-я горнострелковые, 74-я бригада морской пехоты; в мае 1942 (docs/TEXT/276-…): 276-я, 396-я, 157-я сд, 63-я гсд. В реестре на 44 А Крымского фронта записаны unit-157-sd, unit-236-sd; 404-я — через 9 ск; 276-я — по последнему подчинению на 51 А КФ.",
+      "type": "армия"
+    },
+    "unit-47a-kf": {
+      "full_name": "47-я армия (Крымский фронт)",
+      "parent": "unit-krymf-front",
+      "source_doc": null,
+      "period": "28.01.1942 — 19.05.1942",
+      "note": "По docs/TEXT/400-…: 400-я сд в 47 А Крыма янв—март 1942, затем передана в 51 А (последнее подчинение выбрано parent в реестре).",
+      "type": "армия"
+    },
+    "unit-9-skorpus": {
+      "full_name": "9-й стрелковый корпус",
+      "parent": "unit-44a-kf",
+      "source_doc": null,
+      "period": "дек. 1941 — янв. 1942 (в составе 44 А)",
+      "type": "стрелковый корпус"
+    },
+    "unit-47-rs": {
+      "full_name": "47-я рота связи (47 А)",
+      "parent": "unit-47-a",
+      "source_doc": null,
+      "type": "рота связи"
+    }
+  },
+  "known_merged_keys": {
+    "_note": "Судьба ключей, удалённых/объединённых в unit_keys.json решением оператора в ходе TASK-0017 (для журнала TASK-0011).",
+    "unit-47-rc": "Объединён с unit-47-rs (один объект: 47-я рота связи 47-й армии; написания слиты).",
+    "unit-846-obs": "Объединён с unit-846-obss (846-й обс 398 сд).",
+    "unit-392-msb": "Объединён с unit-392-medbat (392-й медсанбат 236 сд).",
+    "unit-404-osb": "Объединён с unit-404-sapbat (404-й сапбат 236 сд)."
+  },
+  "not_in_registry": {
+    "_note": "Части, упомянутые в эталонных составах docs/TEXT, для которых ключей в unit_keys.json ещё нет (кандидаты верификации; выдавать по решению Анны-Ch).",
+    "unit-138-sd": {
+      "full_name": "138-я стрелковая дивизия",
+      "source_doc": "docs/TEXT/138-ya-strelkovaya-krasnoznamyonnaya-diviziya.md",
+      "note": "Документ есть в docs/TEXT, ключа в реестре нет; в боях в Крыму упоминается в docs/TEXT/398-… (16.03.1942, Корпечь) и docs/TEXT/157-…"
+    },
+    "unit-961-ap-of-63-sd": {
+      "full_name": "961-й ап (придан 63-й гсд в мае 1942)",
+      "source_doc": "docs/TEXT/276-ya-strelkovaya-diviziya.md",
+      "note": "Тот же 961-й ап, что штатный полк 404-й сд; придание 63 гсд — оперативное усиление, отдельного ключа не требуется"
+    }
+  },
+  "validation_issues": [
+    "876-й сп приписан к unit-276-sd (по docs/TEXT/276-…); написание «282 сд 876 сп» в CSV — описка писаря, зафиксирована в history_note ключа unit-876-sp (для журнала TASK-0011).",
+    "unit-276-sd: в реестре parent = unit-51a-kf, по таблице «В составе» документа последний период — 44-я армия Крымского фронта (01.04—08.05.1942). Расхождение оставлено как есть до решения оператора.",
+    "unit-789-sp: в реестре parent = unit-227-sd (написание «скф 227 сд 789 сп»), по docs/TEXT/390-… 789-й сп — полк 390-й сд. Требует сверки.",
+    "unit-865-sd: в реестре заведена как дивизия («скф 865 сд 47 А»), по docs/TEXT/302-… 865-й лап — артиллерийский полк 302-й сд. Возможна ошибка распознавания написания.",
+    "unit-655-sp: написания включают «скф 400 сд 655 сп», по docs/TEXT/404-… 655-й сп — полк 404-й сд. Написание-конкурент требует решения оператора.",
+    "unit-665-sp («СКФ 665 сп 404 сд») и unit-831-sp («скф 400 сд 831 сп») отсутствуют в эталонных составах соответствующих дивизий по docs/TEXT.",
+    "unit-427-ob (тип «об», написание «СКФ 3 рота 427 олбс») размещён в battalion_company как подразделение 427 олбс; тип в реестре может требовать уточнения (рота, а не батальон).",
+    "unit-460-sp («460 отд. развед. мп») и unit-460-rc («404 сд 460 мото-развед. рота») — два разных объекта с одним номером 460; по docs/TEXT/404-… разведчасть 404-й сд — рота (460-я орр). Судьбу unit-460-sp решает оператор.",
+    "unit-15-sp ↔ unit-2-gv-sd: взаимная ссылка parent (в реестре unit-2-gv-sd.parent = unit-15-sp и unit-15-sp.parent = unit-2-gv-sd) — цикл; в картотеке unit-2-gv-sd размещена на уровне divisions с children [unit-15-sp, unit-21-ap]. Исправление цикла — решение оператора.",
+    "unit-398-sd, unit-400-sd, unit-390-sd, unit-302-sd, unit-276-sd в реестре имеют parent промежуточных ключей армий Крымского фронта (unit-51a-kf / unit-44a-kf), созданных в TASK-0017; глобальные записи unit-44-a / unit-47-a / unit-51-a (СКФ) сохранены отдельно.",
+    "Удалённые/объединённые ключи unit-47-rc, unit-846-obs, unit-392-msb, unit-404-osb — см. секцию known_merged_keys."
+  ]
+}
