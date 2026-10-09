@@ -254,12 +254,18 @@ const headers = [
         }
 
         // document_id ИЗ ПОЛЯ СТРАНИЦЫ: сначала поле ID,
-        // при пустоте — регекс /ID:\s*(\d+)/ по тексту карточки.
+        // при пустоте — регекс /ID:\s*(\d+)/ по тексту карточки;
+        // если и там пусто — id из фактического URL страницы
+        // (window.location.href — адрес съёма после редиректа, НЕ href из списка).
         let pageId = getParamValue('ID');
         if (!pageId) {
           const cardText = document.body ? document.body.innerText : '';
           const m = cardText.match(/ID:\s*(\d+)/);
           if (m) pageId = m[1];
+        }
+        if (!pageId) {
+          const lm = window.location.href.match(/[?&]id=(\d+)/);
+          if (lm) pageId = lm[1];
         }
 
         const result = {
