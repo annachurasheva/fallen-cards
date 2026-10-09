@@ -18,10 +18,13 @@
  *   (по одной ссылке на строку; пустые строки и строки с # пропускаются)
  *
  * ВЫХОД:
- *   data/dictionaries/memorial_objects/memorial_objects.csv — UTF-8 с BOM
- *   data/dictionaries/memorial_objects/memorial_objects-errors.csv — ошибки
- *   (каталог создаётся при отсутствии; CSV объектов НЕ лежит рядом с
- *    карточками персон и рядом со скриптом)
+ *   data/dictionaries/memorial_objects/memorial_objects-<YYYY-MM-DD_HHMM>.csv
+ *   data/dictionaries/memorial_objects/memorial_objects-errors-<YYYY-MM-DD_HHMM>.csv
+ *   (метка времени прогона в имени; повторный прогон в ту же минуту —
+ *    добавляются секунды -<SS>; ПЕРЕЗАПИСЬ ЗАПРЕЩЕНА: существующие файлы
+ *    не изменяются и не удаляются ни при каких условиях. Каталог создаётся
+ *    при отсутствии; CSV объектов НЕ лежит рядом с карточками персон и
+ *    рядом со скриптом)
  *
  * ОСОБЕННОСТИ:
  *   - Операция РАЗОВАЯ: контроль дублей и журнал processed НЕ нужны.
@@ -63,9 +66,29 @@ const INPUT_FILE = positional[0] || null;
 const REPO_ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(REPO_ROOT, 'data', 'dictionaries', 'memorial_objects');
 
-// ---------- Имена выходных файлов ----------
-const OUT_CSV = 'memorial_objects.csv';
-const ERRORS_CSV = 'memorial_objects-errors.csv';
+// ---------- Имена выходных файлов (метка времени прогона) ----------
+const OUT_CSV_BASE = 'memorial_objects';        // + -<YYYY-MM-DD_HHMM>.csv
+const ERRORS_CSV_BASE = 'memorial_objects-errors'; // + -<YYYY-MM-DD_HHMM>.csv
+
+// Метка времени для имён файлов: YYYY-MM-DD_HHMM (та же функция-формат,
+// что в scripts/units-report.js; локальное время).
+function timestampStr(d) {
+  const p = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}`;
+}
+
+// Имя с меткой времени; если файл уже существует (повторный прогон в ту же
+// минуту) — добавляются секунды -<SS>. ПЕРЕЗАПИСЬ ЗАПРЕЩЕНА: возвращаемая
+// дорожка гарантированно не существует; существующие файлы не изменяются
+// и не удаляются ни при каких условиях.
+function uniqueFilename(dir, base, ext, when) {
+  let name = `${base}-${timestampStr(when)}${ext}`;
+  if (fs.existsSync(path.join(dir, name))) {
+    const p = n => String(n).padStart(2, '0');
+    name = `${base}-${timestampStr(when)}-${p(when.getSeconds())}${ext}`;
+  }
+  return name;
+}
 
 // ---------- Задержки (рандомизация, чтобы не походить на бота) ----------
 const MIN_AFTER_LOAD = 3000;
@@ -121,8 +144,10 @@ function escapeCsv(value) {
   return s;
 }
 
-// Сохранение CSV (UTF-8 с BOM); пусто = пустая строка (не [], не null)
+// Сохранение CSV (UTF-8 с BOM); пусто = пустая строка (не [], не null).
+// ПЕРЕЗАПИСЬ ЗАПРЕЩЕНА: если файл уже существует — запись не производится.
 function saveCsv(filepath, headers, rows) {
+  if (fs.existsSync(filepath)) return;
   const csvRows = rows.map(row =>
     headers.map(h => escapeCsv(row[h])).join(',')
   );
@@ -201,8 +226,11 @@ const headers = [
 
   // Каталог выхода создаётся при отсутствии
   fs.mkdirSync(OUT_DIR, { recursive: true });
-  const outPath = path.join(OUT_DIR, OUT_CSV);
-  const errorsCsvPath = path.join(OUT_DIR, ERRORS_CSV);
+  // Имена с меткой времени прогона; перезапись запрещена — выбирается
+  // дорожка, которой ещё нет (при коллизии минуты добавляются секунды).
+  const runMoment = new Date();
+  const outPath = path.join(OUT_DIR, uniqueFilename(OUT_DIR, OUT_CSV_BASE, '.csv', runMoment));
+  const errorsCsvPath = path.join(OUT_DIR, uniqueFilename(OUT_DIR, ERRORS_CSV_BASE, '.csv', runMoment));
 
   const seed = RNG_SEED;
   const runDate = scrapeDate();
@@ -268,13 +296,29 @@ const headers = [
           if (lm) pageId = lm[1];
         }
 
+        // Ярлыки primary_burial_object: добыча списком в порядке —
+        // «Первичное место захоронения», затем «Откуда производились
+        // захоронения»; оба отсутствуют — колонка пустая. Копирование
+        // значения из rebural_from в primary_burial_object ЗАПРЕЩЕНА.
+        function getPrimaryBurialObject() {
+          const labels = [
+            'Первичное место захоронения',
+            'Откуда производились захоронения',
+          ];
+          for (const label of labels) {
+            const v = getParamValue(label);
+            if (v) return v;
+          }
+          return '';
+        }
+
         const result = {
           document_id:       pageId,
           country_burial:    getParamValue('Страна захоронения'),
           region_burial:     getParamValue('Регион захоронения'),
           vmc_number:        getParamValue('Номер захоронения в ВМЦ'),
           current_burial:    getParamValue('Место захоронения'),
-          primary_burial_object: getParamValue('Первичное место захоронения'),
+          primary_burial_object: getPrimaryBurialObject(),
           rebural_from:      getParamValue('Откуда производились перезахоронения'),
           date_created:      getParamValue('Дата создания современного места захоронения'),
           date_last_burial:  getParamValue('Дата последнего захоронения'),
@@ -327,15 +371,17 @@ const headers = [
 
   if (!isDryRun) {
     saveCsv(outPath, headers, rows);
-    // Ошибки дописываются в отдельный CSV: url, причина, дата
-    const errLines = errors.map(e =>
-      [escapeCsv(e.url), escapeCsv(e.reason), escapeCsv(runDate)].join(',')
-    );
-    fs.writeFileSync(
-      errorsCsvPath,
-      '\uFEFF' + ['url,reason,date', ...errLines].join('\n') + '\n',
-      'utf-8'
-    );
+    // Ошибки — в отдельный CSV: url, причина, дата (тот же запрет перезаписи)
+    if (!fs.existsSync(errorsCsvPath)) {
+      const errLines = errors.map(e =>
+        [escapeCsv(e.url), escapeCsv(e.reason), escapeCsv(runDate)].join(',')
+      );
+      fs.writeFileSync(
+        errorsCsvPath,
+        '\uFEFF' + ['url,reason,date', ...errLines].join('\n') + '\n',
+        'utf-8'
+      );
+    }
   }
 
   // ---------- Итоговый блок (компактный, без эмодзи) ----------
