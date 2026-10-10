@@ -17,8 +17,10 @@
  *   - сортировка итоговых групп по убыванию частоты;
  *   - нумерация proposed_key: 001-fallen-cards, 002-fallen-cards, ...;
  *     стабильность — перенос прежних proposed_key по совпадению строки;
- *   - выход: data/dictionaries/warunits-draft3-<YYYY-MM-DD_HHMM>.json и .md;
- *     перезапись запрещена (существующие файлы не изменяются и не удаляются).
+ *   - выход: data/dictionaries/proposals/warunits-draft3-<timestamp>.json и .md;
+ *     метка времени генерируется ОДИН РАЗ в начале прогона и передаётся в оба
+ *     писателя; перезапись запрещена (существующие файлы не изменяются и не
+ *     удаляются ни при каких условиях).
  *
  * ЗАПРЕЩЕНО: нормализации строк (trim/toLowerCase) для ключей группировки;
  * ручные слияния; чтение unit_keys.json.
@@ -34,23 +36,29 @@ const ROOT = path.join(__dirname, "..");
 // ---------- Пути ----------
 const PROCESSED_ROOT = path.join(ROOT, "data", "processed");
 const DICTS_DIR = path.join(ROOT, "data", "dictionaries");
+const PROPOSALS_DIR = path.join(DICTS_DIR, "proposals");
 
-// Метка времени для имён файлов: YYYY-MM-DD_HHMM (та же функция-формат, что в units-report)
-function dateStr(d = new Date()) {
-  const p = (n) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}`;
+// ---------- Метка времени прогона (генерируется ОДИН РАЗ, п.1) ----------
+// Формат YYYY-MM-DD_HHMM: из ISO-строки убираем ':' и '.', берём 15 символов:
+// "2026-10-10T08:41:12.345Z" -> "2026-10-10T084112345Z".slice(0,15) -> "2026-10-10T0841"
+// (символ T заменяется на '_' ниже — тот же формат, что в units-report)
+function makeRunTimestamp() {
+  const iso = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+  return iso.replace("T", "_"); // YYYY-MM-DD_HHMM
 }
 
-// Защита от перезаписи: если имя занято — добавить секунды -<SS>
-function uniquePath(dir, base, ext, d) {
-  let name = `${base}-${dateStr(d)}${ext}`;
-  let full = path.join(dir, name);
-  if (fs.existsSync(full)) {
-    const p = (n) => String(n).padStart(2, "0");
-    name = `${base}-${dateStr(d)}-${p(d.getSeconds())}${ext}`;
-    full = path.join(dir, name);
+// Если файл(ы) с такой меткой уже существуют (повторный прогон в ту же минуту) —
+// добавить секунды -<SS>. Возвращает метку, свободную для ОБОИХ писателей.
+function resolveTimestamp(baseDir, base) {
+  let ts = makeRunTimestamp();
+  const existsAny = (t) =>
+    fs.existsSync(path.join(baseDir, `${base}-${t}.json`)) ||
+    fs.existsSync(path.join(baseDir, `${base}-${t}.md`));
+  if (existsAny(ts)) {
+    const ss = String(new Date().getSeconds()).padStart(2, "0");
+    ts = `${ts}-${ss}`;
   }
-  return full;
+  return ts;
 }
 
 // ---------- Утилиты CSV ----------
@@ -96,7 +104,8 @@ function collectCsvFiles(dir) {
     for (const e of fs.readdirSync(d, { withFileTypes: true })) {
       const full = path.join(d, e.name);
       if (e.isDirectory()) walk(full);
-      else if (e.isFile() && /-(?:fallen|unclassified)\.csv$/.test(e.name)) found.push(full);
+      else if (e.isFile() && /-(?:fallen|unclassified)\.csv$/.test(e.name))
+        found.push(full);
     }
   };
   walk(dir);
@@ -106,16 +115,19 @@ function collectCsvFiles(dir) {
 // ---------- Стабильность нумерации ----------
 // Перенос прежних proposed_key по совпадению СТРОКИ: строка получает прежний
 // номер группы, в которой она встречалась (первое/самое позднее вхождение).
-// Источник — все warunits-draft3-*.json в data/dictionaries (сортировка имён
-// = хронология, поздние перекрывают ранние).
+// Источник — warunits-draft3-*.json в proposals/ и data/dictionaries (сортировка
+// имён = хронология, поздние перекрывают ранние).
 function loadPreviousKeys() {
   const map = new Map(); // writing -> proposed_key
-  if (!fs.existsSync(DICTS_DIR)) return map;
-  const files = fs
-    .readdirSync(DICTS_DIR)
-    .filter((f) => /^warunits-draft3-.*\.json$/.test(f))
-    .map((f) => path.join(DICTS_DIR, f))
-    .sort(); // метка времени в имени → лексикографическая сортировка = хронологическая
+  const dirs = [DICTS_DIR, PROPOSALS_DIR];
+  const files = [];
+  for (const d of dirs) {
+    if (!fs.existsSync(d)) continue;
+    for (const f of fs.readdirSync(d)) {
+      if (/^warunits-draft3-.*\.json$/.test(f)) files.push(path.join(d, f));
+    }
+  }
+  files.sort(); // метка времени в имени → лексикографическая сортировка = хронологическая
   for (const f of files) {
     try {
       const data = JSON.parse(readUtf8(f));
@@ -136,9 +148,15 @@ function loadPreviousKeys() {
 (function main() {
   const csvFiles = collectCsvFiles(PROCESSED_ROOT);
   if (csvFiles.length === 0) {
-    console.error(`CSV (*-fallen.csv / *-unclassified.csv) не найдены в: ${PROCESSED_ROOT}`);
+    console.error(
+      `CSV (*-fallen.csv / *-unclassified.csv) не найдены в: ${PROCESSED_ROOT}`,
+    );
     process.exit(1);
   }
+
+  // Метка прогона — ОДИН РАЗ, передаётся в оба писателя (п.1)
+  fs.mkdirSync(PROPOSALS_DIR, { recursive: true });
+  const timestamp = resolveTimestamp(PROPOSALS_DIR, "warunits-draft3");
 
   // БУКВАЛЬНАЯ строка warunit → { ids: Set(document_id), sessions: Set, noId: число }
   const writings = new Map();
@@ -146,7 +164,9 @@ function loadPreviousKeys() {
 
   for (const file of csvFiles) {
     const session = path.basename(path.dirname(file));
-    const lines = readUtf8(file).split(/\r?\n/).filter((l) => l.trim() !== "");
+    const lines = readUtf8(file)
+      .split(/\r?\n/)
+      .filter((l) => l.trim() !== "");
     if (lines.length < 2) continue;
     const headers = parseCsvLine(lines[0]);
     const idxWarunit = headers.indexOf("warunit");
@@ -174,7 +194,10 @@ function loadPreviousKeys() {
 
   // Сигнатура = отсортированный по возрастанию набор чисел строки
   const signatureOf = (s) =>
-    (s.match(/\d+/g) || []).map(Number).sort((a, b) => a - b).join(",");
+    (s.match(/\d+/g) || [])
+      .map(Number)
+      .sort((a, b) => a - b)
+      .join(",");
 
   // Шаг 1: группы по буквальной строке
   const byString = [...writings.entries()].map(([writing, rec]) => ({
@@ -196,7 +219,9 @@ function loadPreviousKeys() {
   const mergedGroups = [];
   for (const [, entries] of bySig) {
     // выживает самая частая строка; при равенстве частот — буквальное сравнение для детерминизма
-    entries.sort((a, b) => b.count - a.count || (a.writing < b.writing ? -1 : 1));
+    entries.sort(
+      (a, b) => b.count - a.count || (a.writing < b.writing ? -1 : 1),
+    );
     const survivor = entries[0];
     const ids = new Set();
     let noId = 0;
@@ -285,17 +310,16 @@ function loadPreviousKeys() {
   }
   mergedEntries.sort((a, b) => b.frequency - a.frequency);
 
-  // ---------- Выход ----------
-
-  const jsonPath = uniquePath(DICTS_DIR, "warunits-draft3", ".json", new Date());
-  const mdPath = uniquePath(DICTS_DIR, "warunits-draft3", ".md", new Date());
+  // ---------- Формирование содержимого обоих писателей (метка одна, п.1) ----------
 
   const payload = {
     _meta: {
       generated: new Date().toISOString(),
+      timestamp,
       schema: "WARUNITS_DICT v2 (draft3)",
       source: "data/processed/**/*-fallen.csv, *-unclassified.csv",
-      rule_merge: "автоматическое слияние по отсортированному набору чисел (/\\d+/g)",
+      rule_merge:
+        "автоматическое слияние по отсортированному набору чисел (/\\d+/g)",
       rule_frequency: "уникальные document_id",
       strings_total: byString.length,
       groups_total: finalGroups.length,
@@ -305,23 +329,37 @@ function loadPreviousKeys() {
     groups: finalGroups,
     merged: mergedEntries,
   };
+  const jsonText = JSON.stringify(payload, null, 2);
 
-  fs.writeFileSync(jsonPath, JSON.stringify(payload, null, 2), "utf-8");
-
+  // md БЕЗ фильтров, порогов и срезов (п.3): число строк таблицы = число групп json,
+  // порядок и литералы написаний идентичны; последняя строка = минимальная частота.
   const mdLines = [];
-  mdLines.push(`# WARUNITS_DICT draft3 — перепись warunit (слияние по набору чисел)`);
+  mdLines.push(
+    `# WARUNITS_DICT draft3 — перепись warunit (слияние по набору чисел)`,
+  );
   mdLines.push(``);
-  mdLines.push(`- Источник: \`data/processed/**/*-fallen.csv\`, \`*-unclassified.csv\``);
-  mdLines.push(`- Написаний (буквальных строк): ${byString.length}; групп после слияния: ${finalGroups.length}; слито строк: ${mergedEntries.length}`);
-  mdLines.push(`- Частота = уникальные document_id. Сортировка по убыванию частоты.`);
+  mdLines.push(
+    `- Источник: \`data/processed/**/*-fallen.csv\`, \`*-unclassified.csv\``,
+  );
+  mdLines.push(
+    `- Написаний (буквальных строк): ${byString.length}; групп после слияния: ${finalGroups.length}; слито строк: ${mergedEntries.length}`,
+  );
+  mdLines.push(
+    `- Частота = уникальные document_id. Сортировка по убыванию частоты.`,
+  );
   mdLines.push(``);
-  mdLines.push(`## Топ-группы`);
+  mdLines.push(`## Группы (все ${finalGroups.length}, без фильтров и срезов)`);
   mdLines.push(``);
   mdLines.push(`| # | proposed_key | частота | выжившая строка | варианты |`);
   mdLines.push(`|---|---|---|---|---|`);
-  finalGroups.slice(0, 60).forEach((g, i) => {
-    const mergedSet = new Set(mergedEntries.filter((m) => m.merge_into === g.proposed_key).map((m) => m.writing));
-    const survivor = g.variants.find((v) => !mergedSet.has(v)) || g.variants[0] || "";
+  finalGroups.forEach((g, i) => {
+    const mergedSet = new Set(
+      mergedEntries
+        .filter((m) => m.merge_into === g.proposed_key)
+        .map((m) => m.writing),
+    );
+    const survivor =
+      g.variants.find((v) => !mergedSet.has(v)) || g.variants[0] || "";
     mdLines.push(
       `| ${i + 1} | ${g.proposed_key} | ${g.frequency} | ${survivor} | ${g.variants.length} |`,
     );
@@ -335,9 +373,52 @@ function loadPreviousKeys() {
     mdLines.push(`| ${m.writing} | ${m.frequency} | ${m.merge_into} |`);
   }
   mdLines.push(``);
-  fs.writeFileSync(mdPath, mdLines.join("\n"), "utf-8");
+  const mdText = mdLines.join("\n");
 
-  console.log(`написаний: ${byString.length}, групп: ${finalGroups.length}, слито: ${mergedEntries.length}`);
+  const jsonPath = path.join(
+    PROPOSALS_DIR,
+    `warunits-draft3-${timestamp}.json`,
+  );
+  const mdPath = path.join(PROPOSALS_DIR, `warunits-draft3-${timestamp}.md`);
+
+  // Защита от перезаписи (п.2/п.3): существующие файлы не изменяются
+  if (fs.existsSync(jsonPath) || fs.existsSync(mdPath)) {
+    console.error(
+      `Файлы с меткой ${timestamp} уже существуют — перезапись запрещена.`,
+    );
+    process.exit(1);
+  }
+
+  // ---------- Атомарная запись пары (п.4) ----------
+  // Сначала во временные файлы, затем rename json→md подряд, без промежуточных
+  // console.log между ними. При любом сбое временные файлы удаляются, целевые
+  // не создаются; при сбое rename уже записанный целевой удаляется.
+  const jsonTmp = jsonPath + ".tmp";
+  const mdTmp = mdPath + ".tmp";
+  try {
+    fs.writeFileSync(jsonTmp, jsonText, "utf-8");
+    fs.writeFileSync(mdTmp, mdText, "utf-8");
+    fs.renameSync(jsonTmp, jsonPath);
+    fs.renameSync(mdTmp, mdPath);
+  } catch (e) {
+    for (const t of [jsonTmp, mdTmp]) {
+      try {
+        if (fs.existsSync(t)) fs.unlinkSync(t);
+      } catch {}
+    }
+    // если один из целевых файлов всё же успел появиться — убираем пару целиком
+    for (const t of [jsonPath, mdPath]) {
+      try {
+        if (fs.existsSync(t)) fs.unlinkSync(t);
+      } catch {}
+    }
+    console.error(`Запись пары файлов не выполнена: ${e.message}`);
+    process.exit(1);
+  }
+
+  console.log(
+    `написаний: ${byString.length}, групп: ${finalGroups.length}, слито: ${mergedEntries.length}`,
+  );
   console.log(`выход: ${jsonPath}`);
   console.log(`       ${mdPath}`);
 })();
