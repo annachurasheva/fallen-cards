@@ -1,6 +1,7 @@
 # ARCHITECTURE.md — итоговая архитектура проекта fallen-cards
 
-Координата: `annachurasheva/fallen-cards` · `docs/ARCHITECTURE.md` · 2026-10-07.
+Координата: `annachurasheva/fallen-cards` · `docs/ARCHITECTURE.md` · 2026-10-07,
+ревизия 2026-10-11 (WARUNITS_DICT v2 + регламент очистки).
 Документ фиксирует единую непротиворечивую картину слоёв, ролей репозиториев
 и схемы имён карточек. При расхождении с более ранними записками приоритет — здесь.
 
@@ -14,7 +15,7 @@ fallen-cards (сырьё и ключи)
   → data/cards/<источник>-<document_id>.md с frontmatter и ключами
       │
 mem-2026-soursecraft-site (Astro 5.1.5, производственный слой)
-  словари подмен и раскрытия (units_dict, unit_keys, locations_dict, burials_*)
+  словари подмен и раскрытия (warunits-fallen-cards.md, locations_dict, burials_*)
   SCHEMA карточки по ключам; теги «сослуживцы»; авторы/персоны (authors.yaml)
   статика → RSS
       │
@@ -52,11 +53,14 @@ mem-ok-s-admin
 fallen-cards (здесь)
   ↓
   данные павших (CSV схемы v03, дословно из ЦАМО)
+  + словарь warunit: scripts/build-warunits-dict.js → draft3-пары (json+md),
+    scripts/build-warunits-table.js → активный словарь
+    data/dictionaries/warunits-fallen-cards.md (ключ, имя, написания, примечания)
   + карточки с КЛЮЧАМИ в frontmatter
   ↓
 Astro-генератор (mem-2026-soursecraft-site)
   ↓
-  копии словарей (units_dict, locations_dict, ranks_dict, burials_*)
+  копии словарей (warunits-fallen-cards.md, locations_dict, ranks_dict, burials_*)
   + логика раскрытия ключей → полные значения
   + SCHEMA карточки по ключам
   ↓
@@ -68,29 +72,42 @@ Astro-генератор (mem-2026-soursecraft-site)
 ```yaml
 title: "Самошвили Резо Цуцкович"
 slug: "bitva-za-krym-1942-obd-1161514741"
-unit_key: "unit-655-sp-404-sd"
+unit_key: "<NNN>-fallen-cards"
 location_key: "loc-duscheti"
 burial_current_key: "burial-hafuz-66-3"
 rebural_from_key: "loc-dalnie-kamyshi"
 published: 2026-10-06
 ```
 
-Astro при сборке берёт `unit-655-sp-404-sd` из unit_keys.json и раскрывает
-в полное наименование + краткий боевой путь; берёт `loc-duscheti` из
-locations_dict и даёт современное название. Поля реестра (`formation`, `disband`,
+Astro при сборке раскрывает `unit_key` в полное наименование + краткий боевой путь
+(реестр unit_keys.json аннулирован, WARUNITS_DICT v2 — см. ниже и
+`docs/WARUNITS-DICT.md`); берёт `loc-duscheti` из locations_dict и даёт
+современное название. Поля реестра (`formation`, `disband`,
 `history_note`, `camo_url`, `reference_url`) входят в карточку **только на этапе
 раскрытия в Astro** — никогда в исходник карточки из fallen-cards. Пополнение
 словарей (новый полк, новая локация) → перегенерация статики → выгрузка.
 Карточки в fallen-cards не меняются: ключ тот же.
 
-**Владение словарями (TASK-0016):** словари `unit_keys`, `units_dict`,
-`burials_*` — рабочие инструменты fallen-cards: назначение ключей и пополнение
-выполняются здесь, решением Анны-Ch по предложениям отчёта units-report
-(цикл: units-report → proposals → решение → правка словаря → коммит
-`chore: dictionaries — <суть> (<дата>)`). Astro-репо получает **копии** словарей
-и раскрывает по ним ключи при генерации. `locations_dict` — внешний импорт,
-только чтение. Формулировки «пополнение в Astro», «зеркала только для чтения»
-выведены из оборота.
+**Владение словарями (TASK-0016, ревизия 2026-10-11):** словари `burials_*`,
+`ranks_dict` — рабочие инструменты fallen-cards. Словарь воинских частей переведён
+на **WARUNITS_DICT v2**: аннулированы `unit_keys.json`, `units_dict.json`,
+`units_registry.json`, `unit_hierarchy.json` (перемещены в
+`data/dictionaries/archive/` с префиксом `deprecated-<метка>-`). Действующая
+цепочка: `scripts/build-warunits-dict.js` (перепись warunit из CSV
+`data/processed/**` с автоматическим слиянием по набору чисел; атомарная пара
+`proposals/warunits-draft3-<timestamp>.json/.md`; перезапись запрещена) →
+`scripts/build-warunits-table.js` (механическая сборка активного четырёхколоночного
+словаря `data/dictionaries/warunits-fallen-cards.md`: ключ `<NNN>-fallen-cards`,
+развёрнутое имя только из docs/TEXT или «— (оператор)», написания, примечания).
+Astro-репо получает копии и раскрывает по ним ключи при генерации.
+`locations_dict` — внешний импорт, только чтение. Формулировки «пополнение в Astro»,
+«зеркала только для чтения» выведены из оборота.
+
+**Регламент очистки (история = файлы с метками времени):** перед каждым коммитом —
+`node scripts/clean-dictionaries.js`: тупиковые файлы уходят в
+`data/dictionaries/archive/` (или удаляются с `--delete`); защищаются и не
+трогаются файлы с метками времени (`warunits-draft3-*`, `memorial_objects-*`),
+`plates_*.json` и `docs/`.
 
 ## 4. Роли репозиториев — окончательная карта
 
@@ -123,3 +140,20 @@ locations_dict и даёт современное название. Поля р�
 - Результаты прогонов: `data/processed/<имя>/` — `<имя>-fallen.csv`,
   `<имя>-unclassified.csv`, `<имя>-error.csv`, `<имя>-repeats.txt`.
 - Карточки с ключами (после TASK-0014): `data/cards/<obd|pmn>-<document_id>.md`.
+- Словарь warunit (WARUNITS_DICT v2, регламент — §3 и `docs/WARUNITS-DICT.md`):
+  переписи прогонов — атомарные пары
+  `warunits-draft3-<YYYY-MM-DD_HHMM>[-SS].json/.md`
+  (`scripts/build-warunits-dict.js`; метка одна на прогон, `-SS` при коллизии,
+  перезапись запрещена). В текущем workspace исторические пары лежат в
+  `data/dictionaries/` (0424, 0425); писатель скрипта направлен на
+  `data/dictionaries/proposals/`. Активный словарь —
+  `data/dictionaries/warunits-fallen-cards.md`
+  (`scripts/build-warunits-table.js`).
+- Объекты захоронений (TASK-0010/0020):
+  `data/dictionaries/memorial_objects/memorial_objects-<YYYY-MM-DD_HHMM>[-SS].csv`
+  и `memorial_objects-errors-<та же метка>.csv` (`tools/obd-edge-objects.js`;
+  18 канонических колонок; перезапись запрещена). Прогоны оператора с их
+  метками живут в его рабочем окружении.
+- Очистка тупиков перед коммитом: `node scripts/clean-dictionaries.js` →
+  `data/dictionaries/archive/deprecated-<метка>-<файл>` (или удаление с
+  `--delete`); защищаются файлы с метками времени, `plates_*.json`, `docs/`.
