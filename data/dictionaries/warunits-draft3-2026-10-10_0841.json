@@ -1,0 +1,2103 @@
+{
+  "_meta": {
+    "generated": "2026-10-10T05:41:24.771Z",
+    "schema": "WARUNITS_DICT v2 (draft3)",
+    "source": "data/processed/**/*-fallen.csv, *-unclassified.csv",
+    "rule_merge": "автоматическое слияние по отсортированному набору чисел (/\\d+/g)",
+    "rule_frequency": "уникальные document_id",
+    "strings_total": 194,
+    "groups_total": 145,
+    "merged_total": 49,
+    "rows_scanned": 2286
+  },
+  "groups": [
+    {
+      "proposed_key": "001-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "276 сд"
+      ],
+      "frequency": 371,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "002-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "157 сд",
+        "СКФ 157 сд",
+        "СКФ осб 157 сд",
+        "штаб. 157 сд",
+        "отд. сан. б-н 157 сд"
+      ],
+      "frequency": 261,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "003-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "404 сд",
+        "СКФ 404 сд"
+      ],
+      "frequency": 260,
+      "sessions": [
+        "batalnoe-memorial-82-454",
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "004-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 633 сп 157 сд"
+      ],
+      "frequency": 246,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "005-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "15 гв. сп 2 гв. сд"
+      ],
+      "frequency": 132,
+      "sessions": [
+        "huzuf_6_test",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "006-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 826 полк 398 див.",
+        "скф 398 сд 826 сп",
+        "СКФ 826 сп 398 сд",
+        "скф 826 сп 398 див."
+      ],
+      "frequency": 132,
+      "sessions": [
+        "links_id_398_сд_03_1942_крым",
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_to_obd"
+      ]
+    },
+    {
+      "proposed_key": "007-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 821 сп 398 сд",
+        "скф 398 сд 821 сп"
+      ],
+      "frequency": 90,
+      "sessions": [
+        "links_id_398_сд_03_1942_крым"
+      ]
+    },
+    {
+      "proposed_key": "008-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "55 тбр КрымФ",
+        "штаб 55 тбр"
+      ],
+      "frequency": 81,
+      "sessions": [
+        "links_id_160_Огуз-Тобе",
+        "авто-бронетанкковых-войск"
+      ]
+    },
+    {
+      "proposed_key": "009-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 958 ап 398 сд"
+      ],
+      "frequency": 58,
+      "sessions": [
+        "links_id_398_сд_03_1942_крым",
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "010-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 398 сд 824 сп",
+        "824 сп 398 сд",
+        "СКФ 824 сп 398 сд"
+      ],
+      "frequency": 50,
+      "sessions": [
+        "batalnoe-memorial-82-454",
+        "links_id_398_сд_03_1942_крым",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "011-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 77 гсд",
+        "СКФ 77 сд",
+        "77 гсд"
+      ],
+      "frequency": 27,
+      "sessions": [
+        "huzuf_6_test",
+        "links_id_160_Огуз-Тобе",
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "012-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 384 сп 157 сд"
+      ],
+      "frequency": 23,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "013-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "957 окшр"
+      ],
+      "frequency": 21,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "014-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 422 ап 157 сд",
+        "СКФ 157 сд 422 ап",
+        "422 ап 157 сд"
+      ],
+      "frequency": 20,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "015-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 643 сп 404 сд",
+        "643 сп 404 сд"
+      ],
+      "frequency": 16,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "016-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 276 сд 44 А"
+      ],
+      "frequency": 16,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "017-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 400 сд 832 сп"
+      ],
+      "frequency": 16,
+      "sessions": [
+        "links_pmn_to_obd"
+      ]
+    },
+    {
+      "proposed_key": "018-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 845 п 236 сд"
+      ],
+      "frequency": 16,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "019-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 716 сп 157 сд"
+      ],
+      "frequency": 15,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "020-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 400 сд 829 сп"
+      ],
+      "frequency": 15,
+      "sessions": [
+        "links_pmn_to_obd"
+      ]
+    },
+    {
+      "proposed_key": "021-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 47 А 47 оро",
+        "47 ср охраны 47 А"
+      ],
+      "frequency": 14,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "022-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 392 мед.-сан. бат."
+      ],
+      "frequency": 13,
+      "sessions": [
+        "links_id_160_Огуз-Тобе",
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "023-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 47 А",
+        "скф 47 арм. опо",
+        "скф 47 арм. полит. отд."
+      ],
+      "frequency": 13,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "024-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 814 сп 236 сд"
+      ],
+      "frequency": 13,
+      "sessions": [
+        "links_id_160_Огуз-Тобе",
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "025-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 195 кп 72 кд"
+      ],
+      "frequency": 12,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "026-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 655 сп 404 сд",
+        "655 сп 404 сд",
+        "655 сп 404 сд крымф"
+      ],
+      "frequency": 12,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "027-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "оуп УТ отд. примор. арм.",
+        "КрымФ",
+        "СКФ",
+        "скф",
+        "ПолитУ КрымФ",
+        "рыбинско-ярославский див. р-н ПВО",
+        "скф обс"
+      ],
+      "frequency": 12,
+      "sessions": [
+        "batalnoe-memorial-82-454",
+        "links_id_160_Огуз-Тобе",
+        "links_id_658_Арма-Эли",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "028-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 220 отд. зен. арт. д н"
+      ],
+      "frequency": 11,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "029-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 750 отд. инж. бат."
+      ],
+      "frequency": 11,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "030-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "24 тп"
+      ],
+      "frequency": 10,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "031-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "56 тбр"
+      ],
+      "frequency": 10,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "032-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "633 сп"
+      ],
+      "frequency": 9,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "033-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "961 ап",
+        "961 сп"
+      ],
+      "frequency": 9,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "034-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 509 сп 236 сд",
+        "скф 509 п 236 сд"
+      ],
+      "frequency": 9,
+      "sessions": [
+        "links_id_160_Огуз-Тобе",
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "035-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "штаб 63 гсд",
+        "63 гсд"
+      ],
+      "frequency": 9,
+      "sessions": [
+        "huzuf_6_test",
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "036-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "873 сп",
+        "СКФ 873 сп"
+      ],
+      "frequency": 8,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "037-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 157 сд 44 А"
+      ],
+      "frequency": 8,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "038-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 75 оинжп",
+        "СКФ 75 отд. инж. бат.",
+        "скф 75 отд. инж. б"
+      ],
+      "frequency": 7,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "039-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "пп 492 в/ч 15",
+        "п/п 492 в/ч 15",
+        "в/ч 15 ппс 492",
+        "ппс 492 в/ч 15"
+      ],
+      "frequency": 7,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "040-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 652 сп 404 сд"
+      ],
+      "frequency": 6,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "041-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 793 отд. кабельн.-шест. рота связи"
+      ],
+      "frequency": 6,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "042-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 398 сд 846 обс"
+      ],
+      "frequency": 6,
+      "sessions": [
+        "links_id_398_сд_03_1942_крым",
+        "links_pmn_to_obd"
+      ]
+    },
+    {
+      "proposed_key": "043-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 827 сп 302 сд"
+      ],
+      "frequency": 6,
+      "sessions": [
+        "links_id_160_Огуз-Тобе",
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "044-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 105 сп 77 сд",
+        "СКФ 77 гсд 105 гсп",
+        "СКФ 77 гсд 105 п",
+        "СКФ 77 гсд 105 сп"
+      ],
+      "frequency": 5,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "045-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 398 сд",
+        "скф 398 сд",
+        "398 сд"
+      ],
+      "frequency": 5,
+      "sessions": [
+        "batalnoe-memorial-82-454",
+        "links_id_398_сд_03_1942_крым"
+      ]
+    },
+    {
+      "proposed_key": "046-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 665 сп 404 сд"
+      ],
+      "frequency": 5,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "047-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 231 оптд"
+      ],
+      "frequency": 5,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "048-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 400 сд 834 сп"
+      ],
+      "frequency": 5,
+      "sessions": [
+        "links_pmn_to_obd"
+      ]
+    },
+    {
+      "proposed_key": "049-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "126 отд. тб"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "050-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "44 А 427 олбс"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "051-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "44 А 793 окшр"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "052-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "457 кап",
+        "457 ап РГК",
+        "457 зап"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "053-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "5 гв. отд. мот. шутрм. исб"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "054-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 223 гмд"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "055-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 400 сд"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_pmn_to_obd"
+      ]
+    },
+    {
+      "proposed_key": "056-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 404 отд. сап. бат. 236 сд"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "057-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 404 сд 44 А"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "058-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 44 А 157 сд 384 сп"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "059-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 44 А 961 ап"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "060-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 865 ап 302 сд"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "061-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 954 ап 390 сд"
+      ],
+      "frequency": 4,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "062-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "227 сд"
+      ],
+      "frequency": 3,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "063-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "384 сп"
+      ],
+      "frequency": 3,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "064-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "51 А 659 олбс"
+      ],
+      "frequency": 3,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "065-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 353 оптд 276 сд"
+      ],
+      "frequency": 3,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "066-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 222 гмд"
+      ],
+      "frequency": 3,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "067-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 227 сд 789 сп"
+      ],
+      "frequency": 3,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "068-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 25 гв. минп 222 гмд"
+      ],
+      "frequency": 3,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "069-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 547 гап РГК",
+        "547 гап"
+      ],
+      "frequency": 3,
+      "sessions": [
+        "batalnoe-memorial-82-454",
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "070-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "13 А 220 отд. арт. зен. д-н"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "071-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "133 иап КрымФ",
+        "КрымФ 133 иап"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "072-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "39 тбр"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "073-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "404 сд 460 мото-развед. рота",
+        "460 омрр 404 сд"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "huzuf_6_test",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "074-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "44 А 126 отб"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "075-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "51 А"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "076-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "655 сп"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "077-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "83 брмп"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "batalnoe-memorial-82-454"
+      ]
+    },
+    {
+      "proposed_key": "078-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "865 сд",
+        "СКФ 865 сп"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "079-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "КрымФ 475 бао"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "080-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 199 обс 157 див. тр",
+        "СКФ 199 отд. бат. связи 157 сд"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_658_Арма-Эли",
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "081-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 31 озад"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "082-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 477 ап 63 сд"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "083-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 716 сп"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "084-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "п/п 91060"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "085-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 236 сд 44 А"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "086-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 271 сд 44 А"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "087-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 44 А 39 тбр"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "088-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 47 А 97 пункт сбора аварийн. машин"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "089-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 510 автомоб. рота 398 сд"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_398_сд_03_1942_крым"
+      ]
+    },
+    {
+      "proposed_key": "090-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 871 сп 276 сд 44 А"
+      ],
+      "frequency": 2,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_",
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "091-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "106 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "092-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "143 сбр КрымФ"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "batalnoe-memorial-82-454"
+      ]
+    },
+    {
+      "proposed_key": "093-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "153 упр. воен. полев. стр. впс 51 А"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "094-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "174 эр"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "095-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "21 А 21 оиб"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "096-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "21 гв. ап 2 гв. сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "097-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "282 сд 876 сп"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "098-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "3 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "099-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "334 сп"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "100-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "346 гсп 63 гсд 44 А"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "huzuf_6_test"
+      ]
+    },
+    {
+      "proposed_key": "101-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "347 озенад"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "102-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "396 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "103-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "44 А 19 окиб"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "104-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "44 А 76 опс"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "105-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "456 ап"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "batalnoe-memorial-82-454"
+      ]
+    },
+    {
+      "proposed_key": "106-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "460 отд. развед. мп"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "107-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "467 кап"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "108-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "477 гап"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "109-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "481 сп 320 сд КрымФ"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "batalnoe-memorial-82-454"
+      ]
+    },
+    {
+      "proposed_key": "110-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "55 мспб 55 тбр"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "111-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "643 сп"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "112-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "652 сп"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "113-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "679 осапб"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "114-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "77 сд; 55 тбр"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "batalnoe-memorial-82-454"
+      ]
+    },
+    {
+      "proposed_key": "115-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "779 сп 227 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "116-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "784 сп 390 сд (I) КрымФ"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "batalnoe-memorial-82-454"
+      ]
+    },
+    {
+      "proposed_key": "117-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "796 ап"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "118-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "876 сп 276 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "119-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 13 отд. броне. рота"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "120-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 133 мед. сан. бат. 157 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "121-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 18 гв. минп"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "122-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 2 рота 427 олбс"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "123-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 3 рота 427 олбс"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "124-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 343 пулеметн. бат. 151 УР"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "125-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 351 озад"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "126-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 390 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "127-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 492 отд. телеграф.-строит. рота связи"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "128-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 679 осб 404 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_Крымская_АССР_выс_66_3_"
+      ]
+    },
+    {
+      "proposed_key": "129-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 73 отд. мото. мех. полк"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "130-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 739 отср"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "131-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "СКФ 79 пс"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "132-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "отд 76 мм ад"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "133-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 205 осб 398 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_398_сд_03_1942_крым"
+      ]
+    },
+    {
+      "proposed_key": "134-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 25 гв. минп 223 гмд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "135-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 28 оптд 236 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "136-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 320 сд 44 А"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_pmn_obd"
+      ]
+    },
+    {
+      "proposed_key": "137-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 400 сд 831 сп"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_pmn_to_obd"
+      ]
+    },
+    {
+      "proposed_key": "138-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 44 А 396 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "139-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 61 дорма"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "140-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 676 осб"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "141-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 763 отср 398 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_398_сд_03_1942_крым"
+      ]
+    },
+    {
+      "proposed_key": "142-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 8 отд 77 гсд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "143-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 865 сд 47 А"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_160_Огуз-Тобе"
+      ]
+    },
+    {
+      "proposed_key": "144-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "скф 957 п 236 сд"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    },
+    {
+      "proposed_key": "145-fallen-cards",
+      "key": null,
+      "merge_into": null,
+      "variants": [
+        "штаб 44 А ЗакФ"
+      ],
+      "frequency": 1,
+      "sessions": [
+        "links_id_658_Арма-Эли"
+      ]
+    }
+  ],
+  "merged": [
+    {
+      "writing": "скф 398 сд 826 сп",
+      "frequency": 49,
+      "merge_into": "006-fallen-cards"
+    },
+    {
+      "writing": "штаб 55 тбр",
+      "frequency": 40,
+      "merge_into": "008-fallen-cards"
+    },
+    {
+      "writing": "скф 398 сд 821 сп",
+      "frequency": 20,
+      "merge_into": "007-fallen-cards"
+    },
+    {
+      "writing": "СКФ 77 сд",
+      "frequency": 6,
+      "merge_into": "011-fallen-cards"
+    },
+    {
+      "writing": "СКФ 826 сп 398 сд",
+      "frequency": 5,
+      "merge_into": "006-fallen-cards"
+    },
+    {
+      "writing": "СКФ 157 сд 422 ап",
+      "frequency": 5,
+      "merge_into": "014-fallen-cards"
+    },
+    {
+      "writing": "СКФ 157 сд",
+      "frequency": 4,
+      "merge_into": "002-fallen-cards"
+    },
+    {
+      "writing": "СКФ осб 157 сд",
+      "frequency": 4,
+      "merge_into": "002-fallen-cards"
+    },
+    {
+      "writing": "штаб. 157 сд",
+      "frequency": 4,
+      "merge_into": "002-fallen-cards"
+    },
+    {
+      "writing": "СКФ 404 сд",
+      "frequency": 4,
+      "merge_into": "003-fallen-cards"
+    },
+    {
+      "writing": "422 ап 157 сд",
+      "frequency": 3,
+      "merge_into": "014-fallen-cards"
+    },
+    {
+      "writing": "скф 826 сп 398 див.",
+      "frequency": 2,
+      "merge_into": "006-fallen-cards"
+    },
+    {
+      "writing": "КрымФ",
+      "frequency": 2,
+      "merge_into": "027-fallen-cards"
+    },
+    {
+      "writing": "СКФ",
+      "frequency": 2,
+      "merge_into": "027-fallen-cards"
+    },
+    {
+      "writing": "скф",
+      "frequency": 2,
+      "merge_into": "027-fallen-cards"
+    },
+    {
+      "writing": "скф 509 п 236 сд",
+      "frequency": 2,
+      "merge_into": "034-fallen-cards"
+    },
+    {
+      "writing": "п/п 492 в/ч 15",
+      "frequency": 2,
+      "merge_into": "039-fallen-cards"
+    },
+    {
+      "writing": "скф 398 сд",
+      "frequency": 2,
+      "merge_into": "045-fallen-cards"
+    },
+    {
+      "writing": "отд. сан. б-н 157 сд",
+      "frequency": 1,
+      "merge_into": "002-fallen-cards"
+    },
+    {
+      "writing": "824 сп 398 сд",
+      "frequency": 1,
+      "merge_into": "010-fallen-cards"
+    },
+    {
+      "writing": "СКФ 824 сп 398 сд",
+      "frequency": 1,
+      "merge_into": "010-fallen-cards"
+    },
+    {
+      "writing": "77 гсд",
+      "frequency": 1,
+      "merge_into": "011-fallen-cards"
+    },
+    {
+      "writing": "643 сп 404 сд",
+      "frequency": 1,
+      "merge_into": "015-fallen-cards"
+    },
+    {
+      "writing": "47 ср охраны 47 А",
+      "frequency": 1,
+      "merge_into": "021-fallen-cards"
+    },
+    {
+      "writing": "скф 47 арм. опо",
+      "frequency": 1,
+      "merge_into": "023-fallen-cards"
+    },
+    {
+      "writing": "скф 47 арм. полит. отд.",
+      "frequency": 1,
+      "merge_into": "023-fallen-cards"
+    },
+    {
+      "writing": "655 сп 404 сд",
+      "frequency": 1,
+      "merge_into": "026-fallen-cards"
+    },
+    {
+      "writing": "655 сп 404 сд крымф",
+      "frequency": 1,
+      "merge_into": "026-fallen-cards"
+    },
+    {
+      "writing": "ПолитУ КрымФ",
+      "frequency": 1,
+      "merge_into": "027-fallen-cards"
+    },
+    {
+      "writing": "рыбинско-ярославский див. р-н ПВО",
+      "frequency": 1,
+      "merge_into": "027-fallen-cards"
+    },
+    {
+      "writing": "скф обс",
+      "frequency": 1,
+      "merge_into": "027-fallen-cards"
+    },
+    {
+      "writing": "961 сп",
+      "frequency": 1,
+      "merge_into": "033-fallen-cards"
+    },
+    {
+      "writing": "63 гсд",
+      "frequency": 1,
+      "merge_into": "035-fallen-cards"
+    },
+    {
+      "writing": "СКФ 873 сп",
+      "frequency": 1,
+      "merge_into": "036-fallen-cards"
+    },
+    {
+      "writing": "СКФ 75 отд. инж. бат.",
+      "frequency": 1,
+      "merge_into": "038-fallen-cards"
+    },
+    {
+      "writing": "скф 75 отд. инж. б",
+      "frequency": 1,
+      "merge_into": "038-fallen-cards"
+    },
+    {
+      "writing": "в/ч 15 ппс 492",
+      "frequency": 1,
+      "merge_into": "039-fallen-cards"
+    },
+    {
+      "writing": "ппс 492 в/ч 15",
+      "frequency": 1,
+      "merge_into": "039-fallen-cards"
+    },
+    {
+      "writing": "СКФ 77 гсд 105 гсп",
+      "frequency": 1,
+      "merge_into": "044-fallen-cards"
+    },
+    {
+      "writing": "СКФ 77 гсд 105 п",
+      "frequency": 1,
+      "merge_into": "044-fallen-cards"
+    },
+    {
+      "writing": "СКФ 77 гсд 105 сп",
+      "frequency": 1,
+      "merge_into": "044-fallen-cards"
+    },
+    {
+      "writing": "398 сд",
+      "frequency": 1,
+      "merge_into": "045-fallen-cards"
+    },
+    {
+      "writing": "457 ап РГК",
+      "frequency": 1,
+      "merge_into": "052-fallen-cards"
+    },
+    {
+      "writing": "457 зап",
+      "frequency": 1,
+      "merge_into": "052-fallen-cards"
+    },
+    {
+      "writing": "547 гап",
+      "frequency": 1,
+      "merge_into": "069-fallen-cards"
+    },
+    {
+      "writing": "КрымФ 133 иап",
+      "frequency": 1,
+      "merge_into": "071-fallen-cards"
+    },
+    {
+      "writing": "460 омрр 404 сд",
+      "frequency": 1,
+      "merge_into": "073-fallen-cards"
+    },
+    {
+      "writing": "СКФ 865 сп",
+      "frequency": 1,
+      "merge_into": "078-fallen-cards"
+    },
+    {
+      "writing": "СКФ 199 отд. бат. связи 157 сд",
+      "frequency": 1,
+      "merge_into": "080-fallen-cards"
+    }
+  ]
+}
