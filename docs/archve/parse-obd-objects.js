@@ -24,7 +24,7 @@ import { fileURLToPath } from "url";
 import {
   parseObjectUrls,
   toCsv,
-} from "../src/parsers/obd-burial-objects/index.js";
+} from "../../src/parsers/obd-burial-objects/index.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
