@@ -1,0 +1,439 @@
+{
+  "039-00-fallen-cards": {
+    "name": "39-я танковая бригада 44-й армии Крымского фронта (СКФ)",
+    "variants": [
+      "скф 44 А 39 тбр",
+      "39 тбр"
+    ],
+    "source_doc": "docs/TEXT/44-ya-armiya-sssr.md"
+  },
+  "051-00-fallen-cards": {
+    "name": "51-ой армия",
+    "variants": [
+      "51 А"
+    ],
+    "source_doc": ""
+  },
+  "051-01-fallen-cards": {
+    "name": "659-й отдельный линейный батальон связи 51-ой армии",
+    "variants": [
+      "51 А 659 олбс"
+    ],
+    "source_doc": ""
+  },
+  "051-02-fallen-cards": {
+    "name": "153‑я военно‑почтовая станция (или её управление) при 51‑й армии",
+    "variants": [
+      "153 упр. воен. полев. стр. впс 51 А"
+    ],
+    "source_doc": ""
+  },
+  "055-00-fallen-cards": {
+    "name": "55-я танковая бригада 44-й армии Крымского фронта (СКФ)",
+    "variants": [
+      "55 мспб 55 тбр",
+      "55 тбр КрымФ",
+      "штаб 55 тбр"
+    ],
+    "source_doc": "docs/TEXT/44-ya-armiya-sssr.md"
+  },
+  "077-00-fallen-cards": {
+    "name": "77-я горнострелковая дивизия",
+    "variants": [
+      "СКФ 77 гсд",
+      "СКФ 77 сд",
+      "77 гсд"
+    ],
+    "source_doc": "docs/TEXT/77-ya-gornostrelkovaya-diviziya.md"
+  },
+  "077-01-fallen-cards": {
+    "name": "105-й гв. стрелковый полк 77-ой гв. стрелковой дивизии",
+    "variants": [
+      "СКФ 105 сп 77 сд",
+      "СКФ 77 гсд 105 гсп",
+      "СКФ 77 гсд 105 п",
+      "СКФ 77 гсд 105 сп"
+    ],
+    "source_doc": "docs/TEXT/77-ya-gornostrelkovaya-diviziya.md"
+  },
+  "157-00-fallen-cards": {
+    "name": "157-я стрелковая дивизия",
+    "variants": [
+      "157 сд",
+      "СКФ 157 сд",
+      "СКФ осб 157 сд",
+      "штаб. 157 сд",
+      "скф 157 сд 44 А"
+    ],
+    "source_doc": "docs/TEXT/157-ya-strelkovaya-diviziya.md"
+  },
+  "157-01-fallen-cards": {
+    "name": "384‑й стрелковый полк 157-ой стрелковой дивизии",
+    "variants": [
+      "СКФ 384 сп 157 сд",
+      "скф 44 А 157 сд 384 сп",
+      "384 сп"
+    ],
+    "source_doc": "docs/TEXT/157-ya-strelkovaya-diviziya.md"
+  },
+  "157-02-fallen-cards": {
+    "name": "633‑й стрелковый полк",
+    "variants": [
+      "СКФ 633 сп 157 сд",
+      "633 сп"
+    ],
+    "source_doc": "docs/TEXT/157-ya-strelkovaya-diviziya.md"
+  },
+  "157-03-fallen-cards": {
+    "name": "716‑й стрелковый полк",
+    "variants": [
+      "СКФ 716 сп 157 сд",
+      "716"
+    ],
+    "source_doc": "docs/TEXT/157-ya-strelkovaya-diviziya.md"
+  },
+  "157-04-fallen-cards": {
+    "name": "422‑й артиллерийский полк (ранее 85‑й лёгкий артполк)",
+    "variants": [
+      "СКФ 422 ап 157 сд",
+      "СКФ 157 сд 422 ап",
+      "422 ап 157 сд"
+    ],
+    "source_doc": "docs/TEXT/157-ya-strelkovaya-diviziya.md"
+  },
+  "157-06-fallen-cards": {
+    "name": "199‑й отдельный батальон связи",
+    "variants": [
+      "СКФ 199 обс 157 див. тр",
+      "СКФ 199 отд. бат. связи 157 сд"
+    ],
+    "source_doc": "docs/TEXT/157-ya-strelkovaya-diviziya.md"
+  },
+  "157-07-fallen-cards": {
+    "name": "Отдельный санитарный батальон 157-ой стрелковой дивизии",
+    "variants": [
+      "отд. сан. б-н 157 сд",
+      "СКФ 133 мед. сан. бат. 157 сд"
+    ],
+    "source_doc": "docs/TEXT/157-ya-strelkovaya-diviziya.md"
+  },
+  "236-00-fallen-cards": {
+    "name": "236-я стрелковая дивизия",
+    "variants": [
+      "скф 236 сд 44 А"
+    ],
+    "source_doc": "docs/TEXT/236-ya-strelkovaya-diviziya.md"
+  },
+  "236-02-fallen-cards": {
+    "name": "509-й стрелковый полк (180 сп) 236-ой стрелковой дивизии",
+    "variants": [
+      "скф 509 сп 236 сд",
+      "скф 509 п 236 сд"
+    ],
+    "source_doc": "docs/TEXT/236-ya-strelkovaya-diviziya.md"
+  },
+  "236-03-fallen-cards": {
+    "name": "814-й стрелковый полк 236-ой стрелковой дивизии",
+    "variants": [
+      "скф 814 сп 236 сд"
+    ],
+    "source_doc": "docs/TEXT/236-ya-strelkovaya-diviziya.md"
+  },
+  "236-04-fallen-cards": {
+    "name": "845-й стрелковый полк 236-ой стрелковой дивизии",
+    "variants": [
+      "скф 845 п 236 сд"
+    ],
+    "source_doc": "docs/TEXT/236-ya-strelkovaya-diviziya.md"
+  },
+  "236-05-fallen-cards": {
+    "name": "27-й (28) отдельный истребительно-противотанковый дивизион 236-ой стрелковой дивизии",
+    "variants": [
+      "скф 28 оптд 236 сд"
+    ],
+    "source_doc": "docs/TEXT/236-ya-strelkovaya-diviziya.md"
+  },
+  "236-08-fallen-cards": {
+    "name": "404-й отдельный сапёрный батальон 236-ой стрелковой дивизии",
+    "variants": [
+      "скф 404 отд. сап. бат. 236 сд"
+    ],
+    "source_doc": "docs/TEXT/236-ya-strelkovaya-diviziya.md"
+  },
+  "236-10-fallen-cards": {
+    "name": "392-я отдельный медико-санитарный батальон",
+    "variants": [
+      "скф 392 мед.-сан. бат."
+    ],
+    "source_doc": "docs/TEXT/236-ya-strelkovaya-diviziya.md"
+  },
+  "236-11-fallen-cards": {
+    "name": "957-я отдельная кабельно-шестовая рота 236-ой стрелковой дивизии",
+    "variants": [
+      "957 окшр",
+      "скф 957 п 236 сд"
+    ],
+    "source_doc": "docs/TEXT/957ya-otdelnaya-kabelnoshestovaya-rota-v-sostave-rkka.md"
+  },
+  "276-00-fallen-cards": {
+    "name": "276-я стрелковая дивизия",
+    "variants": [
+      "276 сд",
+      "скф 276 сд 44 А"
+    ],
+    "source_doc": "docs/TEXT/276-ya-strelkovaya-diviziya.md"
+  },
+  "276-02-fallen-cards": {
+    "name": "871-й стрелковый полк 276-ой стрелковой дивизии",
+    "variants": [
+      "скф 871 сп 276 сд 44 А"
+    ],
+    "source_doc": "docs/TEXT/276-ya-strelkovaya-diviziya.md"
+  },
+  "276-03-fallen-cards": {
+    "name": "873-й стрелковый полк",
+    "variants": [
+      "873 сп",
+      "СКФ 873 сп"
+    ],
+    "source_doc": "docs/TEXT/276-ya-strelkovaya-diviziya.md"
+  },
+  "276-04-fallen-cards": {
+    "name": "876-й стрелковый полк 276-ой стрелковой дивизии",
+    "variants": [
+      "282 сд 876 сп",
+      "876 сп 276 сд"
+    ],
+    "source_doc": "docs/TEXT/276-ya-strelkovaya-diviziya.md"
+  },
+  "276-06-fallen-cards": {
+    "name": "353-й отдельный истребительно-противотанковый дивизион 276-ой стрелковой дивизии",
+    "variants": [
+      "СКФ 353 оптд 276 сд"
+    ],
+    "source_doc": "docs/TEXT/276-ya-strelkovaya-diviziya.md"
+  },
+  "302-04-fallen-cards": {
+    "name": "827-й горно-стрелковый полк",
+    "variants": [
+      "скф 827 сп 302 сд"
+    ],
+    "source_doc": "docs/TEXT/302-ya-strelkovaya-diviziya.md"
+  },
+  "302-06-fallen-cards": {
+    "name": "865-й лёгкий артиллерийский полк",
+    "variants": [
+      "скф 865 ап 302 сд"
+    ],
+    "source_doc": "docs/TEXT/302-ya-strelkovaya-diviziya.md"
+  },
+  "320-00-fallen-cards": {
+    "name": "320-ой стрелковая дивизия КрымФронт",
+    "variants": [
+      "скф 320 сд 44 А"
+    ],
+    "source_doc": "docs/TEXT/320-ya-strelkovaya-diviziya.md"
+  },
+  "320-01-fallen-cards": {
+    "name": "481-й стрелковый полк 320-ой стрелковой дивизии",
+    "variants": [
+      "481 сп 320 сд КрымФ"
+    ],
+    "source_doc": "docs/TEXT/320-ya-strelkovaya-diviziya.md"
+  },
+  "390-00-fallen-cards": {
+    "name": "390-я стрелковая дивизия (1-го формирования)",
+    "variants": [
+      "СКФ 390 сд"
+    ],
+    "source_doc": "docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md"
+  },
+  "390-01-fallen-cards": {
+    "name": "784-й стрелковый полк",
+    "variants": [
+      "784 сп 390 сд (I) КрымФ"
+    ],
+    "source_doc": "docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md"
+  },
+  "390-02-fallen-cards": {
+    "name": "789-й стрелковый полк",
+    "variants": [
+      "скф 227 сд 789 сп"
+    ],
+    "source_doc": "docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md"
+  },
+  "390-04-fallen-cards": {
+    "name": "954-й артиллерийский полк",
+    "variants": [
+      "скф 954 ап 390 сд"
+    ],
+    "source_doc": "docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md"
+  },
+  "396-00-fallen-cards": {
+    "name": "396-я стрелковая дивизия",
+    "variants": [
+      "скф 44 А 396 сд",
+      "396 сд"
+    ],
+    "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md"
+  },
+  "398-00-fallen-cards": {
+    "name": "398-я стрелковая дивизия",
+    "variants": [
+      "СКФ 398 сд",
+      "скф 398 сд",
+      "398 сд"
+    ],
+    "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md"
+  },
+  "398-01-fallen-cards": {
+    "name": "821-й стрелковый полк 398-ой стрелковой дивизии",
+    "variants": [
+      "СКФ 821 сп 398 сд",
+      "скф 398 сд 821 сп"
+    ],
+    "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md"
+  },
+  "398-02-fallen-cards": {
+    "name": "824-й стрелковый полк 398-ой стрелковой дивизии",
+    "variants": [
+      "скф 398 сд 824 сп",
+      "824 сп 398 сд",
+      "СКФ 824 сп 398 сд"
+    ],
+    "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md"
+  },
+  "398-04-fallen-cards": {
+    "name": "958-й артиллерийский полк 398-ой стрелковой дивизии",
+    "variants": [
+      "СКФ 958 ап 398 сд"
+    ],
+    "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md"
+  },
+  "398-05-fallen-cards": {
+    "name": "763-й отдельный танко-стрелковый батальон 398-ой стрелковой дивизии",
+    "variants": [
+      "скф 763 отср 398 сд"
+    ],
+    "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md"
+  },
+  "398-09-fallen-cards": {
+    "name": "205-й отдельный сапёрный батальон 398-й стрелковой дивизии",
+    "variants": [
+      "скф 205 осб 398 сд"
+    ],
+    "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md"
+  },
+  "398-10-fallen-cards": {
+    "name": "846-й отдельный батальон связи 398-ой стрелковой дивизии",
+    "variants": [
+      "скф 398 сд 846 обс"
+    ],
+    "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md"
+  },
+  "398-11-fallen-cards": {
+    "name": "826-й стрелковый полк 398-ой стрелковой дивизии",
+    "variants": [
+      "скф 826 полк 398 див.",
+      "скф 398 сд 826 сп",
+      "СКФ 826 сп 398 сд",
+      "скф 826 сп 398 див."
+    ],
+    "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md"
+  },
+  "398-13-fallen-cards": {
+    "name": "510-я автотранспортная рота 398-ой стрелковой дивизии",
+    "variants": [
+      "скф 510 автомоб. рота 398 сд"
+    ],
+    "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md"
+  },
+  "400-00-fallen-cards": {
+    "name": "400-я стрелковая дивизия",
+    "variants": [
+      "скф 400 сд"
+    ],
+    "source_doc": "docs/TEXT/400-ya-strelkovaya-diviziya.md"
+  },
+  "400-01-fallen-cards": {
+    "name": "829-й стрелковый полк",
+    "variants": [
+      "скф 400 сд 829 сп"
+    ],
+    "source_doc": "docs/TEXT/400-ya-strelkovaya-diviziya.md"
+  },
+  "400-02-fallen-cards": {
+    "name": "832-й стрелковый полк",
+    "variants": [
+      "скф 400 сд 832 сп",
+      "скф 400 сд 831 сп"
+    ],
+    "source_doc": "docs/TEXT/400-ya-strelkovaya-diviziya.md"
+  },
+  "400-03-fallen-cards": {
+    "name": "834-й стрелковый полк",
+    "variants": [
+      "скф 400 сд 834 сп"
+    ],
+    "source_doc": "docs/TEXT/400-ya-strelkovaya-diviziya.md"
+  },
+  "404-00-fallen-cards": {
+    "name": "404-я стрелковая дивизия",
+    "variants": [
+      "404 сд",
+      "СКФ 404 сд",
+      "скф 404 сд 44 А"
+    ],
+    "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md"
+  },
+  "404-01-fallen-cards": {
+    "name": "643-й стрелковый полк 404-ой стрелковой дивизии",
+    "variants": [
+      "СКФ 643 сп 404 сд",
+      "643 сп 404 сд",
+      "643 сп"
+    ],
+    "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md"
+  },
+  "404-02-fallen-cards": {
+    "name": "652-й стрелковый полк 404-ой стрелковой дивизии",
+    "variants": [
+      "СКФ 652 сп 404 сд",
+      "652 сп"
+    ],
+    "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md"
+  },
+  "404-03-fallen-cards": {
+    "name": "655-й стрелковый полк 404-ой стрелковой дивизии",
+    "variants": [
+      "СКФ 655 сп 404 сд",
+      "655 сп 404 сд",
+      "655 сп 404 сд крымф"
+    ],
+    "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md"
+  },
+  "404-08-fallen-cards": {
+    "name": "460-я разведывательная рота 404-ой стрелковой дивизии",
+    "variants": [
+      "404 сд 460 мото-развед. рота",
+      "460 омрр 404 сд"
+    ],
+    "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md"
+  },
+  "404-09-fallen-cards": {
+    "name": "679-й сапёрный батальон 404-ой стрелковой дивизии",
+    "variants": [
+      "СКФ 679 осб 404 сд"
+    ],
+    "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md"
+  },
+  "404-10-fallen-cards": {
+    "name": "961-й артиллерийский полк 404-ой стрелковой дивизии",
+    "variants": [
+      "961 ап",
+      "961 сп",
+      "скф 44 А 961 ап"
+    ],
+    "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md"
+  }
+}
