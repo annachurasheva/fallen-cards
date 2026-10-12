@@ -55,17 +55,17 @@ try {
     $cdpReady = $true
 } catch { }
 
-if (-not $cdpReady) {
-    Write-Host "$(Get-Stamp) Запуск Edge (С ОКНОМ): port=$Port profile=$ProfileDir"
-    Start-Process -FilePath $edge -ArgumentList @(
-        "--remote-debugging-port=$Port",
-        "--user-data-dir=`"$ProfileDir`"",
-        "--no-first-run",
-        "--no-default-browser-check",
-        "--disable-background-networking",
-        "https://pamyat-naroda.ru/"
-    )
-    Start-Sleep -Seconds 2
+    if (-not $cdpReady) {
+        Write-Host "$(Get-Stamp) Запуск Edge (С ОКНОМ): port=$Port profile=$ProfileDir"
+        Start-Process -FilePath $edge -ArgumentList @(
+            "--remote-debugging-port=$Port",
+            "--user-data-dir=`"$ProfileDir`"",
+            "--no-first-run",
+            "--no-default-browser-check",
+            "--disable-background-networking",
+            "https://pamyat-naroda.ru/"
+        ) -WindowStyle Normal
+        Start-Sleep -Seconds 3 # Увеличил до 3 секунд для гарантированной инициализации окна
 } else {
     Write-Host "$(Get-Stamp) Edge уже активен на порту $Port — подключаемся без перезапуска."
 }
@@ -75,7 +75,9 @@ if (-not $cdpReady) {
     Write-Host "$(Get-Stamp) ЕСЛИ ТРЕБУЕТСЯ: пройдите капчу/логин на pamyat-naroda.ru в открывшемся окне."
     Write-Host "$(Get-Stamp) Cookies сохраняются в профиль; следующий запуск входа не потребует."
     Write-Host "$(Get-Stamp) Ожидание подтверждения: нажмите Enter, чтобы продолжить (Edge не закрывать)."
-    [void](Read-Host)
+
+    # ИСПРАВЛЕНО: корректное ожидание нажатия Enter в PowerShell
+    $null = Read-Host "Нажмите Enter для продолжения"
 }
 
 # ---------- 3. Запуск парсера, асинхронный проброс stdout/stderr ----------
