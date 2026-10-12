@@ -68,6 +68,16 @@
       "protocol": "inspector"
     },
     {
+      "name": "Подключение к Edge (порт 9230)",
+      "type": "node",
+      "request": "attach",
+      "port": 9230,
+      "address": "localhost",
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "${workspaceFolder}",
+      "protocol": "inspector"
+    },
+    {
       "name": "Тесты (vitest)",
       "type": "node",
       "request": "launch",
