@@ -4,13 +4,15 @@
  *
  * ЗАПУСК:
  *   node scripts/build-warunits-table.js [warunits-draft3-XXXX.json]
- *   (без аргумента — самый поздний warunits-draft3-*.json в data/dictionaries)
+ *   (без аргумента — самый поздний warunits-draft3-*.json в data/dictionaries
+ *   и data/dictionaries/proposals; свежие пары перепись пишет в proposals/)
  *
  * ПРАВИЛА (по промпту оператора):
  *   - Источник строк: выбранный draft3-json, ВСЕ группы, без срезов/порогов;
  *     порядок строк таблицы = порядок групп в json.
  *   - Колонки (4, сверх не добавлять):
- *       1. proposed_key (<NNN>-fallen-cards);
+ *       1. proposed_key (семантический ключ <NNN>-00-fallen-cards /
+ *          <NNN>-<MM>-fallen-cards или «— (оператор)»; у кандидатов — null);
  *       2. развёрнутое имя: только из docs/TEXT/*.md (front-matter title),
  *          по точному совпадению числового ключа выжившей строки и заголовка;
  *          нет совпадения — «— (оператор)». Скрипт НЕ выдумывает имена.
@@ -27,6 +29,7 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const DICTS_DIR = path.join(ROOT, "data", "dictionaries");
+const PROPOSALS_DIR = path.join(DICTS_DIR, "proposals");
 const TEXT_DIR = path.join(ROOT, "docs", "TEXT");
 const OUT = path.join(DICTS_DIR, "warunits-fallen-cards.md");
 
@@ -36,15 +39,25 @@ function pickSource() {
   if (arg) {
     return path.isAbsolute(arg) ? arg : path.join(DICTS_DIR, arg);
   }
-  const cands = fs
-    .readdirSync(DICTS_DIR)
-    .filter((f) => /^warunits-draft3-.*\.json$/.test(f))
-    .sort(); // метка времени в имени → хронология
+  // Свежие пары перепись build-warunits-dict.js пишет в proposals/,
+  // исторические пары лежат в data/dictionaries — ищем в обоих каталогах.
+  const cands = [];
+  for (const dir of [PROPOSALS_DIR, DICTS_DIR]) {
+    if (!fs.existsSync(dir)) continue;
+    for (const f of fs.readdirSync(dir)) {
+      if (/^warunits-draft3-.*\.json$/.test(f)) {
+        cands.push(path.join(dir, f));
+      }
+    }
+  }
+  cands.sort(); // метка времени в имени → хронология
   if (cands.length === 0) {
-    console.error("warunits-draft3-*.json не найдены в data/dictionaries.");
+    console.error(
+      "warunits-draft3-*.json не найдены ни в data/dictionaries, ни в data/dictionaries/proposals.",
+    );
     process.exit(1);
   }
-  return path.join(DICTS_DIR, cands[cands.length - 1]); // самый поздний
+  return cands[cands.length - 1]; // самый поздний
 }
 
 // ---------- Числовой ключ строки ----------
