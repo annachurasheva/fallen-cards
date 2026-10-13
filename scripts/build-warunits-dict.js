@@ -8,28 +8,36 @@
  * ИСТОЧНИК:
  *   все CSV *-fallen.csv / *-unclassified.csv в data/processed/** (рекурсивно).
  *
+ * ПОРЯДОК РАБОТЫ:
+ *   0. Автовызов scripts/sync-units-dict.js (MD → JSON): JSON — SSOT для
+ *      generate-cards.js и собирается ТОЛЬКО sync-units-dict.js (A2, §5.6).
+ *   1. Чтение активного словаря data/dictionaries/warunits-fallen-cards.json.
+ *   2. Разделение написаний: АКТИВНЫЕ (вариант есть в словаре) и КАНДИДАТЫ.
+ *   3. Активные группируются по семантическому ключу словаря; частоты
+ *      пересчитываются по ВСЕМ CSV (каждое повышение объёма — пересчёт).
+ *   4. Кандидаты группируются по сигнатуре набора чисел (/\d+/g), ключ НЕ
+ *      выдаётся (proposed_key = null, status = "candidate") — решение оператора.
+ *   5. Выход: data/dictionaries/proposals/warunits-draft3-<timestamp>.json и .md;
+ *      метка времени генерируется ОДИН РАЗ в начале прогона и передаётся в оба
+ *      писателя; перезапись запрещена (существующие файлы не изменяются и не
+ *      удаляются ни при каких условиях).
+ *
  * ПРАВИЛА:
  *   - группировка по БУКВАЛЬНОЙ строке warunit (без trim, без toLowerCase);
- *   - автоматическое слияние: из каждой строки извлекаются все числа (/\d+/g),
- *     сортируются по возрастанию; группы с одинаковым набором чисел сливаются —
- *     выживает самая частая, остальные получают merge_into: <proposed_key выжившей>;
  *   - частота = количество уникальных document_id;
- *   - сортировка итоговых групп по убыванию частоты;
- *   - нумерация proposed_key: 001-fallen-cards, 002-fallen-cards, ...;
- *     стабильность — перенос прежних proposed_key по совпадению строки;
- *   - выход: data/dictionaries/proposals/warunits-draft3-<timestamp>.json и .md;
- *     метка времени генерируется ОДИН РАЗ в начале прогона и передаётся в оба
- *     писателя; перезапись запрещена (существующие файлы не изменяются и не
- *     удаляются ни при каких условиях).
+ *   - активные группы получают СЕМАНТИЧЕСКИЙ ключ из словаря (proposed_key);
+ *   - новые написания активной группы (new_variants) НЕ сливаются автоматически;
+ *   - кандидаты — отдельный блок candidates, ключ не присваивается;
+ *   - группы с ключом «— (оператор)» в индекс НЕ попадают (A3).
  *
  * ЗАПРЕЩЕНО: нормализации строк (trim/toLowerCase) для ключей группировки;
- * ручные слияния; чтение unit_keys.json.
+ * ручные слияния; чтение unit_keys.json; выдача ключей кандидатам (§5.3).
  */
 
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { execFile } from "child_process";
+import { execFileSync } from "child_process";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
@@ -124,14 +132,16 @@ function runSyncUnitsDict() {
     process.exit(1);
   }
   console.log("--- sync-units-dict.js (MD → JSON) ---");
-  const res = execFile("node", [syncScript], {
-    cwd: ROOT,
-    env: process.env,
-    stdout: "inherit",
-    stderr: "inherit",
-  });
-  if (res.status !== 0) {
-    console.error(`sync-units-dict.js завершился с кодом ${res.status}`);
+  try {
+    execFileSync("node", [syncScript], {
+      cwd: ROOT,
+      env: process.env,
+      stdio: "inherit",
+    });
+  } catch (e) {
+    console.error(
+      `sync-units-dict.js завершился с ошибкой: ${e.message || e}`,
+    );
     process.exit(1);
   }
   console.log("--- sync-units-dict.js: OK ---");
