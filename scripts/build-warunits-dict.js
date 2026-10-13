@@ -1,6 +1,6 @@
 /**
- * build-warunits-dict.js — перепись warunit (WARUNITS_DICT v2) с АВТОМАТИЧЕСКИМ
- * слиянием по набору чисел.
+ * build-warunits-dict.js — перепись warunit (WARUNITS_DICT v2) с учётом
+ * активного словаря и предложением кандидатов на заполнение.
  *
  * ЗАПУСК:
  *   node scripts/build-warunits-dict.js
@@ -29,6 +29,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { execFile } from "child_process";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
@@ -112,40 +113,69 @@ function collectCsvFiles(dir) {
   return found;
 }
 
-// ---------- Стабильность нумерации ----------
-// Перенос прежних proposed_key по совпадению СТРОКИ: строка получает прежний
-// номер группы, в которой она встречалась (первое/самое позднее вхождение).
-// Источник — warunits-draft3-*.json в proposals/ и data/dictionaries (сортировка
-// имён = хронология, поздние перекрывают ранние).
-function loadPreviousKeys() {
-  const map = new Map(); // writing -> proposed_key
-  const dirs = [DICTS_DIR, PROPOSALS_DIR];
-  const files = [];
-  for (const d of dirs) {
-    if (!fs.existsSync(d)) continue;
-    for (const f of fs.readdirSync(d)) {
-      if (/^warunits-draft3-.*\.json$/.test(f)) files.push(path.join(d, f));
+// ---------- Автовызов sync-units-dict.js (MD → JSON) ----------
+// Перед переписью активный словарь должен быть актуален: JSON — SSOT для
+// generate-cards.js, собирается ТОЛЬКО sync-units-dict.js из MD (A2, §5.6).
+// Вызываем отдельным процессом node — чище и не ломает текущий процесс.
+function runSyncUnitsDict() {
+  const syncScript = path.join(__dirname, "sync-units-dict.js");
+  if (!fs.existsSync(syncScript)) {
+    console.error(`sync-units-dict.js не найден: ${syncScript}`);
+    process.exit(1);
+  }
+  console.log("--- sync-units-dict.js (MD → JSON) ---");
+  const res = execFile("node", [syncScript], {
+    cwd: ROOT,
+    env: process.env,
+    stdout: "inherit",
+    stderr: "inherit",
+  });
+  if (res.status !== 0) {
+    console.error(`sync-units-dict.js завершился с кодом ${res.status}`);
+    process.exit(1);
+  }
+  console.log("--- sync-units-dict.js: OK ---");
+}
+
+// ---------- Активный словарь (SSOT: warunits-fallen-cards.json) ----------
+// Читаем JSON-зеркало активного MD-словаря. Группы с ключом «— (оператор)»
+// в индекс НЕ попадают (A3): их варианты не считаются активными.
+// Возвращает:
+//   activeByVariant: Map(буквальная строка варианта → семантический ключ)
+//   activeGroups:    [{ key, name, variants, source_doc }]
+function loadActiveDict() {
+  const jsonPath = path.join(DICTS_DIR, "warunits-fallen-cards.json");
+  if (!fs.existsSync(jsonPath)) {
+    console.error(`Активный словарь не найден: ${jsonPath}`);
+    console.error("   Запустите: node scripts/sync-units-dict.js");
+    process.exit(1);
+  }
+  const dict = JSON.parse(readUtf8(jsonPath));
+  const activeByVariant = new Map();
+  const activeGroups = [];
+  for (const [key, entry] of Object.entries(dict)) {
+    if (key === "— (оператор)") continue; // A3
+    const variants = Array.isArray(entry.variants) ? entry.variants : [];
+    const group = {
+      key,
+      name: entry.name || "",
+      variants,
+      source_doc: entry.source_doc || "",
+    };
+    activeGroups.push(group);
+    for (const v of variants) {
+      // Точное совпадение по знакам (A1): без нормализаций
+      activeByVariant.set(v, key);
     }
   }
-  files.sort(); // метка времени в имени → лексикографическая сортировка = хронологическая
-  for (const f of files) {
-    try {
-      const data = JSON.parse(readUtf8(f));
-      const groups = Array.isArray(data.groups) ? data.groups : [];
-      for (const g of groups) {
-        for (const v of g.variants || []) {
-          map.set(v, g.proposed_key); // позднее вхождение перекрывает прежнее
-        }
-      }
-    } catch {
-      // повреждённый прежний файл пропускаем
-    }
-  }
-  return map;
+  return { activeByVariant, activeGroups };
 }
 
 // ---------- Основная логика ----------
 (function main() {
+  // 0. Автовызов sync-units-dict.js: JSON должен быть актуален MD (п.4)
+  runSyncUnitsDict();
+
   const csvFiles = collectCsvFiles(PROCESSED_ROOT);
   if (csvFiles.length === 0) {
     console.error(
@@ -157,6 +187,9 @@ function loadPreviousKeys() {
   // Метка прогона — ОДИН РАЗ, передаётся в оба писателя (п.1)
   fs.mkdirSync(PROPOSALS_DIR, { recursive: true });
   const timestamp = resolveTimestamp(PROPOSALS_DIR, "warunits-draft3");
+
+  // Активный словарь (SSOT) — читаем ПОСЛЕ sync-units-dict.js
+  const { activeByVariant, activeGroups } = loadActiveDict();
 
   // БУКВАЛЬНАЯ строка warunit → { ids: Set(document_id), sessions: Set, noId: число }
   const writings = new Map();
@@ -209,16 +242,79 @@ function loadPreviousKeys() {
     sig: signatureOf(writing),
   }));
 
-  // Шаг 2: автоматическое слияние по сигнатуре набора чисел
-  const bySig = new Map(); // sig -> [entries]
+  // Шаг 2: разделение на АКТИВНЫЕ (есть в словаре) и КАНДИДАТОВ (нет в словаре).
+  // Точное совпадение по знакам (A1): вариант из CSV == вариант из словаря.
+  const activeEntries = [];
+  const candidateEntries = [];
   for (const e of byString) {
+    if (activeByVariant.has(e.writing)) {
+      activeEntries.push(e);
+    } else {
+      candidateEntries.push(e);
+    }
+  }
+
+  // ---------- АКТИВНЫЕ ГРУППЫ ----------
+  // Группируем по семантическому ключу из словаря; частоты пересчитываются
+  // по ВСЕМ CSV (каждое повышение объёма — пересчёт).
+  const activeByKey = new Map(); // key -> { entries: [], ids: Set, noId, sessions: Set }
+  for (const e of activeEntries) {
+    const key = activeByVariant.get(e.writing);
+    if (!activeByKey.has(key)) {
+      activeByKey.set(key, {
+        entries: [],
+        ids: new Set(),
+        noId: 0,
+        sessions: new Set(),
+      });
+    }
+    const rec = activeByKey.get(key);
+    rec.entries.push(e);
+    e.ids.forEach((id) => rec.ids.add(id));
+    rec.noId += e.noId;
+    e.sessions.forEach((s) => rec.sessions.add(s));
+  }
+
+  const activeGroupsOut = [];
+  for (const [key, rec] of activeByKey) {
+    // variants — из словаря (буквально, регистр как в MD), плюс новые написания
+    // из CSV, которых ещё нет в словаре (пополнение вариантов — решение оператора,
+    // поэтому они помечаются как новые и НЕ сливаются автоматически).
+    const dictGroup = activeGroups.find((g) => g.key === key);
+    const dictVariants = dictGroup ? dictGroup.variants : [];
+    const csvVariants = rec.entries.map((e) => e.writing);
+    const newVariants = csvVariants.filter((v) => !dictVariants.includes(v));
+    const frequency = rec.ids.size + (rec.noId > 0 ? rec.noId : 0);
+    activeGroupsOut.push({
+      proposed_key: key, // семантический ключ из словаря (п.3)
+      key,
+      merge_into: null,
+      variants: dictVariants,
+      new_variants: newVariants, // кандидаты на пополнение вариантов группы
+      frequency,
+      sessions: [...rec.sessions].sort(),
+      source_doc: dictGroup ? dictGroup.source_doc : "",
+    });
+  }
+
+  // Сортировка активных групп по убыванию частоты (детерминированный тай-брейк)
+  activeGroupsOut.sort(
+    (a, b) =>
+      b.frequency - a.frequency ||
+      (a.proposed_key < b.proposed_key ? -1 : a.proposed_key > b.proposed_key ? 1 : 0),
+  );
+
+  // ---------- КАНДИДАТЫ ----------
+  // Группируем по сигнатуре набора чисел (как раньше), но НЕ сливаем с активными
+  // и НЕ присваиваем ключи (A3, §5.3): proposed_key = null, status = "candidate".
+  const bySig = new Map(); // sig -> [entries]
+  for (const e of candidateEntries) {
     if (!bySig.has(e.sig)) bySig.set(e.sig, []);
     bySig.get(e.sig).push(e);
   }
 
-  const mergedGroups = [];
+  const candidateGroups = [];
   for (const [, entries] of bySig) {
-    // выживает самая частая строка; при равенстве частот — буквальное сравнение для детерминизма
     entries.sort(
       (a, b) => b.count - a.count || (a.writing < b.writing ? -1 : 1),
     );
@@ -231,84 +327,25 @@ function loadPreviousKeys() {
       noId += e.noId;
       e.sessions.forEach((s) => sessions.add(s));
     }
-    mergedGroups.push({
-      survivor: survivor.writing,
+    const frequency = ids.size + (noId > 0 ? noId : 0);
+    candidateGroups.push({
+      proposed_key: null, // ключ не выдаём — решение оператора
+      key: null,
+      status: "candidate",
+      merge_into: null,
       variants: entries.map((e) => e.writing),
-      merged: entries.slice(1).map((e) => e.writing),
-      ids,
-      noId,
-      sessions,
-      sig: survivor.sig,
+      frequency,
+      sessions: [...sessions].sort(),
+      document_ids: [...ids].sort(),
     });
   }
 
-  // Частота группы — по УНИКАЛЬНЫМ document_id внутри группы
-  for (const g of mergedGroups) {
-    g.frequency = g.ids.size + (g.noId > 0 ? g.noId : 0);
-  }
-
-  // Сортировка групп по убыванию частоты (детерминированный тай-брейк)
-  mergedGroups.sort(
+  // Сортировка кандидатов по убыванию частоты
+  candidateGroups.sort(
     (a, b) =>
       b.frequency - a.frequency ||
-      (a.survivor < b.survivor ? -1 : a.survivor > b.survivor ? 1 : 0),
+      (a.variants[0] < b.variants[0] ? -1 : a.variants[0] > b.variants[0] ? 1 : 0),
   );
-
-  // Нумерация: стабильность через перенос прежних proposed_key по совпадению строки.
-  // prevKeys заполняется из ПРЕЖНИХ прогонов (до создания текущего файла).
-  const prevKeys = loadPreviousKeys();
-  const usedKeys = new Set(); // занятые в ЭТОМ прогоне ключи
-  let counter = 1;
-  const keyForNew = () => {
-    while (true) {
-      const k = `${String(counter).padStart(3, "0")}-fallen-cards`;
-      counter++;
-      if (!usedKeys.has(k)) {
-        usedKeys.add(k);
-        return k;
-      }
-    }
-  };
-
-  const groupsOut = mergedGroups.map((g) => {
-    // перенос прежнего proposed_key по совпадению строки (выжившая или любой вариант)
-    let pk = null;
-    for (const v of g.variants) {
-      const cand = prevKeys.get(v);
-      if (cand && !usedKeys.has(cand)) {
-        pk = cand;
-        break;
-      }
-    }
-    if (!pk) pk = keyForNew();
-    else usedKeys.add(pk);
-    return { g, proposed_key: pk };
-  });
-
-  const finalGroups = groupsOut.map(({ g, proposed_key }) => ({
-    proposed_key,
-    key: null,
-    merge_into: null,
-    variants: g.variants,
-    frequency: g.frequency,
-    sessions: [...g.sessions].sort(),
-  }));
-
-  // Частота отдельной написания (для списка merge_into)
-  const countByWriting = new Map(byString.map((e) => [e.writing, e.count]));
-
-  // Строки, проигравшие слияние, получают запись с merge_into на выжившую группу
-  const mergedEntries = [];
-  for (const { g, proposed_key } of groupsOut) {
-    for (const loser of g.merged) {
-      mergedEntries.push({
-        writing: loser,
-        frequency: countByWriting.get(loser),
-        merge_into: proposed_key,
-      });
-    }
-  }
-  mergedEntries.sort((a, b) => b.frequency - a.frequency);
 
   // ---------- Формирование содержимого обоих писателей (метка одна, п.1) ----------
 
@@ -319,59 +356,57 @@ function loadPreviousKeys() {
       schema: "WARUNITS_DICT v2 (draft3)",
       source: "data/processed/**/*-fallen.csv, *-unclassified.csv",
       rule_merge:
-        "автоматическое слияние по отсортированному набору чисел (/\\d+/g)",
+        "автоматическое слияние по отсортированному набору чисел (/\\d+/g) — только для кандидатов",
       rule_frequency: "уникальные document_id",
+      rule_active: "активные группы — из warunits-fallen-cards.json (SSOT), частоты пересчитаны",
       strings_total: byString.length,
-      groups_total: finalGroups.length,
-      merged_total: mergedEntries.length,
+      active_total: activeGroupsOut.length,
+      candidates_total: candidateGroups.length,
       rows_scanned: totalRows,
     },
-    groups: finalGroups,
-    merged: mergedEntries,
+    groups: activeGroupsOut,
+    candidates: candidateGroups,
   };
   const jsonText = JSON.stringify(payload, null, 2);
 
-  // md БЕЗ фильтров, порогов и срезов (п.3): число строк таблицы = число групп json,
-  // порядок и литералы написаний идентичны; последняя строка = минимальная частота.
+  // md БЕЗ фильтров, порогов и срезов: активные группы + кандидаты.
   const mdLines = [];
   mdLines.push(
-    `# WARUNITS_DICT draft3 — перепись warunit (слияние по набору чисел)`,
+    `# WARUNITS_DICT draft3 — перепись warunit (активные группы + кандидаты)`,
   );
   mdLines.push(``);
   mdLines.push(
     `- Источник: \`data/processed/**/*-fallen.csv\`, \`*-unclassified.csv\``,
   );
   mdLines.push(
-    `- Написаний (буквальных строк): ${byString.length}; групп после слияния: ${finalGroups.length}; слито строк: ${mergedEntries.length}`,
+    `- Активных групп: ${activeGroupsOut.length}; кандидатов: ${candidateGroups.length}; строк всего: ${byString.length}`,
   );
   mdLines.push(
     `- Частота = уникальные document_id. Сортировка по убыванию частоты.`,
   );
+  mdLines.push(
+    `- Активные группы — из \`warunits-fallen-cards.json\` (SSOT); кандидаты — новые написания, ключ не выдан.`,
+  );
   mdLines.push(``);
-  mdLines.push(`## Группы (все ${finalGroups.length}, без фильтров и срезов)`);
+  mdLines.push(`## Активные группы (${activeGroupsOut.length})`);
   mdLines.push(``);
-  mdLines.push(`| # | proposed_key | частота | выжившая строка | варианты |`);
-  mdLines.push(`|---|---|---|---|---|`);
-  finalGroups.forEach((g, i) => {
-    const mergedSet = new Set(
-      mergedEntries
-        .filter((m) => m.merge_into === g.proposed_key)
-        .map((m) => m.writing),
-    );
-    const survivor =
-      g.variants.find((v) => !mergedSet.has(v)) || g.variants[0] || "";
+  mdLines.push(`| # | ключ | частота | выжившая строка | вариантов | новых вариантов |`);
+  mdLines.push(`|---|---|---|---|---|---|`);
+  activeGroupsOut.forEach((g, i) => {
     mdLines.push(
-      `| ${i + 1} | ${g.proposed_key} | ${g.frequency} | ${survivor} | ${g.variants.length} |`,
+      `| ${i + 1} | ${g.proposed_key} | ${g.frequency} | ${g.variants[0] || ""} | ${g.variants.length} | ${g.new_variants.length} |`,
     );
   });
   mdLines.push(``);
-  mdLines.push(`## Слитые строки (merge_into)`);
+  mdLines.push(`## Кандидаты на заполнение (${candidateGroups.length})`);
   mdLines.push(``);
-  mdLines.push(`| строка | частота | merge_into |`);
-  mdLines.push(`|---|---|---|`);
-  for (const m of mergedEntries) {
-    mdLines.push(`| ${m.writing} | ${m.frequency} | ${m.merge_into} |`);
-  }
+  mdLines.push(`| # | частота | написания | document_id |`);
+  mdLines.push(`|---|---|---|---|`);
+  candidateGroups.forEach((g, i) => {
+    mdLines.push(
+      `| ${i + 1} | ${g.frequency} | ${g.variants.join("; ")} | ${g.document_ids.slice(0, 10).join(", ")}${g.document_ids.length > 10 ? ", …" : ""} |`,
+    );
+  });
   mdLines.push(``);
   const mdText = mdLines.join("\n");
 
@@ -417,7 +452,7 @@ function loadPreviousKeys() {
   }
 
   console.log(
-    `написаний: ${byString.length}, групп: ${finalGroups.length}, слито: ${mergedEntries.length}`,
+    `строк: ${byString.length}, активных групп: ${activeGroupsOut.length}, кандидатов: ${candidateGroups.length}`,
   );
   console.log(`выход: ${jsonPath}`);
   console.log(`       ${mdPath}`);
