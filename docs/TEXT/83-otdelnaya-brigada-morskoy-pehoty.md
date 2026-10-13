@@ -6,7 +6,7 @@ tags:
   - Войсковые соединения
   - бригада морской пехоты
 draft: false
-pin: 51
+pin: 40
 toc: true
 lang: 'ru'
 authorIds:
