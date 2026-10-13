@@ -64,8 +64,7 @@
       "port": 9226,
       "address": "localhost",
       "localRoot": "${workspaceFolder}",
-      "remoteRoot": "${workspaceFolder}",
-      "protocol": "inspector"
+      "remoteRoot": "${workspaceFolder}"
     },
     {
       "name": "Подключение к Edge (порт 9230)",
@@ -74,8 +73,7 @@
       "port": 9230,
       "address": "localhost",
       "localRoot": "${workspaceFolder}",
-      "remoteRoot": "${workspaceFolder}",
-      "protocol": "inspector"
+      "remoteRoot": "${workspaceFolder}"
     },
     {
       "name": "Тесты (vitest)",
