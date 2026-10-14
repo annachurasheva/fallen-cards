@@ -59,10 +59,10 @@
 | 320-04-fallen-cards | 985-й артиллерийский полк 320-ой стрелковой дивизии | СКФ 985 ап 320 сд; 320 сд 985 ап; 985 ап 320 сд | docs/TEXT/320-ya-strelkovaya-diviziya.md |
 | 390-00-fallen-cards | 390-я стрелковая дивизия (1-го формирования) | СКФ 390 сд | docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md |
 | 390-01-fallen-cards | 784-й стрелковый полк | 784 сп 390 сд (I) КрымФ; скф 784 сп 390 сд | docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md |
-| 390-02-fallen-cards | 789-й стрелковый полк | СКФ 789 сп 390 сд | docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md |
+| 390-02-fallen-cards | 789-й стрелковый полк | СКФ 789 сп 390 сд;  скф 789 сп 390 сд | docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md |
 | 390-03-fallen-cards | 792-й стрелковый полк | скф 792 сп 390 сд | docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md |
 | 390-04-fallen-cards | 954-й артиллерийский полк | скф 954 ап 390 сд | docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md |
-| 396-00-fallen-cards | 396-я стрелковая дивизия | скф 44 А 396 сд; 396 сд | docs/TEXT/398-ya-strelkovaya-diviziya.md |
+| 396-00-fallen-cards | 396-я стрелковая дивизия | скф 44 А 396 сд; 396 сд; 47 А 396 сд | docs/TEXT/396-ya-strelkovaya-diviziya.md |
 | 398-00-fallen-cards | 398-я стрелковая дивизия | СКФ 398 сд; скф 398 сд; 398 сд | docs/TEXT/398-ya-strelkovaya-diviziya.md |
 | 398-01-fallen-cards | 821-й стрелковый полк 398-ой стрелковой дивизии | СКФ 821 сп 398 сд; скф 398 сд 821 сп | docs/TEXT/398-ya-strelkovaya-diviziya.md |
 | 398-02-fallen-cards | 824-й стрелковый полк 398-ой стрелковой дивизии | скф 398 сд 824 сп; 824 сп 398 сд; СКФ 824 сп 398 сд; 824 сп | docs/TEXT/398-ya-strelkovaya-diviziya.md |
