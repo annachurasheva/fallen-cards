@@ -96,6 +96,17 @@
     "source_doc": "docs/TEXT/77-ya-gornostrelkovaya-diviziya.md"
   },
   "077-01-fallen-cards": {
+    "name": "105-й гв. стрелковый полк 77-ой гв. стрелковой дивизии",
+    "variants": [
+      "СКФ 105 сп 77 сд",
+      "СКФ 77 гсд 105 гсп",
+      "СКФ 77 гсд 105 п",
+      "СКФ 77 гсд 105 сп",
+      "105 сп"
+    ],
+    "source_doc": "docs/TEXT/77-ya-gornostrelkovaya-diviziya.md"
+  },
+  "077-02-fallen-cards": {
     "name": "481-й гв. стрелковый полк 77-ой гв. стрелковой дивизии",
     "variants": [
       "скф 44 А 77 гсд 481 сп"
