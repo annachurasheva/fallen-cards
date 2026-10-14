@@ -14,7 +14,7 @@
 | 055-00-fallen-cards | 55-я танковая бригада 44-й армии Крымского фронта (СКФ) | 55 мспб 55 тбр; 55 тбр КрымФ; штаб 55 тбр | docs/TEXT/44-ya-armiya-sssr.md |
 | 056-00-fallen-cards | 56-я танковая бригада 44-й армии Крымского фронта (СКФ) | 56 тбр; | docs/TEXT/44-ya-armiya-sssr.md |
 | 077-00-fallen-cards | 77-я горнострелковая дивизия | СКФ 77 гсд; СКФ 77 сд; 77 гсд | docs/TEXT/77-ya-gornostrelkovaya-diviziya.md |
-| 077-01-fallen-cards | 105-й гв. стрелковый полк 77-ой гв. стрелковой дивизии | СКФ 105 сп 77 сд; СКФ 77 гсд 105 гсп; СКФ 77 гсд 105 п; СКФ 77 гсд 105 сп; 105 сп;  | docs/TEXT/77-ya-gornostrelkovaya-diviziya.md |
+| 077-01-fallen-cards | 105-й гв. стрелковый полк 77-ой гв. стрелковой дивизии | СКФ 105 сп 77 сд; СКФ 77 гсд 105 гсп; СКФ 77 гсд 105 п; СКФ 77 гсд 105 сп;105 сп;  | docs/TEXT/77-ya-gornostrelkovaya-diviziya.md |
 | 077-01-fallen-cards | 481-й гв. стрелковый полк 77-ой гв. стрелковой дивизии | скф 44 А 77 гсд 481 сп | docs/TEXT/77-ya-gornostrelkovaya-diviziya.md |
 | 083-00-fallen-cards | 83-я бригада морской пехоты | СКФ 83 мсб; 83 брмп | docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md |
 | 083-01-fallen-cards | 1-й отдельный батальон 83-я бригады морской пехоты | СКФ 1 осб 83 мсб | docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md |
