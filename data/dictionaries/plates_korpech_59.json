@@ -39,7 +39,12 @@
       "obd_url": "https://obd-memorial.ru/html/info.htm?id=533125249"
     },
     { "n": 22, "rank_raw": "ряд.", "fio": "Демиденко Н.Е." },
-    { "n": 23, "rank_raw": "мл. л-нт", "fio": "Довгопол С.Я." },
+    {
+      "n": 23,
+      "rank_raw": "мл. л-нт",
+      "fio": "Довгопол С.Я.",
+      "obd_url": "https://obd-memorial.ru/html/info.htm?id=9413511"
+    },
     { "n": 24, "rank_raw": "в. служ.", "fio": "Давидов Х.Р." },
     { "n": 25, "rank_raw": "к/арм.", "fio": "Долгополов Л.В." },
     {
@@ -104,14 +109,34 @@
       "fio": "Сисейкин П.С.",
       "obd_url": "https://obd-memorial.ru/html/info.htm?id=74390027"
     },
-    { "n": 56, "rank_raw": "ряд.", "fio": "Сарма П.Л." },
+    {
+      "n": 56,
+      "rank_raw": "ряд.",
+      "fio": "Сарма П.Л.",
+      "obd_url": "https://obd-memorial.ru/html/info.htm?id=50976583",
+      "verify": true
+    },
     { "n": 57, "rank_raw": "политрук", "fio": "Клименко А.Г." },
-    { "n": 58, "rank_raw": "л-нт", "fio": "Сидоров Г.В.", "verify": true },
+
     {
       "n": 58,
       "rank_raw": "сержант",
       "fio": "Сидоров Г.В.",
       "obd_url": "https://obd-memorial.ru/html/info.htm?id=33125286"
+    },
+
+    {
+      "n": 59,
+      "rank_raw": "политрук",
+      "fio": "Кравченко А. Г.",
+      "verify": true
+    },
+    {
+      "n": 60,
+      "rank_raw": "капитан",
+      "fio": "Распопов А.С.",
+      "obd_url": "https://obd-memorial.ru/html/info.htm?id=51268143",
+      "obd_url_note": "На камне присутствует имя в паспорте объекта -НЕТ"
     }
   ]
 }
