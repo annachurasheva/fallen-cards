@@ -1,25 +1,35 @@
 /**
- * build-warunits-table.js — механическая сборка единого активного словаря
- * data/dictionaries/warunits-fallen-cards.md из draft3-json.
+ * build-warunits-table.js — сборка активного словаря warunits-fallen-cards.md
+ * с сохранением ручных правок оператора и дописыванием кандидатов вниз.
  *
  * ЗАПУСК:
  *   node scripts/build-warunits-table.js [warunits-draft3-XXXX.json]
  *   (без аргумента — самый поздний warunits-draft3-*.json в data/dictionaries
  *   и data/dictionaries/proposals; свежие пары перепись пишет в proposals/)
  *
- * ПРАВИЛА (по промпту оператора):
- *   - Источник строк: выбранный draft3-json, ВСЕ группы, без срезов/порогов;
- *     порядок строк таблицы = порядок групп в json.
- *   - Колонки (4, сверх не добавлять):
- *       1. proposed_key (семантический ключ <NNN>-00-fallen-cards /
- *          <NNN>-<MM>-fallen-cards или «— (оператор)»; у кандидатов — null);
- *       2. развёрнутое имя: только из docs/TEXT/*.md (front-matter title),
- *          по точному совпадению числового ключа выжившей строки и заголовка;
- *          нет совпадения — «— (оператор)». Скрипт НЕ выдумывает имена.
- *       3. написания: массив variants буквально, через «; »;
- *       4. примечания: карта примечаний оператором не заполняется → пусто.
- *   - draft3-файлы не изменяются; перезапись выходного md безопасна (это живой
- *     словарь, а не история прогонов).
+ * ПОВЕДЕНИЕ:
+ *   - Донор (текущий data/dictionaries/warunits-fallen-cards.md) перед
+ *     перезаписью сохраняется в warunits-fallen-cards_old<метка>.md
+ *     (метка YYYY-MM-DD_HHMM, -SS при коллизии; история ручных правок).
+ *   - ВСЁ, что сделано оператором (верифицированные ключи, строки
+ *     «— (оператор)», шапка файла), сохраняется в новом мастере ДОСЛОВНО:
+ *     операторская зона = всё до маркера <!-- CANDIDATES:BEGIN -->.
+ *   - Кандидаты из draft3 (proposed_key = null) и новые написания активных
+ *     групп (new_variants) дописываются вниз файла, в машинную секцию между
+ *     маркерами CANDIDATES:BEGIN/END. Колонка 1 у кандидатов заполнена
+ *     значением «— (оператор)» — пустых колонок не бывает.
+ *   - sync-units-dict.js пропускает строки с ключом «— (оператор)»:
+ *     в JSON-зеркало уходят только верифицированные ключи, кандидаты
+ *     зеркало не загрязняют. sync-units-dict.js НЕ изменяется.
+ *   - Идемпотентность: кандидат, чьё написание уже есть в операторской
+ *     зоне (буквальное равенство по знакам), повторно не добавляется.
+ *   - Дата прогона и состав фиксируются в
+ *     data/dictionaries/proposals/warunits-table-index.json.
+ *
+ * ОГРАНИЧЕНИЯ:
+ *   - Скрипт НЕ выдаёт ключи и НЕ переназначает выданные оператором.
+ *   - Существующие строки оператора не переставляются и не редактируются.
+ *   - draft3-файлы не изменяются.
  */
 
 import fs from "fs";
@@ -31,7 +41,32 @@ const ROOT = path.join(__dirname, "..");
 const DICTS_DIR = path.join(ROOT, "data", "dictionaries");
 const PROPOSALS_DIR = path.join(DICTS_DIR, "proposals");
 const TEXT_DIR = path.join(ROOT, "docs", "TEXT");
-const OUT = path.join(DICTS_DIR, "warunits-fallen-cards.md");
+const MASTER = path.join(DICTS_DIR, "warunits-fallen-cards.md");
+const INDEX_PATH = path.join(PROPOSALS_DIR, "warunits-table-index.json");
+
+const BEGIN_MARKER = "<!-- CANDIDATES:BEGIN -->";
+const END_MARKER = "<!-- CANDIDATES:END -->";
+
+// ---------- Утилиты ----------
+function readUtf8(filepath) {
+  return fs.readFileSync(filepath, "utf-8").replace(/^\uFEFF/, "");
+}
+
+function makeTimestamp() {
+  const iso = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+  return iso.replace("T", "_"); // YYYY-MM-DD_HHMM
+}
+
+// Путь бэкапа донора: warunits-fallen-cards_old<метка>.md (-SS при коллизии)
+function backupPath() {
+  let ts = makeTimestamp();
+  let p = path.join(DICTS_DIR, `warunits-fallen-cards_old${ts}.md`);
+  if (fs.existsSync(p)) {
+    ts = `${ts}-${String(new Date().getSeconds()).padStart(2, "0")}`;
+    p = path.join(DICTS_DIR, `warunits-fallen-cards_old${ts}.md`);
+  }
+  return p;
+}
 
 // ---------- Выбор источника ----------
 function pickSource() {
@@ -60,10 +95,9 @@ function pickSource() {
   return cands[cands.length - 1]; // самый поздний
 }
 
-// ---------- Числовой ключ строки ----------
+// ---------- Имена из docs/TEXT (единственный допустимый источник) ----------
 const sig = (s) => (s.match(/\d+/g) || []).join(",");
 
-// ---------- Имена из docs/TEXT (единственный допустимый источник) ----------
 function loadTitles() {
   const titles = [];
   if (!fs.existsSync(TEXT_DIR)) return titles;
@@ -78,8 +112,6 @@ function loadTitles() {
 }
 
 // Точное совпадение: числовой ключ выжившей строки == числовой ключ заголовка.
-// Род/тип подразделения при этом тоже должен встречаться в заголовке или быть
-// нечисловым сокращением — не угадываем: при любом расхождении чисел — прочерк.
 function nameFor(survivor, titles) {
   const s = sig(survivor);
   if (s === "") return "— (оператор)";
@@ -89,44 +121,130 @@ function nameFor(survivor, titles) {
   return "— (оператор)";
 }
 
+// ---------- Операторская зона ----------
+// Отделяем от машинной секции по маркеру CANDIDATES:BEGIN.
+function operatorPartOf(text) {
+  const idx = text.indexOf(BEGIN_MARKER);
+  return idx >= 0 ? text.slice(0, idx) : text;
+}
+
+// Буквальные написания из строк таблицы (колонка 3) — для исключения дублей.
+function collectExistingVariants(text) {
+  const set = new Set();
+  for (const line of text.split("\n")) {
+    const t = line.trim();
+    if (!t.startsWith("|")) continue;
+    if (t.includes("---")) continue;
+    const cells = t.split("|").slice(1, -1).map((c) => c.trim());
+    if (cells.length < 3) continue;
+    if (/^(proposed_key|Ключ)$/.test(cells[0])) continue; // заголовок таблицы
+    for (const v of cells[2].split(";")) {
+      const s = v.trim();
+      if (s) set.add(s);
+    }
+  }
+  return set;
+}
+
+function countTableRows(text) {
+  let n = 0;
+  for (const line of text.split("\n")) {
+    const t = line.trim();
+    if (!t.startsWith("|")) continue;
+    if (t.includes("---")) continue;
+    const cells = t.split("|").slice(1, -1).map((c) => c.trim());
+    if (cells.length < 3) continue;
+    if (/^(proposed_key|Ключ)$/.test(cells[0])) continue;
+    n++;
+  }
+  return n;
+}
+
 // ---------- Сборка ----------
 const src = pickSource();
-const d = JSON.parse(fs.readFileSync(src, "utf-8").replace(/^\uFEFF/, ""));
+const d = JSON.parse(readUtf8(src));
 if (!Array.isArray(d.groups)) {
   console.error(`В ${src} нет поля groups.`);
   process.exit(1);
 }
-const mergedSet = new Set((d.merged || []).map((m) => m.writing));
+
+// 1. Бэкап донора (текущего мастера), если он существует
+let oldRel = null;
+if (fs.existsSync(MASTER)) {
+  const oldPath = backupPath();
+  fs.copyFileSync(MASTER, oldPath);
+  oldRel = path.relative(ROOT, oldPath);
+}
+
+// 2. Операторская зона — сохраняется дословно
+const donor = fs.existsSync(MASTER) ? readUtf8(MASTER) : "";
+const operatorPart = operatorPartOf(donor).trimEnd();
+const operatorRows = countTableRows(operatorPart);
+const existing = collectExistingVariants(operatorPart);
+
+// 3. Кандидаты: новые группы (d.candidates) + доп. варианты активных групп
+const dateStr = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+const candidateRows = [];
+const pushCandidate = (variants, note) => {
+  const vs = variants.filter(
+    (v) => v.trim() !== "" && !existing.has(v.trim()),
+  );
+  if (vs.length === 0) return;
+  vs.forEach((v) => existing.add(v.trim())); // защита от дублей между кандидатами
+  candidateRows.push(`| — (оператор) | — (оператор) | ${vs.join("; ")} | ${note}, ${dateStr} |`);
+};
+
+for (const c of Array.isArray(d.candidates) ? d.candidates : []) {
+  pushCandidate(c.variants || [], "кандидат");
+}
+
 const titles = loadTitles();
+for (const g of d.groups || []) {
+  const nvs = Array.isArray(g.new_variants) ? g.new_variants : [];
+  if (nvs.length === 0) continue;
+  pushCandidate(nvs, `доп. вариант группы ${g.proposed_key || "—"}`);
+}
 
-const rows = d.groups.map((g) => {
-  const survivor = g.variants.find((v) => !mergedSet.has(v)) || g.variants[0] || "";
-  const key = g.proposed_key;
-  const name = nameFor(survivor, titles);
-  const writings = g.variants.join("; ");
-  const note = ""; // карта примечаний: не заполняется
-  return `| ${key} | ${name} | ${writings} | ${note} |`;
-});
-
-const header = [
-  "# Словарь warunit — fallen-cards",
+// 4. Новый мастер: операторская зона + машинная секция кандидатов
+const section = [
   "",
-  `- Источник строк: \`${path.relative(ROOT, src)}\` (${d.groups.length} групп, порядок = порядок в json).`,
-  "- Колонка 2: развёрнутое имя только из docs/TEXT (совпадение числового ключа); нет — «— (оператор)».",
-  "- Колонка 3: написания (variants) буквально, через «; ». Колонка 4: примечания (карта не заполняется).",
-  "",
-  "| proposed_key | Развёрнутое имя | Написания, опознаваемые в CSV | Примечания |",
+  BEGIN_MARKER,
+  "<!-- Машинная секция: правится скриптом build-warunits-table.js. Кандидаты на заполнение. -->",
+  "| Ключ | Развёрнутое имя | Написания | Примечания |",
   "|---|---|---|---|",
-];
+  ...candidateRows,
+  END_MARKER,
+  "",
+].join("\n");
 
-fs.writeFileSync(OUT, header.concat(rows, "").join("\n"), "utf-8");
+const newText = (operatorPart ? operatorPart + "\n" : "") + section + "\n";
+fs.writeFileSync(MASTER, newText, "utf-8");
 
-// ---------- Самопроверка критериев приёмки ----------
-const tableLines = rows.length;
-const keysUnique = new Set(d.groups.map((g) => g.proposed_key)).size === tableLines;
-console.log(`источник: ${src}`);
-console.log(`выход:    ${OUT}`);
-console.log(`строк таблицы: ${tableLines} (групп в json: ${d.groups.length}) — ${tableLines === d.groups.length ? "OK" : "FAIL"}`);
-console.log(`колонка 1 уникальна: ${keysUnique ? "OK" : "FAIL"}`);
-const named = rows.filter((r) => !r.includes("(оператор)")).length;
-console.log(`имён из docs/TEXT: ${named}; прочерков: ${tableLines - named}`);
+// 5. Индекс прогонов (дата создания, источник, состав)
+let index = { runs: [] };
+if (fs.existsSync(INDEX_PATH)) {
+  try {
+    index = JSON.parse(readUtf8(INDEX_PATH));
+  } catch {
+    index = { runs: [] };
+  }
+  if (!Array.isArray(index.runs)) index.runs = [];
+}
+index.runs.unshift({
+  created: new Date().toISOString(),
+  source_draft3: path.relative(ROOT, src),
+  master: path.relative(ROOT, MASTER),
+  old_backup: oldRel,
+  operator_rows: operatorRows,
+  candidates_added: candidateRows.length,
+});
+fs.mkdirSync(path.dirname(INDEX_PATH), { recursive: true });
+fs.writeFileSync(INDEX_PATH, JSON.stringify(index, null, 2), "utf-8");
+
+// ---------- Самопроверка ----------
+console.log(`источник draft3: ${src}`);
+if (oldRel) console.log(`бэкап донора:    ${oldRel}`);
+console.log(`выход (мастер):  ${path.relative(ROOT, MASTER)}`);
+console.log(`строк оператора сохранено: ${operatorRows}`);
+console.log(`кандидатов добавлено: ${candidateRows.length}`);
+console.log(`индекс: ${path.relative(ROOT, INDEX_PATH)}`);
