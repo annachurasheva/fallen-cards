@@ -467,7 +467,8 @@
   "390-02-fallen-cards": {
     "name": "789-й стрелковый полк",
     "variants": [
-      "СКФ 789 сп 390 сд"
+      "СКФ 789 сп 390 сд",
+      "скф 789 сп 390 сд"
     ],
     "source_doc": "docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md"
   },
@@ -489,9 +490,10 @@
     "name": "396-я стрелковая дивизия",
     "variants": [
       "скф 44 А 396 сд",
-      "396 сд"
+      "396 сд",
+      "47 А 396 сд"
     ],
-    "source_doc": "docs/TEXT/398-ya-strelkovaya-diviziya.md"
+    "source_doc": "docs/TEXT/396-ya-strelkovaya-diviziya.md"
   },
   "398-00-fallen-cards": {
     "name": "398-я стрелковая дивизия",
