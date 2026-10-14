@@ -1,0 +1,9 @@
+# Файл: obd_789_сп_2026-10-14__01.txt
+# Дата проверки: 2026-10-14 10:07:04
+# Повторов найдено: 5
+
+506075452  https://obd-memorial.ru/html/info.htm?id=506075452
+551196334  https://obd-memorial.ru/html/info.htm?id=551196334
+551196335  https://obd-memorial.ru/html/info.htm?id=551196335
+551196336  https://obd-memorial.ru/html/info.htm?id=551196336
+551196337  https://obd-memorial.ru/html/info.htm?id=551196337
