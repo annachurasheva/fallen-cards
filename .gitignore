@@ -5,3 +5,4 @@ data/output/*.md
 data/logs/*.log
 .env
 .DS_Store
+note.txt
