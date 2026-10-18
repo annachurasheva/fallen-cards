@@ -229,9 +229,6 @@ function buildCard(row, source, unitKeys, slug) {
   const body = [`# ${fullName}`, ''];
 
   // Поле выводится ТОЛЬКО если значение есть в CSV (нет позиции — нет строки)
-  const dateDeath = (row['date_death'] || '').trim();
-  if (dateDeath) { body.push(`**Погиб** ${dateDeath}`, ''); }
-
   const rank = (row['rank'] || '').trim();
   if (rank) { body.push(`**Звание** ${rank}`, ''); }
 

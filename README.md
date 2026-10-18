@@ -26,8 +26,13 @@
 ## Схема имён карточек (после TASK-0014)
 
 - Папка: `data/cards/`; файл: `<источник>-<document_id>.md`, источники `obd` и `pmn`.
-- Slug: `bitva-za-krym-1942-<источник>-<document_id>` (префикс источника обязателен:
-  пространства id у obd и pmn разные).
+- Slug: `bitva-za-krym-1942-<транслит ФИО>-<document_id>` (транслит ФИО — латиницей,
+  нижний регистр, только `a-z0-9-`; хвост `document_id` гарантирует уникальность).
+- Frontmatter карточки: `title`, `slug`, `unit_key` (массив, нижней строкой).
+  `unit_key` — ключ из `data/dictionaries/warunits-fallen-cards.json`; массив
+  зеркалит JSON-SCHEMA пост-обработки (у бойца может быть несколько соединений).
+- Реестр slug: `data/summary/slug_registry.txt` (`document_id → slug → unit_key`).
+  Slug замораживается при первом выпуске; повторная генерация slug не меняет.
 
 ## Терминология
 
@@ -133,7 +138,7 @@ node scripts/register-experts.js
 Сначала запустите Edge с remote debugging и парсер через лаунчер (Windows, PowerShell 7+):
 
 ```powershell
-pwsh -File .\tools\run-edge-obd.ps1 --input=имя_файла.txt
+pwsh -File .	ools\run-edge-obd.ps1 --input=имя_файла.txt
 ```
 
 Лаунчер поднимает/переиспользует Edge CDP, запускает `node scripts/parse-obd.js`,
@@ -159,6 +164,38 @@ node scripts/normalize.js --input=<файл|папка>
 node scripts/validate.js --input=<...>
 node scripts/generate-cards.js --input=<...> --output=data/output/
 ```
+
+### 5. Генерация карточек (`generate-cards.js`)
+
+```bash
+# Один файл
+node scripts/generate-cards.js --input=data/processed/<имя>/<имя>-fallen.csv
+
+# Папка (все *-fallen.csv внутри, рекурсивно)
+node scripts/generate-cards.js --input=data/processed/<имя>
+
+# Группа ключей unit_key (вариант А: флаг повторяется)
+node scripts/generate-cards.js --input=<...> \
+  --unit-key=404-00-fallen-cards \
+  --unit-key=404-01-fallen-cards \
+  --unit-key=404-02-fallen-cards
+
+# Просмотр без записи
+node scripts/generate-cards.js --input=<...> --dry-run
+
+# Перезапись существующих карточек (по умолчанию защита slug)
+node scripts/generate-cards.js --input=<...> --force-overwrite
+```
+
+Правила:
+- `--input=` и `--unit-key=` — **без пробела** после `=` (иначе ошибка);
+- `--unit-key=` можно указывать несколько раз — фильтр пропускает записи,
+  чей `unit_key` входит в переданный набор;
+- **нет unit_key → карточка не генерируется** (запись уходит в
+  `data/dictionaries/proposals/unknown-pending.json` для пополнения словаря);
+- «Воинская часть» в теле карточки = `unit_key` (не сырой `warunit`);
+- реестр slug `data/summary/slug_registry.txt` обновляется только при реальной
+  генерации (не в `--dry-run`).
 
 ## Запуск из package.json
 
