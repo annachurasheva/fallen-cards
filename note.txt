@@ -1,0 +1,30 @@
+
+```
+C:\astro-projects\fallen-cards> node scripts/generate-cards.js --input= data\processed\83_bmp_2026-10-17_urls ----unit-key=083-04-fallen-cards --dry-run
+
+📊 Статистика прогона:
+   Всего записей: 3235
+   Создано/перезаписано карточек: 3235 (DRY-RUN)
+   Пропущено (уже существуют): 0
+
+📊 unit_key:
+   С ключом: 2846
+   Без ключа (null): 335
+
+📊 Уникальные warunit без ключа: 151
+PS C:\astro-projects\fallen-cards> node scripts/generate-cards.js --input= data\processed\83_bmp_2026-10-17_urls\83_bmp_2026-10-17_urls-fallen.csv --unit-key=083-04-fallen-cards --dry-run
+🔍 Фильтрация по ключу: 083-04-fallen-cards
+   Варианты: скф 57 арт. д-н 83 мсб
+
+📊 Статистика прогона:
+   Всего записей: 3235
+   Создано/перезаписано карточек: 0 (DRY-RUN)
+   Пропущено (уже существуют): 0
+
+📊 unit_key:
+   С ключом: 0
+   Без ключа (null): 0
+
+📊 Уникальные warunit без ключа: 0
+PS C:\astro-projects\fallen-cards> 
+```
