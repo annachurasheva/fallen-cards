@@ -127,7 +127,8 @@
     "name": "83-я бригада морской пехоты",
     "variants": [
       "СКФ 83 мсб",
-      "83 брмп"
+      "83 брмп",
+      "скф 83 мсб"
     ],
     "source_doc": "docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md"
   },
@@ -152,6 +153,27 @@
     ],
     "source_doc": "docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md"
   },
+  "083-04-fallen-cards": {
+    "name": "Северо-Кавказский фронт, 57-й артиллерийский дивизион, 83-я морская стрелковая бригада",
+    "variants": [
+      "скф 57 арт. д-н 83 мсб"
+    ],
+    "source_doc": "docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md"
+  },
+  "083-05-fallen-cards": {
+    "name": "Северо-Кавказский фронт, 76-й миномётный взвод, отдельный артиллерийский дивизион 83-й морской стрелковой бригады",
+    "variants": [
+      "СКФ 76 м/м взв. оад 83 мсб"
+    ],
+    "source_doc": "docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md"
+  },
+  "083-06-fallen-cards": {
+    "name": "Северо-Кавказский фронт, 120-й отдельный минометный дивизион, 83-я морская стрелковая бригада",
+    "variants": [
+      "скф 120 отд. мин. д-н 83 мсб"
+    ],
+    "source_doc": "docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md"
+  },
   "138-00-fallen-cards": {
     "name": "138-я стрелковая дивизия",
     "variants": [
@@ -172,7 +194,9 @@
     "variants": [
       "скф 138 сд 650 сп",
       "138 сд 650 сп",
-      "650 сп 138 сд"
+      "650 сп 138 сд",
+      "650 сп 138 сд 76 мм",
+      "650 сп"
     ],
     "source_doc": ""
   },
@@ -468,7 +492,11 @@
     "name": "789-й стрелковый полк",
     "variants": [
       "СКФ 789 сп 390 сд",
-      "скф 789 сп 390 сд"
+      "скф 789 сп 390 сд",
+      "скф 390 сд 789 сп",
+      "390 сд 789 сп",
+      "СКФ 390 сд 789 сп",
+      "789 сп"
     ],
     "source_doc": "docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md"
   },
@@ -631,7 +659,8 @@
     "variants": [
       "СКФ 655 сп 404 сд",
       "655 сп 404 сд",
-      "655 сп 404 сд крымф"
+      "655 сп 404 сд крымф",
+      "655 сп"
     ],
     "source_doc": "docs/TEXT/404-ya-strelkovaya-diviziya.md"
   },

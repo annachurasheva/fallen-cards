@@ -17,13 +17,16 @@
 | 077-00-fallen-cards | 77-я горнострелковая дивизия | СКФ 77 гсд; СКФ 77 сд; 77 гсд | docs/TEXT/77-ya-gornostrelkovaya-diviziya.md |
 | 077-01-fallen-cards | 105-й гв. стрелковый полк 77-ой гв. стрелковой дивизии | СКФ 105 сп 77 сд; СКФ 77 гсд 105 гсп; СКФ 77 гсд 105 п; СКФ 77 гсд 105 сп;105 сп;  | docs/TEXT/77-ya-gornostrelkovaya-diviziya.md |
 | 077-02-fallen-cards | 481-й гв. стрелковый полк 77-ой гв. стрелковой дивизии | скф 44 А 77 гсд 481 сп | docs/TEXT/77-ya-gornostrelkovaya-diviziya.md |
-| 083-00-fallen-cards | 83-я бригада морской пехоты | СКФ 83 мсб; 83 брмп | docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md |
+| 083-00-fallen-cards | 83-я бригада морской пехоты | СКФ 83 мсб; 83 брмп; скф 83 мсб | docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md |
 | 083-01-fallen-cards | 1-й отдельный батальон 83-я бригады морской пехоты | СКФ 1 осб 83 мсб | docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md |
 | 083-02-fallen-cards | 2-й отдельный батальон 83-я бригады морской пехоты | СКФ 2 осб 83 мсб | docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md |
 | 083-03-fallen-cards | 3-й отдельный батальон 83-я бригады морской пехоты | СКФ 3 осб 83 мсб | docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md |
+| 083-04-fallen-cards | Северо-Кавказский фронт, 57-й артиллерийский дивизион, 83-я морская стрелковая бригада | скф 57 арт. д-н 83 мсб | docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md |
+| 083-05-fallen-cards | Северо-Кавказский фронт, 76-й миномётный взвод, отдельный артиллерийский дивизион 83-й морской стрелковой бригады | СКФ 76 м/м взв. оад 83 мсб | docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md |
+| 083-06-fallen-cards | Северо-Кавказский фронт, 120-й отдельный минометный дивизион, 83-я морская стрелковая бригада | скф 120 отд. мин. д-н 83 мсб | docs/TEXT/83-otdelnaya-brigada-morskoy-pehoty.md |
 | 138-00-fallen-cards | 138-я стрелковая дивизия | скф 138 сд; 138 сд | |
 | 138-01-fallen-cards | 344‑й стрелковый полк 138-ой стрелковой дивизии | скф 138 сд 344 сп | |
-| 138-02-fallen-cards | 650‑й стрелковый полк 138-ой стрелковой дивизии | скф 138 сд 650 сп; 138 сд 650 сп; 650 сп 138 сд | |
+| 138-02-fallen-cards | 650‑й стрелковый полк 138-ой стрелковой дивизии | скф 138 сд 650 сп; 138 сд 650 сп; 650 сп 138 сд; 650 сп 138 сд 76 мм; 650 сп | |
 | 138-03-fallen-cards | 768‑й стрелковый полк 138-ой стрелковой дивизии | скф 138 сд 768 сп; 768 сп; 768 гв. сп; 768 сп 138 сд; 768 сп 138 сд 76 мм; скф 51 А 768 сп; скф 51 А 82 мм 768 сп | |
 | 138-04-fallen-cards | 295‑й артелерийский полк 138-ой стрелковой дивизии | скф 138 сд 295 ап; 295 ап; 295 лап РГК; 51 А 295 ап  | |
 | 157-00-fallen-cards | 157-я стрелковая дивизия | 157 сд; СКФ 157 сд; СКФ осб 157 сд; штаб. 157 сд; скф 157 сд 44 А | docs/TEXT/157-ya-strelkovaya-diviziya.md |
@@ -59,7 +62,7 @@
 | 320-04-fallen-cards | 985-й артиллерийский полк 320-ой стрелковой дивизии | СКФ 985 ап 320 сд; 320 сд 985 ап; 985 ап 320 сд | docs/TEXT/320-ya-strelkovaya-diviziya.md |
 | 390-00-fallen-cards | 390-я стрелковая дивизия (1-го формирования) | СКФ 390 сд | docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md |
 | 390-01-fallen-cards | 784-й стрелковый полк | 784 сп 390 сд (I) КрымФ; скф 784 сп 390 сд | docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md |
-| 390-02-fallen-cards | 789-й стрелковый полк | СКФ 789 сп 390 сд;  скф 789 сп 390 сд | docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md |
+| 390-02-fallen-cards | 789-й стрелковый полк | СКФ 789 сп 390 сд;  скф 789 сп 390 сд; скф 390 сд 789 сп; 390 сд 789 сп; СКФ 390 сд 789 сп; 789 сп  | docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md |
 | 390-03-fallen-cards | 792-й стрелковый полк | скф 792 сп 390 сд | docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md |
 | 390-04-fallen-cards | 954-й артиллерийский полк | скф 954 ап 390 сд | docs/TEXT/390-ya-strelkovaya-diviziya-1-go-formirovaniya.md |
 | 396-00-fallen-cards | 396-я стрелковая дивизия | скф 44 А 396 сд; 396 сд; 47 А 396 сд | docs/TEXT/396-ya-strelkovaya-diviziya.md |
@@ -79,7 +82,7 @@
 | 404-00-fallen-cards | 404-я стрелковая дивизия | 404 сд; СКФ 404 сд; скф 404 сд 44 А | docs/TEXT/404-ya-strelkovaya-diviziya.md |
 | 404-01-fallen-cards | 643-й стрелковый полк 404-ой стрелковой дивизии | СКФ 643 сп 404 сд; 643 сп 404 сд; 643 сп | docs/TEXT/404-ya-strelkovaya-diviziya.md |
 | 404-02-fallen-cards | 652-й стрелковый полк 404-ой стрелковой дивизии | СКФ 652 сп 404 сд; 652 сп | docs/TEXT/404-ya-strelkovaya-diviziya.md |
-| 404-03-fallen-cards | 655-й стрелковый полк 404-ой стрелковой дивизии | СКФ 655 сп 404 сд; 655 сп 404 сд; 655 сп 404 сд крымф | docs/TEXT/404-ya-strelkovaya-diviziya.md |
+| 404-03-fallen-cards | 655-й стрелковый полк 404-ой стрелковой дивизии | СКФ 655 сп 404 сд; 655 сп 404 сд; 655 сп 404 сд крымф; 655 сп | docs/TEXT/404-ya-strelkovaya-diviziya.md |
 | 404-04-fallen-cards | 665-й стрелковый полк 404-ой стрелковой дивизии | СКФ 665 сп 404 сд | docs/TEXT/404-ya-strelkovaya-diviziya.md |
 | 404-08-fallen-cards | 460-я разведывательная рота 404-ой стрелковой дивизии | 404 сд 460 мото-развед. рота; 460 омрр 404 сд | docs/TEXT/404-ya-strelkovaya-diviziya.md |
 | 404-09-fallen-cards | 679-й сапёрный батальон 404-ой стрелковой дивизии | СКФ 679 осб 404 сд | docs/TEXT/404-ya-strelkovaya-diviziya.md |
